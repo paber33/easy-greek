@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useProfile, useCurrentProfileId } from '@/app/providers/ProfileProvider';
+import { ProfileId } from '@/types/profile';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
@@ -22,7 +23,7 @@ export function ProfileSwitcher() {
 
     setIsLoading(true);
     try {
-      setCurrentProfileId(profileId as any);
+      setCurrentProfileId(profileId as ProfileId);
       toast.success(`✅ Переключение на ${profiles.find(p => p.id === profileId)?.name}`);
     } catch (error: any) {
       console.error('Profile switch failed:', error);

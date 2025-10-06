@@ -9,6 +9,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Progress } from "@/components/ui/progress";
 import { Flame, TrendingUp, Target, Calendar } from "lucide-react";
 import { ProgressCalendar } from "@/components/progress-calendar";
+import { CalendarSkeleton } from "@/components/ui/shimmer";
+import { LoadingScreen } from "@/components/ui/loading-screen";
 
 export default function LogsPage() {
   const [logs, setLogs] = useState<SessionSummary[]>([]);

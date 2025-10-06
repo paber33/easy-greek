@@ -2,17 +2,18 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Card } from "@/types";
-import { loadCards, loadLogs } from "@/lib/storage";
+import { Card, SessionSummary } from "@/types";
+import { useProfile } from "@/app/providers/ProfileProvider";
+import { LocalCardsRepository, LocalLogsRepository } from "@/lib/localRepositories";
 import { getTodayISO } from "@/lib/utils";
 import { Card as UICard, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Play, BarChart3, Flame, Target, Sparkles, CheckCircle2, Clock, AlertCircle } from "lucide-react";
 import { AuthComponent } from "@/components/auth";
-import { UserSwitcher } from "@/components/user-switcher";
 import { LoginScreen } from "@/components/login-screen";
 import { ProgressCalendar } from "@/components/progress-calendar";
+import { LoadingScreen } from "@/components/ui/loading-screen";
 import { supabase } from "@/lib/supabase";
 
 // Мотивирующие фразы на греческом языке
@@ -54,6 +55,7 @@ const learningTips = [
 ];
 
 export default function Dashboard() {
+  const { currentProfileId, isLoading: profileLoading } = useProfile();
   const [cards, setCards] = useState<Card[]>([]);
   const [mounted, setMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -63,21 +65,46 @@ export default function Dashboard() {
 
   useEffect(() => {
     setMounted(true);
-    setCards(loadCards());
     
     // Инициализируем фразу и совет на основе времени (детерминированно)
-    const timeIndex = Math.floor(Date.now() / 30000) % motivationalPhrases.length;
-    const tipIndex = Math.floor(Date.now() / 3600000) % learningTips.length;
+    // Используем фиксированные индексы для предотвращения проблем с гидратацией
+    const timeIndex = 0; // Всегда показываем первую фразу
+    const tipIndex = 0; // Всегда показываем первый совет
     setCurrentPhrase(motivationalPhrases[timeIndex]);
     setCurrentTip(learningTips[tipIndex]);
   }, []);
 
+  // Загружаем карточки для текущего профиля
+  useEffect(() => {
+    if (mounted && currentProfileId && !profileLoading) {
+      const loadCardsForProfile = async () => {
+        try {
+          const cards = await LocalCardsRepository.list(currentProfileId);
+          setCards(cards);
+        } catch (error) {
+          console.error('Failed to load cards:', error);
+          setCards([]);
+        }
+      };
+      loadCardsForProfile();
+    }
+  }, [mounted, currentProfileId, profileLoading]);
+
   // Обновляем данные при изменении пользователя
   useEffect(() => {
-    if (mounted && isLoggedIn) {
-      setCards(loadCards());
+    if (mounted && isLoggedIn && currentProfileId && !profileLoading) {
+      const loadCardsForProfile = async () => {
+        try {
+          const cards = await LocalCardsRepository.list(currentProfileId);
+          setCards(cards);
+        } catch (error) {
+          console.error('Failed to load cards:', error);
+          setCards([]);
+        }
+      };
+      loadCardsForProfile();
     }
-  }, [mounted, isLoggedIn]);
+  }, [mounted, isLoggedIn, currentProfileId, profileLoading]);
 
   // Проверяем состояние аутентификации при загрузке
   useEffect(() => {
@@ -103,38 +130,39 @@ export default function Dashboard() {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Смена мотивирующей фразы каждые 30 секунд
+  // Смена мотивирующей фразы каждые 30 секунд (только на клиенте)
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || typeof window === 'undefined') return;
     
+    let phraseIndex = 0;
     const interval = setInterval(() => {
-      // Используем индекс на основе времени для более предсказуемого выбора
-      const timeIndex = Math.floor(Date.now() / 30000) % motivationalPhrases.length;
-      setCurrentPhrase(motivationalPhrases[timeIndex]);
+      phraseIndex = (phraseIndex + 1) % motivationalPhrases.length;
+      setCurrentPhrase(motivationalPhrases[phraseIndex]);
     }, 30000);
 
     return () => clearInterval(interval);
   }, [mounted]);
 
-  // Смена совета каждый час (3600000 мс)
+  // Смена совета каждый час (только на клиенте)
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || typeof window === 'undefined') return;
     
+    let tipIndex = 0;
     const interval = setInterval(() => {
-      // Используем индекс на основе времени для более предсказуемого выбора
-      const timeIndex = Math.floor(Date.now() / 3600000) % learningTips.length;
-      setCurrentTip(learningTips[timeIndex]);
+      tipIndex = (tipIndex + 1) % learningTips.length;
+      setCurrentTip(learningTips[tipIndex]);
     }, 3600000);
 
     return () => clearInterval(interval);
   }, [mounted]);
 
-  if (!mounted || isCheckingAuth || !currentPhrase || !currentTip) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]" suppressHydrationWarning>
-        <div className="text-xl" suppressHydrationWarning>Загрузка...</div>
-      </div>
-    );
+  if (!mounted || isCheckingAuth || profileLoading || !currentProfileId || !currentPhrase || !currentTip) {
+      return (
+        <LoadingScreen
+          message="Загружаем ваши данные..."
+          variant="greek"
+        />
+      );
   }
 
   // Показываем стартовый экран с логином
@@ -156,7 +184,24 @@ export default function Dashboard() {
     leeches: cards.filter((c) => c.isLeech).length,
   };
 
-  const logs = loadLogs();
+  const [logs, setLogs] = useState<SessionSummary[]>([]);
+  
+  // Load logs for current profile
+  useEffect(() => {
+    if (mounted && currentProfileId && !profileLoading) {
+      const loadLogsForProfile = async () => {
+        try {
+          const profileLogs = await LocalLogsRepository.list(currentProfileId);
+          setLogs(profileLogs);
+        } catch (error) {
+          console.error('Failed to load logs:', error);
+          setLogs([]);
+        }
+      };
+      loadLogsForProfile();
+    }
+  }, [mounted, currentProfileId, profileLoading]);
+
   const todayLog = logs.find((log) => log.date === getTodayISO());
   const streak = calculateStreak(logs);
 
@@ -173,9 +218,6 @@ export default function Dashboard() {
               {currentPhrase.translation}
             </p>
           </div>
-        </div>
-        <div className="flex justify-center sm:justify-end">
-          <UserSwitcher />
         </div>
       </div>
 
@@ -388,7 +430,7 @@ function StatCard({ title, value, icon, variant, href }: StatCardProps) {
   );
 }
 
-function calculateStreak(logs: typeof loadLogs extends () => infer R ? R : never): number {
+function calculateStreak(logs: SessionSummary[]): number {
   if (logs.length === 0) return 0;
 
   const sorted = [...logs].sort((a, b) => b.date.localeCompare(a.date));

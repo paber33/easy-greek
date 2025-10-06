@@ -5,7 +5,8 @@ import {
   LogsRepository, 
   ConfigRepository, 
   SessionRepository,
-  Repository 
+  Repository,
+  SessionState
 } from './repositories';
 import { ns } from './ns';
 import { DEFAULT_CONFIG } from './constants';
@@ -131,11 +132,11 @@ export const LocalConfigRepository: ConfigRepository = {
  * Репозиторий сессий для localStorage
  */
 export const LocalSessionRepository: SessionRepository = {
-  async get(profileId: ProfileId): Promise<any> {
+  async get(profileId: ProfileId): Promise<SessionState | null> {
     return load(ns(profileId, "session"), null);
   },
 
-  async save(profileId: ProfileId, session: any): Promise<void> {
+  async save(profileId: ProfileId, session: SessionState): Promise<void> {
     save(ns(profileId, "session"), session);
   },
 

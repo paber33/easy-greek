@@ -33,9 +33,18 @@ export interface ConfigRepository {
  * Интерфейс репозитория для текущей сессии
  */
 export interface SessionRepository {
-  get(profileId: ProfileId): Promise<any>;
-  save(profileId: ProfileId, session: any): Promise<void>;
+  get(profileId: ProfileId): Promise<SessionState | null>;
+  save(profileId: ProfileId, session: SessionState): Promise<void>;
   clear(profileId: ProfileId): Promise<void>;
+}
+
+export interface SessionState {
+  currentCardIndex: number;
+  queue: Card[];
+  sessionStartTime: string;
+  totalReviewed: number;
+  correct: number;
+  incorrect: number;
 }
 
 /**

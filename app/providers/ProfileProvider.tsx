@@ -35,14 +35,14 @@ export function ProfileProvider({ children }: ProfileProviderProps) {
     initializeProfile();
   }, []);
 
-  const setCurrentProfileId = (profileId: ProfileId) => {
+  const handleSetCurrentProfileId = (profileId: ProfileId) => {
     setCurrentProfileIdState(profileId);
     setCurrentProfileId(profileId);
   };
 
   const value: ProfileContextType = {
     currentProfileId,
-    setCurrentProfileId,
+    setCurrentProfileId: handleSetCurrentProfileId,
     profiles: DEFAULT_PROFILES,
     isLoading,
   };

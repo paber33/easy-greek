@@ -14,6 +14,8 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { CheckCircle2, XCircle, Home, BarChart3, Play } from "lucide-react";
 import confetti from "canvas-confetti";
+import { SessionSkeleton } from "@/components/ui/shimmer";
+import { LoadingScreen } from "@/components/ui/loading-screen";
 
 export default function SessionPage() {
   const router = useRouter();
@@ -156,7 +158,7 @@ export default function SessionPage() {
   };
 
   if (!mounted) {
-    return <div className="text-center py-8">Загрузка...</div>;
+    return <SessionSkeleton />;
   }
 
   if (queue.length === 0) {
@@ -335,38 +337,39 @@ export default function SessionPage() {
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
                 <Button
-                  variant="destructive"
+                  variant="outline"
                   size="lg"
                   onClick={() => handleRate(0)}
-                  className="flex-col h-auto py-3 sm:py-4"
+                  className="flex-col h-auto py-3 sm:py-4 border-red-200 text-red-700 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950"
                 >
-                  <span className="text-sm sm:text-lg font-semibold">Again</span>
+                  <span className="text-sm sm:text-lg font-semibold">Забыл</span>
                   <kbd className="text-xs opacity-75 mt-1">1</kbd>
                 </Button>
                 <Button
-                  variant="secondary"
+                  variant="outline"
                   size="lg"
                   onClick={() => handleRate(1)}
-                  className="flex-col h-auto py-3 sm:py-4"
+                  className="flex-col h-auto py-3 sm:py-4 border-orange-200 text-orange-700 hover:bg-orange-50 dark:border-orange-800 dark:text-orange-400 dark:hover:bg-orange-950"
                 >
-                  <span className="text-sm sm:text-lg font-semibold">Hard</span>
+                  <span className="text-sm sm:text-lg font-semibold">Трудно</span>
                   <kbd className="text-xs opacity-75 mt-1">2</kbd>
                 </Button>
                 <Button
-                  variant="default"
+                  variant="outline"
                   size="lg"
                   onClick={() => handleRate(2)}
-                  className="flex-col h-auto py-3 sm:py-4"
+                  className="flex-col h-auto py-3 sm:py-4 border-blue-200 text-blue-700 hover:bg-blue-50 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
                 >
-                  <span className="text-sm sm:text-lg font-semibold">Good</span>
+                  <span className="text-sm sm:text-lg font-semibold">Хорошо</span>
                   <kbd className="text-xs opacity-75 mt-1">3</kbd>
                 </Button>
                 <Button
+                  variant="outline"
                   size="lg"
                   onClick={() => handleRate(3)}
-                  className="flex-col h-auto py-3 sm:py-4 bg-green-600 hover:bg-green-700 text-white"
+                  className="flex-col h-auto py-3 sm:py-4 border-green-200 text-green-700 hover:bg-green-50 dark:border-green-800 dark:text-green-400 dark:hover:bg-green-950"
                 >
-                  <span className="text-sm sm:text-lg font-semibold">Easy</span>
+                  <span className="text-sm sm:text-lg font-semibold">Легко</span>
                   <kbd className="text-xs opacity-75 mt-1">4</kbd>
                 </Button>
               </div>
@@ -392,8 +395,8 @@ export default function SessionPage() {
         </CardContent>
       </Card>
 
-      {/* Keyboard shortcuts hint */}
-      <div className="text-center text-sm text-muted-foreground">
+      {/* Keyboard shortcuts hint - hidden on mobile */}
+      <div className="hidden md:block text-center text-sm text-muted-foreground">
         <p>
           Горячие клавиши: <kbd className="px-2 py-1 rounded bg-muted mx-1">Space</kbd> —
           показать ответ, <kbd className="px-2 py-1 rounded bg-muted mx-1">1-4</kbd> — оценить

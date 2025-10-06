@@ -17,6 +17,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { toast } from "sonner";
 import { Plus, Play, Search, Download, Upload, MoreVertical, Edit2, RotateCcw, Trash2, FileUp } from "lucide-react";
 import { JsonUpload } from "@/components/json-upload";
+import { TableSkeleton } from "@/components/ui/shimmer";
+import { LoadingScreen } from "@/components/ui/loading-screen";
 
 function WordsPageContent() {
   const router = useRouter();
@@ -241,7 +243,7 @@ function WordsPageContent() {
   const dueCount = cards.filter((c) => c.due <= new Date().toISOString()).length;
 
   if (!mounted) {
-    return <div className="text-center py-8">Загрузка...</div>;
+    return <LoadingScreen message="Загружаем слова..." variant="default" />;
   }
 
   return (
@@ -656,7 +658,7 @@ function StatusBadge({ status }: { status: CardType["status"] }) {
 
 export default function WordsPage() {
   return (
-    <Suspense fallback={<div className="text-center py-8">Загрузка...</div>}>
+    <Suspense fallback={<LoadingScreen message="Загружаем страницу..." variant="minimal" />}>
       <WordsPageContent />
     </Suspense>
   );

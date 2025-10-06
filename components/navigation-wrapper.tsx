@@ -76,15 +76,17 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
             </nav>
             
             {/* Mobile Navigation */}
-            <nav className="flex md:hidden items-center gap-2 flex-1 justify-center">
-              <MobileNavLink href="/" icon={<Home className="h-5 w-5" />} />
-              <MobileNavLink href="/words" icon={<BookOpen className="h-5 w-5" />} />
-              <MobileNavLink href="/session" icon={<Play className="h-5 w-5" />} />
-              <MobileNavLink href="/logs" icon={<BarChart3 className="h-5 w-5" />} />
+            <nav className="flex md:hidden items-center gap-1 flex-1 justify-center">
+              <MobileNavLink href="/session" icon={<Play className="h-4 w-4" />} label="Тренировка" />
+              <MobileNavLink href="/" icon={<Home className="h-4 w-4" />} label="Главная" />
+              <MobileNavLink href="/words" icon={<BookOpen className="h-4 w-4" />} label="Слова" />
+              <MobileNavLink href="/logs" icon={<BarChart3 className="h-4 w-4" />} label="Статистика" />
             </nav>
             
-            <div className="flex items-center gap-2">
-              <ProfileSwitcher />
+            <div className="flex items-center gap-1 md:gap-2">
+              <div className="hidden sm:block">
+                <ProfileSwitcher />
+              </div>
               <ThemeToggle />
             </div>
           </div>
@@ -129,9 +131,11 @@ function NavLink({
 function MobileNavLink({
   href,
   icon,
+  label,
 }: {
   href: string;
   icon: React.ReactNode;
+  label: string;
 }) {
   return (
     <Link
