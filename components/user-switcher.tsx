@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { getUserConfig, getCurrentUserFromEmail } from '@/lib/user-config'
-import { clearUserData } from '@/lib/storage'
+import { clearUserData, loadAndSaveUserDataFromSupabase } from '@/lib/storage'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import { toast } from 'sonner'
@@ -70,6 +70,15 @@ export function UserSwitcher() {
         toast.success(`✅ Учетная запись ${userConfig.name} создана!`)
       } else {
         toast.success(`✅ Переключение на ${userConfig.name}`)
+        
+        // Загружаем данные пользователя из Supabase
+        try {
+          await loadAndSaveUserDataFromSupabase()
+          toast.success(`📥 Данные ${userConfig.name} загружены из облака`)
+        } catch (loadError) {
+          console.error('Failed to load user data from Supabase:', loadError)
+          toast.error(`⚠️ Не удалось загрузить данные из облака, используются локальные данные`)
+        }
       }
     } catch (error: any) {
       console.error('User switch failed:', error)

@@ -407,6 +407,124 @@ export class SyncService {
       throw error
     }
   }
+
+  // Загрузка данных пользователя из Supabase
+  async loadUserDataFromSupabase(): Promise<{
+    cards: Card[]
+    logs: SessionSummary[]
+    config: SRSConfig
+  }> {
+    if (!isSupabaseConfigured) {
+      console.log('Supabase not configured, returning empty data')
+      return { cards: [], logs: [], config: { DAILY_NEW: 10, DAILY_REVIEWS: 120, LEARNING_STEPS_MIN: [1, 10], R_TARGET: { again: 0.95, hard: 0.90, good: 0.85, easy: 0.80 } } }
+    }
+    
+    if (!this.isOnline) {
+      throw new Error('Cannot load data while offline')
+    }
+
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) {
+      throw new Error('User not authenticated')
+    }
+
+    console.log('Loading user data from Supabase for user:', user.id, user.email)
+
+    try {
+      // Загружаем карточки
+      const { data: cardsData, error: cardsError } = await supabase
+        .from('cards')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: true })
+
+      if (cardsError) {
+        console.error('Failed to load cards:', cardsError)
+        throw cardsError
+      }
+
+      // Загружаем логи сессий
+      const { data: logsData, error: logsError } = await supabase
+        .from('session_logs')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('date', { ascending: false })
+
+      if (logsError) {
+        console.error('Failed to load session logs:', logsError)
+        throw logsError
+      }
+
+      // Загружаем конфигурацию
+      const { data: configData, error: configError } = await supabase
+        .from('user_configs')
+        .select('*')
+        .eq('user_id', user.id)
+        .single()
+
+      if (configError && configError.code !== 'PGRST116') { // PGRST116 = no rows returned
+        console.error('Failed to load user config:', configError)
+        throw configError
+      }
+
+      // Преобразуем данные из Supabase в локальный формат
+      const cards: Card[] = (cardsData || []).map((row: CardRow) => ({
+        id: row.id,
+        greek: row.greek,
+        translation: row.translation,
+        tags: row.tags || [],
+        status: row.status as CardStatus,
+        reps: row.reps,
+        lapses: row.lapses,
+        ease: row.ease,
+        interval: row.interval_days,
+        lastReview: row.last_review || undefined,
+        due: row.due,
+        correct: row.correct,
+        incorrect: row.incorrect,
+        learningStepIndex: row.learning_step_index || undefined,
+        isLeech: row.is_leech || false,
+        examples: row.examples || undefined,
+        notes: row.notes || undefined,
+        pronunciation: row.pronunciation || undefined,
+        audioUrl: row.audio_url || undefined,
+        imageUrl: row.image_url || undefined,
+        difficulty: row.difficulty || undefined,
+        stability: row.stability || undefined,
+        currentStep: row.current_step || undefined,
+      }))
+
+      const logs: SessionSummary[] = (logsData || []).map((row: SessionLogRow) => ({
+        date: row.date,
+        totalReviewed: row.total_reviewed,
+        correct: row.correct,
+        incorrect: row.incorrect,
+        newCards: row.new_cards,
+        reviewCards: row.review_cards,
+        learningCards: row.learning_cards,
+        accuracy: row.accuracy,
+      }))
+
+      const config: SRSConfig = configData ? {
+        DAILY_NEW: (configData as ConfigRow).daily_new,
+        DAILY_REVIEWS: (configData as ConfigRow).daily_reviews,
+        LEARNING_STEPS_MIN: (configData as ConfigRow).learning_steps_min,
+        R_TARGET: (configData as ConfigRow).r_target,
+      } : {
+        DAILY_NEW: 10,
+        DAILY_REVIEWS: 120,
+        LEARNING_STEPS_MIN: [1, 10],
+        R_TARGET: { again: 0.95, hard: 0.90, good: 0.85, easy: 0.80 }
+      }
+
+      console.log(`Loaded ${cards.length} cards, ${logs.length} logs from Supabase`)
+      
+      return { cards, logs, config }
+    } catch (error) {
+      console.error('Error loading user data from Supabase:', error)
+      throw error
+    }
+  }
 }
 
 export const syncService = new SyncService()

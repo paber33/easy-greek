@@ -615,3 +615,27 @@ export function clearUserData(): void {
     console.error('Failed to clear user data:', error);
   }
 }
+
+// Функция для загрузки и сохранения данных пользователя из Supabase
+export async function loadAndSaveUserDataFromSupabase(): Promise<void> {
+  if (typeof window === "undefined") return;
+  
+  try {
+    const { syncService } = await import('./sync');
+    const userData = await syncService.loadUserDataFromSupabase();
+    
+    // Сохраняем данные в localStorage
+    const userId = getCurrentUserId();
+    const keys = getUserStorageKeys(userId);
+    
+    localStorage.setItem(keys.cards, JSON.stringify(userData.cards));
+    localStorage.setItem(keys.logs, JSON.stringify(userData.logs));
+    localStorage.setItem(keys.config, JSON.stringify(userData.config));
+    localStorage.setItem(keys.version, STORAGE_VERSION);
+    
+    console.log('User data loaded and saved to localStorage successfully');
+  } catch (error) {
+    console.error('Failed to load and save user data:', error);
+    throw error;
+  }
+}

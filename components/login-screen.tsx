@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { USER_CONFIGS, getUserConfig, getCurrentUserFromEmail } from '@/lib/user-config'
 import { testSupabaseConnection } from '@/lib/test-supabase'
 import { getTestCards } from '@/lib/test-data'
-import { loadUserDataFromSupabase, mergeUserDataWithLocal, syncAllDataToSupabase } from '@/lib/storage'
+import { loadAndSaveUserDataFromSupabase, mergeUserDataWithLocal, syncAllDataToSupabase } from '@/lib/storage'
 import { toast } from 'sonner'
 import { Logo } from '@/components/logo'
 
@@ -129,11 +129,8 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
   const handleLoadUserData = async () => {
     setIsSyncing(true)
     try {
-      const userData = await loadUserDataFromSupabase()
-      if (userData) {
-        await mergeUserDataWithLocal(userData)
-        toast.success('Данные синхронизированы с облаком!')
-      }
+      await loadAndSaveUserDataFromSupabase()
+      toast.success('Данные загружены из облака!')
     } catch (error) {
       console.error('Failed to load user data:', error)
       toast.error('Ошибка загрузки данных из облака')

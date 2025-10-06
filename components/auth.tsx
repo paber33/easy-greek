@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { loadUserDataFromSupabase, mergeUserDataWithLocal, syncAllDataToSupabase } from '@/lib/storage'
+import { loadAndSaveUserDataFromSupabase, mergeUserDataWithLocal, syncAllDataToSupabase } from '@/lib/storage'
 import { testSupabaseConnection } from '@/lib/test-supabase'
 import { getTestCards } from '@/lib/test-data'
 import { USER_CONFIGS, getUserConfig, getCurrentUserFromEmail } from '@/lib/user-config'
@@ -144,11 +144,8 @@ export function AuthComponent() {
   const handleLoadUserData = async () => {
     setIsSyncing(true)
     try {
-      const userData = await loadUserDataFromSupabase()
-      if (userData) {
-        await mergeUserDataWithLocal(userData)
-        toast.success('Данные синхронизированы с облаком!')
-      }
+      await loadAndSaveUserDataFromSupabase()
+      toast.success('Данные загружены из облака!')
     } catch (error) {
       console.error('Failed to load user data:', error)
       toast.error('Ошибка загрузки данных из облака')
