@@ -1,10 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  // Убираем output: 'export' для работы с Supabase
+  // output: 'export',
   trailingSlash: true,
   images: {
     unoptimized: true
+  },
+  // Отключаем Turbopack для стабильности
+  experimental: {
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
   async headers() {
     return [
