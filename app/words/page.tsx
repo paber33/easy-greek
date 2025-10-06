@@ -509,7 +509,7 @@ function WordsPageContent() {
                     </TableCell>
                     <TableCell className="text-sm">
                       {card.stability && card.stability > 0 ? card.stability.toFixed(1) : "—"} /{" "}
-                      {card.difficulty ? card.difficulty.toFixed(1) : "—"}
+                      {card.difficulty && card.difficulty !== null ? card.difficulty.toFixed(1) : "—"}
                     </TableCell>
                     <TableCell>
                       <DropdownMenu>

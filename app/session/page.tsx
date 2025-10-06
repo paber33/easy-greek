@@ -374,10 +374,10 @@ export default function SessionPage() {
               {currentCard.reps > 0 && (
                 <p className="text-sm text-muted-foreground">
                   Повторено {currentCard.reps} раз
-                  {currentCard.difficulty !== undefined && (
+                  {currentCard.difficulty !== undefined && currentCard.difficulty !== null && (
                     <> • Сложность: {currentCard.difficulty.toFixed(1)}</>
                   )}
-                  {currentCard.stability !== undefined && (
+                  {currentCard.stability !== undefined && currentCard.stability !== null && (
                     <> • Стабильность: {currentCard.stability.toFixed(1)} дней</>
                   )}
                   {currentCard.lapses > 0 && (
