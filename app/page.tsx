@@ -1,275 +1,344 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Card, Rating, SessionSummary, SRSConfig } from "@/lib/types";
-import { SRSScheduler } from "@/lib/srs";
-import {
-  loadCards,
-  saveCards,
-  loadLogs,
-  appendSessionLog,
-  loadConfig,
-  saveConfig,
-} from "@/lib/storage";
-import { generateMockCards } from "@/lib/mockData";
-import WordList from "@/components/WordList";
-import TrainingSession from "@/components/TrainingSession";
-import SessionLog from "@/components/SessionLog";
-import Settings from "@/components/Settings";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Card } from "@/types";
+import { loadCards, loadLogs } from "@/lib/storage";
+import { getTodayISO } from "@/lib/utils";
+import { Card as UICard, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { BookOpen, Play, BarChart3, Flame, Target, Sparkles, CheckCircle2, Clock, AlertCircle } from "lucide-react";
+import { AuthComponent } from "@/components/auth";
+import { UserSwitcher } from "@/components/user-switcher";
+import { LoginScreen } from "@/components/login-screen";
+import { ProgressCalendar } from "@/components/progress-calendar";
 
-type Screen = "wordlist" | "session" | "log" | "settings";
+// Мотивирующие фразы на греческом языке
+const motivationalPhrases = [
+  { greek: "Κάθε μέρα είναι μια νέα αρχή!", translation: "Каждый день — это новое начало!" },
+  { greek: "Η γνώση είναι δύναμη!", translation: "Знание — это сила!" },
+  { greek: "Μικρά βήματα, μεγάλα αποτελέσματα!", translation: "Маленькие шаги, большие результаты!" },
+  { greek: "Η επιμονή πληρώνει!", translation: "Упорство окупается!" },
+  { greek: "Μάθε κάτι νέο κάθε μέρα!", translation: "Учись чему-то новому каждый день!" },
+  { greek: "Η γλώσσα ανοίγει πόρτες!", translation: "Язык открывает двери!" },
+  { greek: "Κανένας δεν γεννήθηκε έξυπνος!", translation: "Никто не рождается умным!" },
+  { greek: "Η πρακτική κάνει τέλειο!", translation: "Практика делает совершенным!" },
+  { greek: "Μην τα παρατάς ποτέ!", translation: "Никогда не сдавайся!" },
+  { greek: "Κάθε λέξη είναι ένα βήμα προς το στόχο!", translation: "Каждое слово — шаг к цели!" },
+  { greek: "Η επιτυχία είναι το άθροισμα μικρών προσπαθειών!", translation: "Успех — это сумма маленьких усилий!" },
+  { greek: "Μάθε με χαρά και πάθος!", translation: "Учись с радостью и страстью!" },
+  { greek: "Η γνώση δεν έχει όρια!", translation: "Знание не имеет границ!" },
+  { greek: "Κάθε δυσκολία είναι μια ευκαιρία!", translation: "Каждая трудность — это возможность!" },
+  { greek: "Το μέλλον ανήκει σε εσένα!", translation: "Будущее принадлежит тебе!" }
+];
 
-export default function Home() {
+export default function Dashboard() {
   const [cards, setCards] = useState<Card[]>([]);
-  const [logs, setLogs] = useState<SessionSummary[]>([]);
-  const [config, setConfig] = useState<SRSConfig | null>(null);
-  const [currentScreen, setCurrentScreen] = useState<Screen>("wordlist");
-  const [sessionQueue, setSessionQueue] = useState<Card[]>([]);
-  const [scheduler, setScheduler] = useState<SRSScheduler | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentPhrase, setCurrentPhrase] = useState(motivationalPhrases[0]);
 
-  // Initialize data on mount
   useEffect(() => {
     setMounted(true);
-    const loadedCards = loadCards();
-    const loadedLogs = loadLogs();
-    const loadedConfig = loadConfig();
-
-    // If no cards exist, load mock data
-    if (loadedCards.length === 0) {
-      const mockCards = generateMockCards();
-      setCards(mockCards);
-      saveCards(mockCards);
-    } else {
-      setCards(loadedCards);
-    }
-
-    setLogs(loadedLogs);
-    setConfig(loadedConfig);
-    setScheduler(new SRSScheduler(loadedConfig));
+    setCards(loadCards());
+    
+    // Инициализируем случайную фразу только на клиенте
+    setCurrentPhrase(motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)]);
   }, []);
 
-  // Save cards whenever they change
+  // Смена мотивирующей фразы каждые 5 секунд
   useEffect(() => {
-    if (mounted && cards.length > 0) {
-      saveCards(cards);
-    }
-  }, [cards, mounted]);
+    if (!mounted) return;
+    
+    const interval = setInterval(() => {
+      setCurrentPhrase(motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)]);
+    }, 5000);
 
-  const handleAddCard = (newCard: Omit<Card, "id">) => {
-    const card: Card = {
-      ...newCard,
-      id: crypto.randomUUID(),
-    };
-    setCards([...cards, card]);
-  };
+    return () => clearInterval(interval);
+  }, [mounted]);
 
-  const handleEditCard = (id: string, updates: Partial<Card>) => {
-    setCards(cards.map((c) => (c.id === id ? { ...c, ...updates } : c)));
-  };
-
-  const handleResetCard = (id: string) => {
-    setCards(
-      cards.map((c) =>
-        c.id === id
-          ? {
-              ...c,
-              status: "new" as const,
-              reps: 0,
-              lapses: 0,
-              difficulty: 6.0,
-              stability: 0,
-              due: new Date().toISOString(),
-              correct: 0,
-              incorrect: 0,
-              lastReview: undefined,
-              currentStep: undefined,
-              isLeech: false,
-            }
-          : c
-      )
-    );
-  };
-
-  const handleStartSession = () => {
-    if (!scheduler) return;
-
-    const queue = scheduler.buildQueue(cards, new Date());
-    if (queue.length === 0) {
-      alert("No cards due for review!");
-      return;
-    }
-
-    setSessionQueue(queue);
-    setCurrentScreen("session");
-  };
-
-  const handleRate = (card: Card, rating: Rating) => {
-    if (!scheduler) return;
-
-    const now = new Date();
-    const updatedCard = scheduler.rate(card, rating, now);
-
-    setCards(cards.map((c) => (c.id === updatedCard.id ? updatedCard : c)));
-  };
-
-  const handleEndSession = () => {
-    // Calculate session summary
-    const today = new Date().toISOString().split("T")[0];
-    const sessionCards = sessionQueue.map(
-      (sq) => cards.find((c) => c.id === sq.id)!
-    );
-
-    const summary: SessionSummary = {
-      date: today,
-      totalReviewed: sessionQueue.length,
-      correct: sessionCards.reduce((sum, c) => sum + c.correct, 0),
-      incorrect: sessionCards.reduce((sum, c) => sum + c.incorrect, 0),
-      newCards: sessionCards.filter((c) => c.status === "new").length,
-      reviewCards: sessionCards.filter((c) => c.status === "review").length,
-      learningCards: sessionCards.filter(
-        (c) => c.status === "learning" || c.status === "relearning"
-      ).length,
-      accuracy:
-        sessionQueue.length > 0
-          ? Math.round(
-              (sessionCards.reduce((sum, c) => sum + c.correct, 0) /
-                sessionQueue.length) *
-                100
-            )
-          : 0,
-    };
-
-    appendSessionLog(summary);
-    setLogs(loadLogs());
-    setSessionQueue([]);
-    setCurrentScreen("wordlist");
-  };
-
-  const handleUpdateConfig = (newConfig: SRSConfig) => {
-    setConfig(newConfig);
-    saveConfig(newConfig);
-    setScheduler(new SRSScheduler(newConfig));
-    alert("Settings saved successfully!");
-  };
-
-  const handleImport = (importedCards: Card[]) => {
-    setCards([...cards, ...importedCards]);
-  };
-
-  // Prevent hydration mismatch by rendering same content on server and client initially
-  if (!mounted || !config) {
+  if (!mounted) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-        <header className="bg-white dark:bg-gray-800 shadow">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                🇬🇷 Easy Greek
-              </h1>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                Spaced Repetition Learning
-              </span>
-            </div>
-          </div>
-        </header>
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center justify-center min-h-[400px]">
-            <div className="text-xl">Loading...</div>
-          </div>
-        </main>
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-xl">Загрузка...</div>
       </div>
     );
   }
 
+  // Показываем стартовый экран с логином
+  if (!isLoggedIn) {
+    return <LoginScreen onLogin={() => setIsLoggedIn(true)} />;
+  }
+
+  const now = new Date();
+  const nowISO = now.toISOString();
+
+  const stats = {
+    total: cards.length,
+    new: cards.filter((c) => c.status === "new").length,
+    learning: cards.filter(
+      (c) => c.status === "learning" || c.status === "relearning"
+    ).length,
+    review: cards.filter((c) => c.status === "review").length,
+    due: cards.filter((c) => c.due <= nowISO).length,
+    leeches: cards.filter((c) => c.isLeech).length,
+  };
+
+  const logs = loadLogs();
+  const todayLog = logs.find((log) => log.date === getTodayISO());
+  const streak = calculateStreak(logs);
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                🇬🇷 Easy Greek
-              </h1>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                Spaced Repetition Learning
-              </span>
-            </div>
-            <nav className="flex gap-2">
-              <button
-                onClick={() => setCurrentScreen("wordlist")}
-                className={`px-4 py-2 rounded-lg transition ${
-                  currentScreen === "wordlist"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
-                }`}
-              >
-                Words
-              </button>
-              <button
-                onClick={() => setCurrentScreen("log")}
-                className={`px-4 py-2 rounded-lg transition ${
-                  currentScreen === "log"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
-                }`}
-              >
-                Log
-              </button>
-              <button
-                onClick={() => setCurrentScreen("settings")}
-                className={`px-4 py-2 rounded-lg transition ${
-                  currentScreen === "settings"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
-                }`}
-              >
-                Settings
-              </button>
-            </nav>
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+      {/* Header with user switcher */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="space-y-1 sm:space-y-2">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight bg-gradient-to-r from-slate-600 to-slate-800 dark:from-slate-300 dark:to-slate-100 bg-clip-text text-transparent">
+            Добро пожаловать в Greekly! 🇬🇷
+          </h1>
+          <div className="space-y-1">
+            <p className="text-lg sm:text-xl font-medium text-slate-700 dark:text-slate-300 transition-all duration-500">
+              {currentPhrase.greek}
+            </p>
+            <p className="text-muted-foreground text-sm sm:text-base transition-all duration-500">
+              {currentPhrase.translation}
+            </p>
           </div>
         </div>
-      </header>
-
-      {/* Main content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {currentScreen === "wordlist" && (
-          <WordList
-            cards={cards}
-            onAddCard={handleAddCard}
-            onEditCard={handleEditCard}
-            onResetCard={handleResetCard}
-            onStartSession={handleStartSession}
-          />
-        )}
-
-        {currentScreen === "session" && (
-          <TrainingSession
-            queue={sessionQueue}
-            onRate={handleRate}
-            onEnd={handleEndSession}
-          />
-        )}
-
-        {currentScreen === "log" && <SessionLog logs={logs} />}
-
-        {currentScreen === "settings" && (
-          <Settings
-            config={config}
-            cards={cards}
-            onUpdateConfig={handleUpdateConfig}
-            onImport={handleImport}
-          />
-        )}
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-sm text-gray-600 dark:text-gray-400">
-          Built with Next.js + TypeScript + TailwindCSS • FSRS-lite Algorithm
+        <div className="flex justify-center sm:justify-end">
+          <UserSwitcher />
         </div>
-      </footer>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="grid gap-2 grid-cols-3 sm:grid-cols-6">
+        <StatCard 
+          title="Всего слов" 
+          value={stats.total} 
+          icon={<BookOpen />} 
+          variant="blue" 
+          href="/words"
+        />
+        <StatCard 
+          title="Новые" 
+          value={stats.new} 
+          icon={<Sparkles />} 
+          variant="purple" 
+          href="/words?status=new"
+        />
+        <StatCard 
+          title="Изучаются" 
+          value={stats.learning} 
+          icon={<Target />} 
+          variant="yellow" 
+          href="/words?status=learning"
+        />
+        <StatCard 
+          title="На повторении" 
+          value={stats.review} 
+          icon={<CheckCircle2 />} 
+          variant="green" 
+          href="/words?status=review"
+        />
+        <StatCard 
+          title="К повторению" 
+          value={stats.due} 
+          icon={<Clock />} 
+          variant="training" 
+          href="/session"
+        />
+        <StatCard 
+          title="Трудные" 
+          value={stats.leeches} 
+          icon={<AlertCircle />} 
+          variant="red" 
+          href="/words?leech=true"
+        />
+      </div>
+
+      {/* Today's Progress */}
+      {todayLog && (
+        <UICard>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              Сегодняшний прогресс
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+              <div>
+                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                  {todayLog.totalReviewed}
+                </div>
+                <div className="text-sm text-muted-foreground">Повторено</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-green-600 dark:text-green-400">
+                  {todayLog.accuracy}%
+                </div>
+                <div className="text-sm text-muted-foreground">Точность</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
+                  {todayLog.newCards}
+                </div>
+                <div className="text-sm text-muted-foreground">Новых</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 flex items-center gap-1">
+                  {streak} <Flame className="h-6 w-6" />
+                </div>
+                <div className="text-sm text-muted-foreground">Дней подряд</div>
+              </div>
+            </div>
+          </CardContent>
+        </UICard>
+      )}
+
+      {/* Quick Actions */}
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <Link href="/session" className="group col-span-1 sm:col-span-2 lg:col-span-1">
+          <UICard className="h-full transition-all duration-500 hover:shadow-2xl hover:scale-[1.02] bg-gradient-to-br from-slate-50 via-purple-50 to-violet-50 dark:from-slate-800/50 dark:via-purple-900/30 dark:to-violet-900/30 border border-slate-200/60 dark:border-slate-700/60 shadow-lg hover:shadow-purple-500/20 dark:hover:shadow-purple-400/20">
+            <CardHeader>
+              <div className="text-4xl mb-2">
+                <Play className="h-12 w-12 text-slate-600 dark:text-slate-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-all duration-300 group-hover:scale-110" />
+              </div>
+              <CardTitle className="text-2xl font-bold text-slate-800 dark:text-slate-200 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors duration-300">Начать тренировку</CardTitle>
+              <CardDescription className="text-base text-slate-600 dark:text-slate-400">
+                {stats.due > 0 ? (
+                  <>
+                    <Badge variant="default" className="mr-2 bg-gradient-to-r from-purple-500 to-violet-500 text-white border-0 shadow-md">
+                      {stats.due}
+                    </Badge>
+                    карточек готовы к повторению
+                  </>
+                ) : (
+                  "Нет карточек к повторению"
+                )}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-slate-500 dark:text-slate-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-all duration-300 font-medium group-hover:translate-x-1">
+                Нажмите, чтобы начать →
+              </p>
+            </CardContent>
+          </UICard>
+        </Link>
+
+        <Link href="/words" className="group">
+          <UICard className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 border border-slate-200/50 dark:border-slate-700/50">
+            <CardHeader className="pb-3">
+              <div className="text-3xl mb-2">
+                <BookOpen className="h-8 w-8 text-slate-600 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors duration-300" />
+              </div>
+              <CardTitle className="text-xl text-slate-800 dark:text-slate-200">Список слов</CardTitle>
+              <CardDescription className="text-sm text-slate-600 dark:text-slate-400">
+                Управляйте своей базой из {stats.total} слов
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <p className="text-xs text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-all duration-300 group-hover:translate-x-1">
+                Добавить, редактировать →
+              </p>
+            </CardContent>
+          </UICard>
+        </Link>
+
+        <Link href="/logs" className="group">
+          <UICard className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 border border-slate-200/50 dark:border-slate-700/50">
+            <CardHeader className="pb-3">
+              <div className="text-3xl mb-2">
+                <BarChart3 className="h-8 w-8 text-slate-600 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors duration-300" />
+              </div>
+              <CardTitle className="text-xl text-slate-800 dark:text-slate-200">Статистика</CardTitle>
+              <CardDescription className="text-sm text-slate-600 dark:text-slate-400">
+                Просмотрите свой прогресс и аналитику
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <p className="text-xs text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-all duration-300 group-hover:translate-x-1">
+                Открыть журнал →
+              </p>
+            </CardContent>
+          </UICard>
+        </Link>
+      </div>
+
+      {/* Progress Calendar */}
+      <ProgressCalendar />
+
+      {/* Tips */}
+      <UICard className="bg-blue-50/50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-lg">
+            💡 Совет дня
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-foreground">
+            Старайтесь заниматься каждый день хотя бы 10-15 минут. Регулярные
+            повторения — ключ к эффективному запоминанию!
+          </p>
+        </CardContent>
+      </UICard>
     </div>
   );
+}
+
+interface StatCardProps {
+  title: string;
+  value: number;
+  icon: React.ReactNode;
+  variant: "blue" | "purple" | "yellow" | "green" | "orange" | "red" | "training";
+  href: string;
+}
+
+function StatCard({ title, value, icon, variant, href }: StatCardProps) {
+  const variants = {
+    blue: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
+    purple: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
+    yellow: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
+    green: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
+    orange: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
+    red: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
+    training: "bg-gradient-to-br from-purple-50 via-violet-50 to-fuchsia-50 dark:from-purple-900/30 dark:via-violet-900/30 dark:to-fuchsia-900/30 text-slate-800 dark:text-slate-200 border border-purple-200/60 dark:border-purple-700/60 hover:from-purple-100 hover:via-violet-100 hover:to-fuchsia-100 dark:hover:from-purple-800/40 dark:hover:via-violet-800/40 dark:hover:to-fuchsia-800/40 shadow-lg hover:shadow-purple-500/20 dark:hover:shadow-purple-400/20 transition-all duration-500",
+  };
+
+  return (
+    <Link href={href} className="block">
+      <UICard className={`transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer ${variants[variant]}`}>
+        <CardContent className="px-4 py-1">
+          <div className="flex items-baseline gap-4 mb-1">
+            <div className="h-4 w-4 transition-transform duration-300 hover:scale-110">{icon}</div>
+            <div className="text-lg font-bold transition-colors duration-300">{value}</div>
+          </div>
+          <div className="text-xs opacity-75">{title}</div>
+        </CardContent>
+      </UICard>
+    </Link>
+  );
+}
+
+function calculateStreak(logs: typeof loadLogs extends () => infer R ? R : never): number {
+  if (logs.length === 0) return 0;
+
+  const sorted = [...logs].sort((a, b) => b.date.localeCompare(a.date));
+  let streak = 0;
+  let checkDate = new Date();
+
+  for (let i = 0; i < sorted.length; i++) {
+    const logDate = sorted[i].date.split("T")[0];
+    const expectedDate = checkDate.toISOString().split("T")[0];
+
+    if (logDate === expectedDate) {
+      streak++;
+      checkDate.setDate(checkDate.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+
+  return streak;
 }

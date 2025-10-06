@@ -1,264 +1,376 @@
-# 🇬🇷 Easy Greek - Spaced Repetition Learning App
+# 🇬🇷 Easy Greek - Умное изучение греческого языка
 
-A modern, production-ready web app for learning Greek vocabulary using an intelligent FSRS-lite (Free Spaced Repetition Scheduler) algorithm. Built with Next.js, TypeScript, and TailwindCSS.
+Современное веб-приложение для изучения греческого языка с алгоритмом умного повторения SM-2 (Anki-style). Построено на Next.js, TypeScript и TailwindCSS.
 
-## Features
+## ✨ Основные возможности
 
-### 📚 Smart Spaced Repetition
-- **FSRS-lite Algorithm**: Advanced scheduler that maintains stability (S) and difficulty (D) metrics
-- **Adaptive Learning**: Cards are scheduled based on memory retrievability and individual difficulty
-- **Four Rating Levels**: Again (0), Hard (1), Good (2), Easy (3)
-- **Learning Steps**: Graduated introduction of new cards with configurable intervals
-- **Leech Detection**: Automatically identifies problematic cards after 8+ lapses
+### 🎨 Современный UI
+- **shadcn/ui компоненты**: Красивые, доступные и кастомизируемые компоненты
+- **Темная/светлая тема**: Автоматическое переключение и ручной контроль
+- **Адаптивный дизайн**: Идеально работает на всех устройствах
+- **Lucide иконки**: Современные, четкие иконки
+- **Плавные анимации**: Transitions и hover эффекты
+- **Toast уведомления**: Красивые всплывающие уведомления для действий
 
-### 🎯 Core Screens
+### 📚 Умный алгоритм повторений (SM-2 / Anki-style)
+- **Проверенный алгоритм**: Использует классический SM-2 алгоритм, как в Anki
+- **Ease Factor (EF)**: Индивидуальный коэффициент легкости для каждой карточки (начальное значение 2.5)
+- **Интервалы повторений**: Автоматически рассчитываются на основе EF и истории ответов
+- **4 уровня оценки**: Again (0), Hard (1), Good (2), Easy (3)
+- **Шаги изучения**: [1, 10] минут для новых карточек
+- **Умная очередь**: Сначала срочные learning/relearning, потом просроченные review, затем новые карточки
+- **Обнаружение сложных слов (Leech)**: Автоматическое выявление проблемных карточек после 8+ ошибок
 
-#### Word List
-- Comprehensive table showing all vocabulary with:
-  - Greek word and translation
-  - Tags for organization
-  - Status (new/learning/review/relearning)
-  - Due date with smart formatting
-  - Repetition count and lapse tracking
-  - Success rate percentage
-  - Stability (S) and Difficulty (D) metrics
-- Add, edit, and reset individual cards
-- Start training sessions directly
+### 🎯 Основные экраны
 
-#### Training Session
-- **Smart Queue Building**:
-  - All due learning/relearning cards (time-critical)
-  - Up to 120 due review cards (most overdue first)
-  - Up to 10 new cards per day
-- Clean card interface with front/back presentation
-- Keyboard shortcuts: `Space` to show answer, `1-4` to rate
-- Real-time progress indicator
-- Due counter for remaining cards
-- Comprehensive end-of-session summary
+#### Dashboard (Главная)
+- Общая статистика: всего слов, новые, изучаемые, на повторении
+- Прогресс за сегодня
+- Счетчик streak (дней подряд)
+- Быстрый доступ к основным разделам
 
-#### Session Log
-- Historical performance tracking (last 30 days)
-- Daily session summaries with:
-  - Total reviewed, correct, incorrect counts
-  - Accuracy percentage with visual bar
-  - New/learning/review card breakdown
-- Overall statistics:
-  - Current streak counter 🔥
-  - Total reviews all-time
-  - Overall accuracy
-  - Total sessions
-- Simple bar chart visualization of last 7 days
+#### Список слов (`/words`)
+- Полная таблица словаря с:
+  - Греческое слово и перевод
+  - Теги для организации
+  - Статус (новая/изучается/повторение/переизучается)
+  - Срок повторения
+  - Количество повторений и ошибок
+  - Процент успеха
+  - Стабильность (S) и Сложность (D)
+- **Фильтры и поиск**:
+  - Поиск по греческому/переводу
+  - Фильтр по статусу
+  - Фильтр по тегам
+  - Сортировка по сроку/алфавиту/повторениям
+- Добавление, редактирование, сброс карточек
+- Импорт/экспорт CSV
 
-#### Settings
-- **SRS Configuration**:
-  - Daily new cards limit (0-100)
-  - Daily reviews limit (0-500)
-  - Learning steps in minutes (customizable)
-  - Target retrievability values for each rating
-- **Data Management**:
-  - Export cards to CSV
-  - Import cards from CSV
-  - Database statistics dashboard
+#### Тренировка (`/session`)
+- **Умная очередь карточек**:
+  - Все просроченные learning/relearning карточки (срочные)
+  - До 120 просроченных review карточек (самые просроченные первыми)
+  - До 10 новых карточек в день
+- Чистый интерфейс карточки: греческое → показать ответ → оценить
+- Горячие клавиши: `Space` — показать ответ, `1-4` — оценить
+- Индикатор прогресса "n / total"
+- Счетчик оставшихся срочных карточек
+- Экран завершения с детальной статистикой
 
-### 🧠 FSRS-lite Algorithm Details
+#### Журнал и статистика (`/logs`)
+- Общие метрики: streak, всего повторений, точность, сессий
+- **Canvas график активности** (без внешних библиотек):
+  - Просмотр за 7 или 30 дней
+  - Stacked bars (правильные/неправильные ответы)
+  - Даты и значения
+- Таблица истории сессий (последние 30 дней):
+  - Повторено, правильно, неправильно
+  - Точность с прогресс-баром
+  - Новые/изучаемые/повторяемые карточки
 
-The app implements a lightweight version of the Free Spaced Repetition Scheduler:
+## 🧠 Детали алгоритма SM-2 (Anki-style)
 
-#### Initial Values on Graduation
+### Состояния карточек
+- **new**: Новая карточка, еще не изучалась
+- **learning**: Карточка в процессе изучения (шаги 1, 10 минут)
+- **review**: Карточка на повторении (интервалы в днях)
+- **relearning**: Карточка на переизучении после ошибки
+
+### Шаги изучения (Learning Steps)
+```typescript
+LEARNING_STEPS_MIN = [1, 10] // минуты
+
+// Again (0): вернуться к первому шагу (1 минута)
+// Success (1-3): перейти к следующему шагу или graduation
 ```
-Good:  D = clamp(D - 0.2, 1, 10);  S = 2.5
-Easy:  D = clamp(D - 0.5, 1, 10);  S = 4.0
-Hard:  D = clamp(D + 0.3, 1, 10);  S = 1.5
+
+### Graduation (Выпуск в review)
+```typescript
+initialInterval(rating):
+  Hard (1): 1 день
+  Good (2): 2 дня (по умолчанию)
+  Easy (3): 4 дня
+
+ease = 2.5 (начальный Ease Factor)
 ```
 
-#### Update Formulas
-- **Retrievability**: `R(t) = exp(-t / S)` (memory strength at review time)
-- **Difficulty Update**: Adjusted based on rating and retrievability
-- **Stability Update**: Penalizes failures (×0.5), grows on success with difficulty-based scaling
-- **Interval Calculation**: `-S' * Math.log(R*)` with ±15% jitter to avoid review clumping
+### SM-2 Формула для review карточек
+```typescript
+// Конвертация rating в q5 (1-5 шкала SM-2)
+q5 = rating === 0 ? 1 : rating === 1 ? 3 : rating === 2 ? 4 : 5
 
-#### Queue Building Strategy
-1. All due learning/relearning cards (time-critical)
-2. Due review cards sorted by:
-   - Most overdue first
-   - Lower retrievability (harder) second
-3. New cards (FIFO or tag-balanced)
+// Обновление Ease Factor (EF)
+EF = max(1.3, oldEF + (0.1 - (3 - q5) * (0.08 + (3 - q5) * 0.02)))
 
-### 💾 Data Storage
-- **localStorage-based**: No backend required
-- **Auto-save**: Cards saved automatically on changes
-- **Schema Migration**: Version tracking for future upgrades
-- **Session Logging**: Daily summaries stored for 90 days
-- **CSV Import/Export**: Portable data format
+// Расчет интервала
+if (reps === 1): interval = 1
+else if (reps === 2): interval = 6
+else:
+  mod = rating === 1 ? 0.85 : rating === 3 ? 1.15 : 1.0
+  interval = round(interval * EF * mod)
 
-### 🎨 UI/UX Features
-- Clean, modern TailwindCSS design
-- Dark mode support (follows system preference)
-- Responsive layout (mobile-friendly)
-- Keyboard shortcuts for efficiency
-- Visual status badges and progress indicators
-- Color-coded card states
+// Применение jitter (±15%)
+jitter = uniform(0.85, 1.15)
+nextDays = max(1, round(interval * jitter))
+due = now + nextDays
+```
 
-## Getting Started
+### Обработка ошибок (Again)
+```typescript
+// В review: переход в relearning
+if (review && rating === 0):
+  lapses += 1
+  status = "relearning"
+  reps = 0
+  interval = 0
+  due = now + LEARNING_STEPS_MIN[0] // 1 минута
+  
+  // Leech detection
+  if (lapses >= 8):
+    isLeech = true
+```
 
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
+### Стратегия построения очереди
+1. **Все просроченные learning/relearning** (строго срочные, время критично)
+2. **До DAILY_REVIEWS (120) review карточек**:
+   - Сортировка: насколько просрочены (больше = выше)
+   - Вторично: ниже R (сложнее = выше)
+3. **До DAILY_NEW (10) новых карточек** (FIFO)
 
-### Installation
+### Leech (трудные слова)
+Если `lapses >= 8` и на последних попытках `R < 0.5`:
+- Пометить как "leech"
+- Заморозить на 3 дня
+- Показать в отдельном списке
 
-1. Clone the repository:
+## 🚀 Начало работы
+
+### Требования
+- Node.js 18+
+- npm или yarn
+
+### Установка
+
 ```bash
+# Клонировать репозиторий
 git clone <repository-url>
 cd easy-greek
-```
 
-2. Install dependencies:
-```bash
+# Установить зависимости
 npm install
-```
 
-3. Run the development server:
-```bash
+# Запустить dev сервер
 npm run dev
+
+# Открыть http://localhost:3000
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-### Production Build
+### Production build
 
 ```bash
 npm run build
 npm start
 ```
 
-## Project Structure
+## 📁 Структура проекта
 
 ```
 easy-greek/
 ├── app/
-│   ├── page.tsx          # Main app with state management
-│   ├── layout.tsx        # Root layout
-│   └── globals.css       # Global styles
-├── components/
-│   ├── WordList.tsx      # Word management interface
-│   ├── TrainingSession.tsx  # Learning session UI
-│   ├── SessionLog.tsx    # Performance history
-│   └── Settings.tsx      # Configuration panel
+│   ├── page.tsx              # Dashboard (главная)
+│   ├── layout.tsx            # Root layout + навигация
+│   ├── globals.css           # Глобальные стили
+│   ├── words/
+│   │   └── page.tsx          # Список слов
+│   ├── session/
+│   │   └── page.tsx          # Тренировка
+│   └── logs/
+│       └── page.tsx          # Статистика и журнал
+├── types/
+│   └── index.ts              # TypeScript типы
 ├── lib/
-│   ├── types.ts          # TypeScript interfaces
-│   ├── constants.ts      # Configuration constants
-│   ├── srs.ts            # FSRS-lite scheduler
-│   ├── storage.ts        # localStorage utilities
-│   └── mockData.ts       # Sample Greek vocabulary
+│   ├── srs.ts                # FSRS-lite планировщик
+│   ├── queue.ts              # Построение очереди
+│   ├── storage.ts            # localStorage CRUD
+│   ├── csv.ts                # Импорт/экспорт CSV
+│   ├── utils.ts              # Утилиты (даты, clamp и т.д.)
+│   └── constants.ts          # Конфигурация
 └── README.md
 ```
 
-## Usage Guide
+## 🎮 Использование
 
-### Adding Words
-1. Click "Add Word" on the Word List screen
-2. Enter Greek word, translation, and tags
-3. Card will be marked as "new" and added to the queue
+### Добавление слов
+1. Перейдите в "Слова"
+2. Нажмите "+ Добавить"
+3. Введите греческое слово, перевод и теги
+4. Карточка будет помечена как "новая"
 
-### Starting a Session
-1. Click "Start Session" on the Word List
-2. Review the Greek word on the front
-3. Press `Space` or click "Show Answer"
-4. Rate your recall:
-   - **Again (1)**: Forgot completely
-   - **Hard (2)**: Difficult to recall
-   - **Good (3)**: Recalled with some effort
-   - **Easy (4)**: Instantly recalled
-5. Complete the session to see your summary
+### Начало сессии
+1. Нажмите "Начать сессию" на главной или в списке слов
+2. Прочитайте греческое слово
+3. Нажмите `Space` или "Показать ответ"
+4. Оцените свой ответ:
+   - **Again (1)**: Забыл полностью
+   - **Hard (2)**: Вспомнил с трудом
+   - **Good (3)**: Вспомнил со средним усилием
+   - **Easy (4)**: Мгновенно вспомнил
+5. Завершите сессию и посмотрите результаты
 
-### Adjusting Settings
-1. Navigate to Settings screen
-2. Modify daily limits, learning steps, or target retrievability
-3. Click "Save Settings"
-4. Changes take effect immediately
+### Импорт/Экспорт
+**Экспорт**: В разделе "Слова" нажмите "📥 Экспорт CSV"
 
-### Importing/Exporting Data
-**Export**: Click "Export to CSV" in Settings to download all cards
-
-**Import CSV Format**:
+**Формат CSV для импорта**:
 ```csv
 id,greek,translation,tags
-1,Γεια σου,Hello,greetings;basics
-2,Ευχαριστώ,Thank you,greetings
+1,Γεια σου,Привет,greetings;basics
+2,Ευχαριστώ,Спасибо,greetings
 ```
 
-## Configuration
+## ⚙️ Конфигурация
 
-### Default Settings
-- **Daily New Cards**: 10
-- **Daily Reviews**: 120
-- **Learning Steps**: 1 min, 10 min
-- **Target Retrievability**:
-  - Again: 0.95 (short review)
-  - Hard: 0.90
-  - Good: 0.85
-  - Easy: 0.80
+### Параметры по умолчанию
+```typescript
+DAILY_NEW = 10           // Новых карточек в день
+DAILY_REVIEWS = 120      // Повторений в день
+LEARNING_STEPS = [1, 10] // Шаги изучения (минуты)
+R_TARGET = {
+  again: 0.95,  // Короткое повторение
+  hard: 0.90,   // Чуть дольше
+  good: 0.85,   // Стандарт
+  easy: 0.80    // Длинный интервал
+}
+```
 
-### Customization
-All settings can be adjusted in the Settings panel. Lower retrievability targets = longer intervals between reviews.
+Меньшие значения R_target = более длинные интервалы между повторениями.
 
-## Mock Data
+## 📊 Seed данные
 
-The app ships with 18 sample Greek words across categories:
-- Greetings (Γεια σου, Καλημέρα, etc.)
-- Food (Ψωμί, Νερό, Κρασί, etc.)
-- Verbs (Είμαι, Έχω, Θέλω, etc.)
-- Nouns (Σπίτι, Οικογένεια, Αγάπη, etc.)
+При первом запуске приложение автоматически загружает **20 греческих слов**:
+- **Приветствия**: Καλημέρα, Ευχαριστώ, Παρακαλώ и др.
+- **Глаголы**: τρώω, πίνω, είμαι, έχω и др.
+- **Еда**: νερό, κρασί, καφές, τυρί и др.
+- **Существительные**: σπίτι, οικογένεια, φίλος и др.
 
-Some cards are pre-configured as "review" status to demonstrate the algorithm in action.
+### 🎯 Параметры карточек
 
-## Technical Details
+Каждое слово содержит:
 
-### Technologies
+**Основная информация:**
+- `greek` - греческое написание
+- `translation` - русский перевод
+- `tags` - теги для категоризации (например: `["greetings", "verbs"]`)
+
+**Дополнительный контент:**
+- `examples` - примеры использования в предложениях
+- `pronunciation` - транскрипция произношения
+- `notes` - дополнительные заметки и подсказки
+- `audioUrl` - ссылка на аудио файл (для будущего использования)
+- `imageUrl` - ссылка на изображение (для будущего использования)
+
+**SRS данные:**
+- `status` - статус изучения (`new`, `learning`, `review`, `relearning`)
+- `ease` - коэффициент легкости (Ease Factor)
+- `interval` - интервал повторения в днях
+- `reps` - количество повторений
+- `lapses` - количество ошибок
+- `correct`/`incorrect` - статистика правильных/неправильных ответов
+- `isLeech` - пометка "сложной" карточки
+
+### 📝 Пример карточки
+
+```json
+{
+  "id": "1",
+  "greek": "Καλημέρα",
+  "translation": "Доброе утро",
+  "tags": ["greetings"],
+  "examples": [
+    "Καλημέρα! Πώς είσαι; - Доброе утро! Как дела?",
+    "Καλημέρα κύριε! - Доброе утро, господин!"
+  ],
+  "pronunciation": "кали-мЭ-ра",
+  "notes": "Используется до 12:00. После полудня говорят Καλησπέρα",
+  "status": "new",
+  "ease": 2.5,
+  "interval": 0
+}
+```
+
+Некоторые карточки предварительно настроены как "review" с различными ease/interval для демонстрации алгоритма.
+
+## 🔧 Технические детали
+
+### Технологии
 - **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript 5
-- **Styling**: TailwindCSS 4
-- **State Management**: React Hooks
-- **Storage**: localStorage API
+- **Язык**: TypeScript 5
+- **Стили**: TailwindCSS 4
+- **UI Components**: shadcn/ui (Radix UI + TailwindCSS)
+- **Иконки**: Lucide React
+- **Уведомления**: Sonner
+- **Темы**: next-themes (light/dark режим)
+- **Управление состоянием**: React Hooks
+- **Хранилище**: localStorage API
+- **Графики**: Canvas API (без внешних библиотек)
 
-### Key Components
-- `SRSScheduler`: Core algorithm implementation
-- `buildQueue()`: Intelligent card selection
-- `rate()`: Update card state based on user rating
-- `computeRetrievability()`: Calculate memory strength
+### Ключевые классы и функции
+- `SRSScheduler`: Основная реализация алгоритма
+  - `buildQueue()`: Умный выбор карточек
+  - `rate()`: Обновление состояния карточки
+  - `computeRetrievability()`: Расчет силы памяти
+- Pure functions в `lib/utils.ts` для тестирования
 
-### Performance
-- Client-side only (no API calls)
-- Instant card updates
-- Optimized for 1000+ cards
-- Minimal re-renders with proper React patterns
+### Производительность
+- Только клиентская сторона (нет API-вызовов)
+- Мгновенное обновление карточек
+- Оптимизировано для 1000+ карточек
+- Минимальные ре-рендеры благодаря правильным React паттернам
 
-## Future Enhancements
+## 🎯 Критерии готовности
 
-Potential features for future versions:
-- Multiple-choice answer mode
-- Audio pronunciation support
-- Spaced repetition charts (detailed analytics)
-- Tag-based filtering and deck creation
-- Sync to cloud storage
-- Mobile app (React Native)
-- Shared decks marketplace
+✅ Работает в браузере после первого запуска  
+✅ Можно начать сессию (новые + просроченные)  
+✅ Оценки меняют S/D/due строго по формулам  
+✅ После F5 состояние и логи сохраняются  
+✅ Импорт/экспорт CSV работает  
+✅ Нет линтер ошибок  
+✅ TypeScript без `any`  
+✅ Фильтры и поиск по словам  
+✅ Canvas графики без внешних библиотек  
+✅ Роутинг Next.js (`/words`, `/session`, `/logs`)  
+✅ Модульная архитектура (types, lib)  
 
-## Contributing
+## 🚧 Будущие улучшения
 
-Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
+Потенциальные фичи для следующих версий:
+- Настройки конфигурации через UI
+- MCQ режим (множественный выбор)
+- Аудио произношение
+- Детальная аналитика и расширенные графики
+- Фильтрация по множественным тегам
+- Синхронизация с облаком
+- Мобильное приложение (React Native)
+- Маркетплейс общих колод
+- Темная/светлая тема (переключатель)
+- Unit-тесты для SRS (Vitest/Jest)
+- E2E тесты (Playwright)
 
-## License
+## 🤝 Вклад
 
-MIT License - feel free to use this project for learning or production.
+Вклад приветствуется! Открывайте issues для багов и feature requests, присылайте pull requests.
 
-## Acknowledgments
+## 📄 Лицензия
 
-- Inspired by Anki and SuperMemo
-- FSRS algorithm by Jarrett Ye
-- Greek language learning community
+MIT License - используйте свободно для обучения или production.
+
+## 🙏 Благодарности
+
+- Вдохновлено Anki и SuperMemo
+- Алгоритм FSRS от Jarrett Ye
+- Сообщество изучающих греческий язык
 
 ---
 
-**Built with ❤️ for language learners**
+**Построено с ❤️ для изучающих языки**
+
+Καλή τύχη! (Удачи!)
