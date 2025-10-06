@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Home, BookOpen, Play, BarChart3 } from "lucide-react";
 import { NavigationWrapper } from "@/components/navigation-wrapper";
+import { ProfileProvider } from "@/app/providers/ProfileProvider";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -41,10 +42,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavigationWrapper>
-            {children}
-          </NavigationWrapper>
-          <Toaster />
+          <ProfileProvider>
+            <NavigationWrapper>
+              {children}
+            </NavigationWrapper>
+            <Toaster />
+          </ProfileProvider>
         </ThemeProvider>
       </body>
     </html>

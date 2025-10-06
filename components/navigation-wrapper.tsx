@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { ThemeToggle } from '@/components/theme-toggle'
-import { UserSwitcher } from '@/components/user-switcher'
+import { ProfileSwitcher } from '@/components/profile-switcher'
 import { Logo } from '@/components/logo'
 import { Home, BookOpen, Play, BarChart3 } from 'lucide-react'
 
@@ -83,7 +83,10 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
               <MobileNavLink href="/logs" icon={<BarChart3 className="h-5 w-5" />} />
             </nav>
             
-            <ThemeToggle />
+            <div className="flex items-center gap-2">
+              <ProfileSwitcher />
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>
