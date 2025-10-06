@@ -58,17 +58,26 @@ export default function Dashboard() {
   const [mounted, setMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
-  const [currentPhrase, setCurrentPhrase] = useState(motivationalPhrases[0]);
-  const [currentTip, setCurrentTip] = useState(learningTips[0]);
+  const [currentPhrase, setCurrentPhrase] = useState<typeof motivationalPhrases[0] | null>(null);
+  const [currentTip, setCurrentTip] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
     setCards(loadCards());
     
-    // Инициализируем случайную фразу и совет только на клиенте
-    setCurrentPhrase(motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)]);
-    setCurrentTip(learningTips[Math.floor(Math.random() * learningTips.length)]);
+    // Инициализируем фразу и совет на основе времени (детерминированно)
+    const timeIndex = Math.floor(Date.now() / 30000) % motivationalPhrases.length;
+    const tipIndex = Math.floor(Date.now() / 3600000) % learningTips.length;
+    setCurrentPhrase(motivationalPhrases[timeIndex]);
+    setCurrentTip(learningTips[tipIndex]);
   }, []);
+
+  // Обновляем данные при изменении пользователя
+  useEffect(() => {
+    if (mounted && isLoggedIn) {
+      setCards(loadCards());
+    }
+  }, [mounted, isLoggedIn]);
 
   // Проверяем состояние аутентификации при загрузке
   useEffect(() => {
@@ -99,7 +108,9 @@ export default function Dashboard() {
     if (!mounted) return;
     
     const interval = setInterval(() => {
-      setCurrentPhrase(motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)]);
+      // Используем индекс на основе времени для более предсказуемого выбора
+      const timeIndex = Math.floor(Date.now() / 30000) % motivationalPhrases.length;
+      setCurrentPhrase(motivationalPhrases[timeIndex]);
     }, 30000);
 
     return () => clearInterval(interval);
@@ -110,16 +121,18 @@ export default function Dashboard() {
     if (!mounted) return;
     
     const interval = setInterval(() => {
-      setCurrentTip(learningTips[Math.floor(Math.random() * learningTips.length)]);
+      // Используем индекс на основе времени для более предсказуемого выбора
+      const timeIndex = Math.floor(Date.now() / 3600000) % learningTips.length;
+      setCurrentTip(learningTips[timeIndex]);
     }, 3600000);
 
     return () => clearInterval(interval);
   }, [mounted]);
 
-  if (!mounted || isCheckingAuth) {
+  if (!mounted || isCheckingAuth || !currentPhrase || !currentTip) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-xl">Загрузка...</div>
+      <div className="flex items-center justify-center min-h-[400px]" suppressHydrationWarning>
+        <div className="text-xl" suppressHydrationWarning>Загрузка...</div>
       </div>
     );
   }
@@ -148,7 +161,7 @@ export default function Dashboard() {
   const streak = calculateStreak(logs);
 
   return (
-    <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8" suppressHydrationWarning>
       {/* Header with user switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="space-y-1 sm:space-y-2">

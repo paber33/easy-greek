@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { getUserConfig, getCurrentUserFromEmail } from '@/lib/user-config'
+import { clearUserData } from '@/lib/storage'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import { toast } from 'sonner'
@@ -45,6 +46,9 @@ export function UserSwitcher() {
     try {
       const userConfig = getUserConfig(userId)
       
+      // Очищаем данные предыдущего пользователя
+      clearUserData()
+      
       // Сначала пытаемся войти
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email: userConfig.email,
@@ -76,6 +80,8 @@ export function UserSwitcher() {
   }
 
   const handleSignOut = async () => {
+    // Очищаем данные пользователя при выходе
+    clearUserData()
     await supabase.auth.signOut()
   }
 

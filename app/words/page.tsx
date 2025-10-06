@@ -272,7 +272,7 @@ function WordsPageContent() {
         <div className="flex gap-2 flex-wrap">
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
             <DialogTrigger asChild>
-              <Button onClick={() => { setEditingId(null); setFormData({ greek: "", translation: "", tags: "" }); }}>
+              <Button onClick={() => { setEditingId(null); setFormData({ greek: "", translation: "", tags: "" }); }} className="bg-white border-gray-200 hover:bg-gray-50 text-gray-900">
                 <Plus className="mr-2 h-4 w-4" />
                 Добавить
               </Button>
@@ -332,7 +332,7 @@ function WordsPageContent() {
           </Dialog>
           <Dialog open={showJsonUploadDialog} onOpenChange={setShowJsonUploadDialog}>
             <DialogTrigger asChild>
-              <Button variant="outline">
+              <Button variant="outline" className="bg-white border-gray-200 hover:bg-gray-50 text-gray-900">
                 <FileUp className="mr-2 h-4 w-4" />
                 Загрузить JSON
               </Button>
@@ -351,6 +351,7 @@ function WordsPageContent() {
             onClick={() => router.push("/session")}
             disabled={dueCount === 0}
             variant="default"
+            className="bg-white border-gray-200 hover:bg-gray-50 text-gray-900"
           >
             <Play className="mr-2 h-4 w-4" />
             Начать сессию ({dueCount})
@@ -364,9 +365,9 @@ function WordsPageContent() {
         <CardHeader>
           <CardTitle>Фильтры и поиск</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4">
-            <div className="relative">
+        <CardContent className="space-y-3">
+          <div className="flex flex-col sm:flex-row gap-2">
+            <div className="relative flex-1">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Поиск..."
@@ -376,7 +377,7 @@ function WordsPageContent() {
               />
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger>
+              <SelectTrigger className="w-full sm:w-[140px]">
                 <SelectValue placeholder="Все статусы" />
               </SelectTrigger>
               <SelectContent>
@@ -388,7 +389,7 @@ function WordsPageContent() {
               </SelectContent>
             </Select>
             <Select value={tagFilter} onValueChange={setTagFilter}>
-              <SelectTrigger>
+              <SelectTrigger className="w-full sm:w-[120px]">
                 <SelectValue placeholder="Все теги" />
               </SelectTrigger>
               <SelectContent>
@@ -401,7 +402,7 @@ function WordsPageContent() {
               </SelectContent>
             </Select>
             <Select value={sortBy} onValueChange={(v) => setSortBy(v as any)}>
-              <SelectTrigger>
+              <SelectTrigger className="w-full sm:w-[130px]">
                 <SelectValue placeholder="Сортировка" />
               </SelectTrigger>
               <SelectContent>
@@ -412,12 +413,12 @@ function WordsPageContent() {
             </Select>
           </div>
           <div className="flex flex-col sm:flex-row gap-2">
-            <Button variant="outline" size="sm" onClick={handleExport} className="w-full sm:w-auto">
+            <Button variant="outline" size="sm" onClick={handleExport} className="w-full sm:w-auto bg-white border-gray-200 hover:bg-gray-50">
               <Download className="mr-2 h-4 w-4" />
               Экспорт CSV
             </Button>
             <label className="w-full sm:w-auto">
-              <Button variant="outline" size="sm" asChild className="w-full sm:w-auto">
+              <Button variant="outline" size="sm" asChild className="w-full sm:w-auto bg-white border-gray-200 hover:bg-gray-50">
                 <span>
                   <Upload className="mr-2 h-4 w-4" />
                   Импорт CSV
@@ -431,11 +432,11 @@ function WordsPageContent() {
               />
             </label>
             <Button 
-              variant="destructive" 
+              variant="outline" 
               size="sm" 
               onClick={handleDeleteAll}
               disabled={cards.length === 0}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto bg-white border-gray-200 hover:bg-gray-50 text-muted-foreground hover:text-destructive hover:border-destructive/50"
             >
               <Trash2 className="mr-2 h-4 w-4" />
               Удалить все

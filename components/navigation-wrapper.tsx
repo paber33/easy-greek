@@ -15,6 +15,7 @@ interface NavigationWrapperProps {
 
 export function NavigationWrapper({ children }: NavigationWrapperProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -27,12 +28,18 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
     const checkCurrentSession = async () => {
       const { data: { session } } = await supabase.auth.getSession()
       setIsAuthenticated(!!session)
+      setIsLoading(false)
     }
 
     checkCurrentSession()
 
     return () => subscription.unsubscribe()
   }, [])
+
+  // Показываем загрузку пока проверяем аутентификацию
+  if (isLoading) {
+    return <div className="min-h-screen bg-background">{children}</div>
+  }
 
   // Если пользователь не авторизован, показываем только контент без навигации
   if (!isAuthenticated) {

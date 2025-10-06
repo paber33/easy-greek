@@ -434,8 +434,11 @@ export function saveCards(cards: Card[]): void {
   if (typeof window === "undefined") return;
 
   try {
-    localStorage.setItem(CARDS_KEY, JSON.stringify(cards));
-    localStorage.setItem(VERSION_KEY, STORAGE_VERSION);
+    const userId = getCurrentUserId();
+    const keys = getUserStorageKeys(userId);
+    
+    localStorage.setItem(keys.cards, JSON.stringify(cards));
+    localStorage.setItem(keys.version, STORAGE_VERSION);
     
     // Фоновая синхронизация с Supabase
     syncService.syncCards(cards).catch(console.error);
@@ -448,7 +451,10 @@ export function loadLogs(): SessionSummary[] {
   if (typeof window === "undefined") return [];
 
   try {
-    const data = localStorage.getItem(LOGS_KEY);
+    const userId = getCurrentUserId();
+    const keys = getUserStorageKeys(userId);
+    
+    const data = localStorage.getItem(keys.logs);
     if (!data) return [];
     return JSON.parse(data) as SessionSummary[];
   } catch (error) {
@@ -461,6 +467,9 @@ export function appendSessionLog(summary: SessionSummary): void {
   if (typeof window === "undefined") return;
 
   try {
+    const userId = getCurrentUserId();
+    const keys = getUserStorageKeys(userId);
+    
     const logs = loadLogs();
     const existingIndex = logs.findIndex((log) => log.date === summary.date);
 
@@ -487,7 +496,7 @@ export function appendSessionLog(summary: SessionSummary): void {
 
     // Keep only last 90 days
     const sorted = logs.sort((a, b) => b.date.localeCompare(a.date)).slice(0, 90);
-    localStorage.setItem(LOGS_KEY, JSON.stringify(sorted));
+    localStorage.setItem(keys.logs, JSON.stringify(sorted));
     
     // Фоновая синхронизация с Supabase
     syncService.syncSessionLogs(sorted).catch(console.error);
@@ -500,7 +509,10 @@ export function loadConfig(): SRSConfig {
   if (typeof window === "undefined") return DEFAULT_CONFIG;
 
   try {
-    const data = localStorage.getItem(CONFIG_KEY);
+    const userId = getCurrentUserId();
+    const keys = getUserStorageKeys(userId);
+    
+    const data = localStorage.getItem(keys.config);
     if (!data) return DEFAULT_CONFIG;
     return { ...DEFAULT_CONFIG, ...JSON.parse(data) };
   } catch (error) {
@@ -513,7 +525,10 @@ export function saveConfig(config: SRSConfig): void {
   if (typeof window === "undefined") return;
 
   try {
-    localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+    const userId = getCurrentUserId();
+    const keys = getUserStorageKeys(userId);
+    
+    localStorage.setItem(keys.config, JSON.stringify(config));
     
     // Фоновая синхронизация с Supabase
     syncService.syncConfig(config).catch(console.error);
@@ -568,6 +583,35 @@ export async function mergeUserDataWithLocal(userData: { cards: Card[], logs: Se
   
   // Сохраняем объединенные данные локально
   saveCards(mergedCards);
-  localStorage.setItem(LOGS_KEY, JSON.stringify(mergedLogs));
+  
+  // Сохраняем логи с пользовательским ключом
+  const userId = getCurrentUserId();
+  const keys = getUserStorageKeys(userId);
+  localStorage.setItem(keys.logs, JSON.stringify(mergedLogs));
+  
   saveConfig(mergedConfig);
+}
+
+// Функция для очистки данных при смене пользователя
+export function clearUserData(): void {
+  if (typeof window === "undefined") return;
+  
+  try {
+    // Очищаем все пользовательские ключи
+    const allKeys = Object.keys(localStorage);
+    const userKeys = allKeys.filter(key => 
+      key.startsWith('easy-greek-cards-') ||
+      key.startsWith('easy-greek-logs-') ||
+      key.startsWith('easy-greek-config-') ||
+      key.startsWith('easy-greek-version-')
+    );
+    
+    userKeys.forEach(key => {
+      localStorage.removeItem(key);
+    });
+    
+    console.log('User data cleared successfully');
+  } catch (error) {
+    console.error('Failed to clear user data:', error);
+  }
 }

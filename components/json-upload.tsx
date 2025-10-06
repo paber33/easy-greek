@@ -23,7 +23,7 @@ export function JsonUpload({ onCardsAdded, hideHeader = false }: JsonUploadProps
   const [uploadStatus, setUploadStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
   const [uploadedCards, setUploadedCards] = useState<CardType[]>([])
-  const [shareWithPartner, setShareWithPartner] = useState(false)
+  const [shareWithPartner, setShareWithPartner] = useState(true)
   const [isDragOver, setIsDragOver] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
