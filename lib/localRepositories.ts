@@ -1,22 +1,22 @@
-import { Card, SessionSummary, SRSConfig } from '@/types';
-import { ProfileId } from '@/types/profile';
-import { 
-  CardsRepository, 
-  LogsRepository, 
-  ConfigRepository, 
+import { Card, SessionSummary, SRSConfig } from "@/types";
+import { ProfileId } from "@/types/profile";
+import {
+  CardsRepository,
+  LogsRepository,
+  ConfigRepository,
   SessionRepository,
   Repository,
-  SessionState
-} from './repositories';
-import { ns } from './ns';
-import { DEFAULT_CONFIG } from './constants';
+  SessionState,
+} from "./repositories";
+import { ns } from "./ns";
+import { DEFAULT_CONFIG } from "./constants";
 
 /**
  * Утилиты для работы с localStorage
  */
 const load = <T>(key: string, fallback: T): T => {
   if (typeof window === "undefined") return fallback;
-  
+
   try {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) : fallback;
@@ -28,7 +28,7 @@ const load = <T>(key: string, fallback: T): T => {
 
 const save = (key: string, value: unknown): void => {
   if (typeof window === "undefined") return;
-  
+
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch (error) {
@@ -43,17 +43,17 @@ export const LocalCardsRepository: CardsRepository = {
   async list(profileId: ProfileId): Promise<Card[]> {
     // Сначала пытаемся загрузить из localStorage
     const localCards = load(ns(profileId, "cards"), [] as Card[]);
-    
+
     // Если есть локальные карточки, возвращаем их
     if (localCards.length > 0) {
       return localCards;
     }
-    
+
     // Если локальных карточек нет, пытаемся загрузить из Supabase
     try {
-      const { syncService } = await import('../sync');
+      const { syncService } = await import("./sync");
       const userData = await syncService.loadUserData();
-      
+
       if (userData && userData.cards.length > 0) {
         // Сохраняем карточки из Supabase в localStorage
         save(ns(profileId, "cards"), userData.cards);
@@ -61,9 +61,9 @@ export const LocalCardsRepository: CardsRepository = {
         return userData.cards;
       }
     } catch (error) {
-      console.log('Failed to load cards from Supabase, using local data:', error);
+      console.log("Failed to load cards from Supabase, using local data:", error);
     }
-    
+
     // Если ничего не найдено, возвращаем пустой массив
     return [];
   },
@@ -71,34 +71,34 @@ export const LocalCardsRepository: CardsRepository = {
   async upsert(profileId: ProfileId, card: Card): Promise<void> {
     const cards = await this.list(profileId);
     const index = cards.findIndex(c => c.id === card.id);
-    
+
     if (index >= 0) {
       cards[index] = card;
     } else {
       cards.push(card);
     }
-    
+
     save(ns(profileId, "cards"), cards);
-    
+
     // Автоматически синхронизируем с Supabase
     try {
-      const { syncService } = await import('../sync');
+      const { syncService } = await import("./sync");
       await syncService.syncCards(cards);
     } catch (error) {
-      console.log('Failed to sync cards to Supabase:', error);
+      console.log("Failed to sync cards to Supabase:", error);
     }
   },
 
   async bulkSave(profileId: ProfileId, cards: Card[]): Promise<void> {
     save(ns(profileId, "cards"), cards);
-    
+
     // Автоматически синхронизируем с Supabase
     try {
-      const { syncService } = await import('../sync');
+      const { syncService } = await import("./sync");
       await syncService.syncCards(cards);
       console.log(`Synced ${cards.length} cards to Supabase for profile ${profileId}`);
     } catch (error) {
-      console.log('Failed to sync cards to Supabase:', error);
+      console.log("Failed to sync cards to Supabase:", error);
     }
   },
 
@@ -110,7 +110,7 @@ export const LocalCardsRepository: CardsRepository = {
 
   async clear(profileId: ProfileId): Promise<void> {
     save(ns(profileId, "cards"), []);
-  }
+  },
 };
 
 /**
@@ -120,17 +120,17 @@ export const LocalLogsRepository: LogsRepository = {
   async list(profileId: ProfileId): Promise<SessionSummary[]> {
     // Сначала пытаемся загрузить из localStorage
     const localLogs = load(ns(profileId, "logs"), [] as SessionSummary[]);
-    
+
     // Если есть локальные логи, возвращаем их
     if (localLogs.length > 0) {
       return localLogs;
     }
-    
+
     // Если локальных логов нет, пытаемся загрузить из Supabase
     try {
-      const { syncService } = await import('../sync');
+      const { syncService } = await import("./sync");
       const userData = await syncService.loadUserData();
-      
+
       if (userData && userData.logs.length > 0) {
         // Сохраняем логи из Supabase в localStorage
         save(ns(profileId, "logs"), userData.logs);
@@ -138,9 +138,9 @@ export const LocalLogsRepository: LogsRepository = {
         return userData.logs;
       }
     } catch (error) {
-      console.log('Failed to load logs from Supabase, using local data:', error);
+      console.log("Failed to load logs from Supabase, using local data:", error);
     }
-    
+
     // Если ничего не найдено, возвращаем пустой массив
     return [];
   },
@@ -161,9 +161,7 @@ export const LocalLogsRepository: LogsRepository = {
         reviewCards: existing.reviewCards + log.reviewCards,
         learningCards: existing.learningCards + log.learningCards,
         accuracy: Math.round(
-          ((existing.correct + log.correct) /
-            (existing.totalReviewed + log.totalReviewed)) *
-            100
+          ((existing.correct + log.correct) / (existing.totalReviewed + log.totalReviewed)) * 100
         ),
       };
     } else {
@@ -173,20 +171,20 @@ export const LocalLogsRepository: LogsRepository = {
     // Keep only last 90 days
     const sorted = logs.sort((a, b) => b.date.localeCompare(a.date)).slice(0, 90);
     save(ns(profileId, "logs"), sorted);
-    
+
     // Автоматически синхронизируем с Supabase
     try {
-      const { syncService } = await import('../sync');
-      await syncService.syncLogs(sorted);
+      const { syncService } = await import("./sync");
+      await syncService.syncSessionLogs(sorted);
       console.log(`Synced ${sorted.length} logs to Supabase for profile ${profileId}`);
     } catch (error) {
-      console.log('Failed to sync logs to Supabase:', error);
+      console.log("Failed to sync logs to Supabase:", error);
     }
   },
 
   async clear(profileId: ProfileId): Promise<void> {
     save(ns(profileId, "logs"), []);
-  }
+  },
 };
 
 /**
@@ -196,17 +194,17 @@ export const LocalConfigRepository: ConfigRepository = {
   async get(profileId: ProfileId): Promise<SRSConfig> {
     // Сначала пытаемся загрузить из localStorage
     const localConfig = load(ns(profileId, "config"), null);
-    
+
     // Если есть локальные настройки, возвращаем их
     if (localConfig) {
       return localConfig;
     }
-    
+
     // Если локальных настроек нет, пытаемся загрузить из Supabase
     try {
-      const { syncService } = await import('../sync');
+      const { syncService } = await import("./sync");
       const userData = await syncService.loadUserData();
-      
+
       if (userData && userData.config) {
         // Сохраняем настройки из Supabase в localStorage
         save(ns(profileId, "config"), userData.config);
@@ -214,25 +212,25 @@ export const LocalConfigRepository: ConfigRepository = {
         return userData.config;
       }
     } catch (error) {
-      console.log('Failed to load config from Supabase, using default:', error);
+      console.log("Failed to load config from Supabase, using default:", error);
     }
-    
+
     // Если ничего не найдено, возвращаем настройки по умолчанию
     return DEFAULT_CONFIG;
   },
 
   async save(profileId: ProfileId, config: SRSConfig): Promise<void> {
     save(ns(profileId, "config"), config);
-    
+
     // Автоматически синхронизируем с Supabase
     try {
-      const { syncService } = await import('../sync');
+      const { syncService } = await import("./sync");
       await syncService.syncConfig(config);
       console.log(`Synced config to Supabase for profile ${profileId}`);
     } catch (error) {
-      console.log('Failed to sync config to Supabase:', error);
+      console.log("Failed to sync config to Supabase:", error);
     }
-  }
+  },
 };
 
 /**
@@ -249,7 +247,7 @@ export const LocalSessionRepository: SessionRepository = {
 
   async clear(profileId: ProfileId): Promise<void> {
     save(ns(profileId, "session"), null);
-  }
+  },
 };
 
 /**

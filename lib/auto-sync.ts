@@ -3,11 +3,17 @@
  * Обеспечивает максимальную синхронизацию всех важных данных
  */
 
-import { syncService } from './sync';
-import { loadCards, saveCards, loadLogs, saveLogs, loadConfig, saveConfig } from './core/storage';
-import { getCurrentUserId } from './core/storage';
-import { Card, SessionSummary, SRSConfig } from './types';
-import { conflictResolver } from './conflict-resolution';
+import { syncService } from "./sync";
+import {
+  loadCards,
+  saveCards,
+  loadLogs,
+  appendSessionLog,
+  loadConfig,
+  saveConfig,
+} from "./core/storage";
+import { Card, SessionSummary, SRSConfig } from "@/types";
+import { conflictResolver } from "./conflict-resolution";
 
 export class AutoSyncService {
   private syncInterval: NodeJS.Timeout | null = null;
@@ -23,38 +29,38 @@ export class AutoSyncService {
 
   private setupEventListeners() {
     // Слушаем изменения онлайн статуса
-    window.addEventListener('online', () => {
+    window.addEventListener("online", () => {
       this.isOnline = true;
-      console.log('🌐 Online - starting sync');
+      console.log("🌐 Online - starting sync");
       this.forceSync();
     });
 
-    window.addEventListener('offline', () => {
+    window.addEventListener("offline", () => {
       this.isOnline = false;
-      console.log('📴 Offline - stopping sync');
+      console.log("📴 Offline - stopping sync");
       this.stopAutoSync();
     });
 
     // Слушаем изменения в localStorage (другие вкладки)
-    window.addEventListener('storage', (e) => {
-      if (e.key && e.key.includes('cards') && e.newValue) {
-        console.log('🔄 Storage changed - triggering sync');
+    window.addEventListener("storage", e => {
+      if (e.key && e.key.includes("cards") && e.newValue) {
+        console.log("🔄 Storage changed - triggering sync");
         this.scheduleSync();
       }
     });
 
     // Слушаем изменения видимости страницы
-    document.addEventListener('visibilitychange', () => {
+    document.addEventListener("visibilitychange", () => {
       if (!document.hidden && this.isOnline) {
-        console.log('👁️ Page visible - checking for sync');
+        console.log("👁️ Page visible - checking for sync");
         this.scheduleSync();
       }
     });
 
     // Слушаем фокус окна
-    window.addEventListener('focus', () => {
+    window.addEventListener("focus", () => {
       if (this.isOnline) {
-        console.log('🎯 Window focused - checking for sync');
+        console.log("🎯 Window focused - checking for sync");
         this.scheduleSync();
       }
     });
@@ -74,7 +80,7 @@ export class AutoSyncService {
       }
     }, this.SYNC_INTERVAL);
 
-    console.log('🔄 Auto-sync started');
+    console.log("🔄 Auto-sync started");
   }
 
   /**
@@ -85,7 +91,7 @@ export class AutoSyncService {
       clearInterval(this.syncInterval);
       this.syncInterval = null;
     }
-    console.log('⏹️ Auto-sync stopped');
+    console.log("⏹️ Auto-sync stopped");
   }
 
   /**
@@ -102,7 +108,7 @@ export class AutoSyncService {
    * Принудительная синхронизация
    */
   public async forceSync() {
-    console.log('🚀 Force sync triggered');
+    console.log("🚀 Force sync triggered");
     await this.performSync();
   }
 
@@ -119,33 +125,32 @@ export class AutoSyncService {
    */
   private async performSync() {
     if (!this.isOnline) {
-      console.log('📴 Skipping sync - offline');
+      console.log("📴 Skipping sync - offline");
       return;
     }
 
     try {
       this.lastSyncTime = Date.now();
-      console.log('🔄 Starting full sync...');
+      console.log("🔄 Starting full sync...");
 
       // 1. Загружаем данные из Supabase
       const cloudData = await this.loadFromCloud();
-      
+
       // 2. Загружаем локальные данные
       const localData = this.loadFromLocal();
-      
+
       // 3. Объединяем данные (приоритет у облачных)
       const mergedData = this.mergeData(cloudData, localData);
-      
+
       // 4. Сохраняем объединенные данные локально
       this.saveToLocal(mergedData);
-      
+
       // 5. Отправляем объединенные данные в облако
       await this.saveToCloud(mergedData);
 
-      console.log('✅ Full sync completed successfully');
-      
+      console.log("✅ Full sync completed successfully");
     } catch (error) {
-      console.error('❌ Sync failed:', error);
+      console.error("❌ Sync failed:", error);
     }
   }
 
@@ -157,7 +162,7 @@ export class AutoSyncService {
       const userData = await syncService.loadUserData();
       return userData || { cards: [], logs: [], config: null };
     } catch (error) {
-      console.log('Failed to load from cloud:', error);
+      console.log("Failed to load from cloud:", error);
       return { cards: [], logs: [], config: null };
     }
   }
@@ -172,7 +177,7 @@ export class AutoSyncService {
       const config = loadConfig();
       return { cards, logs, config };
     } catch (error) {
-      console.log('Failed to load from local:', error);
+      console.log("Failed to load from local:", error);
       return { cards: [], logs: [], config: null };
     }
   }
@@ -189,7 +194,7 @@ export class AutoSyncService {
     return {
       cards: mergedCards,
       logs: mergedLogs,
-      config: mergedConfig
+      config: mergedConfig,
     };
   }
 
@@ -199,12 +204,15 @@ export class AutoSyncService {
   private saveToLocal(data: any) {
     try {
       saveCards(data.cards);
-      saveLogs(data.logs);
+      // Save logs individually using appendSessionLog
+      data.logs.forEach((log: SessionSummary) => {
+        appendSessionLog(log);
+      });
       if (data.config) {
         saveConfig(data.config);
       }
     } catch (error) {
-      console.error('Failed to save to local:', error);
+      console.error("Failed to save to local:", error);
     }
   }
 
@@ -217,13 +225,13 @@ export class AutoSyncService {
         await syncService.syncCards(data.cards);
       }
       if (data.logs.length > 0) {
-        await syncService.syncLogs(data.logs);
+        await syncService.syncSessionLogs(data.logs);
       }
       if (data.config) {
         await syncService.syncConfig(data.config);
       }
     } catch (error) {
-      console.error('Failed to save to cloud:', error);
+      console.error("Failed to save to cloud:", error);
     }
   }
 
@@ -236,7 +244,7 @@ export class AutoSyncService {
       await syncService.syncCards(cards);
       console.log(`✅ Synced ${cards.length} cards`);
     } catch (error) {
-      console.error('❌ Failed to sync cards:', error);
+      console.error("❌ Failed to sync cards:", error);
     }
   }
 
@@ -246,10 +254,10 @@ export class AutoSyncService {
   public async syncLogs() {
     try {
       const logs = loadLogs();
-      await syncService.syncLogs(logs);
+      await syncService.syncSessionLogs(logs);
       console.log(`✅ Synced ${logs.length} logs`);
     } catch (error) {
-      console.error('❌ Failed to sync logs:', error);
+      console.error("❌ Failed to sync logs:", error);
     }
   }
 
@@ -260,9 +268,9 @@ export class AutoSyncService {
     try {
       const config = loadConfig();
       await syncService.syncConfig(config);
-      console.log('✅ Synced config');
+      console.log("✅ Synced config");
     } catch (error) {
-      console.error('❌ Failed to sync config:', error);
+      console.error("❌ Failed to sync config:", error);
     }
   }
 
@@ -274,7 +282,7 @@ export class AutoSyncService {
       isOnline: this.isOnline,
       lastSyncTime: this.lastSyncTime,
       isAutoSyncActive: !!this.syncInterval,
-      timeSinceLastSync: Date.now() - this.lastSyncTime
+      timeSinceLastSync: Date.now() - this.lastSyncTime,
     };
   }
 
@@ -283,12 +291,41 @@ export class AutoSyncService {
    */
   public destroy() {
     this.stopAutoSync();
-    console.log('🧹 Auto-sync service destroyed');
+    console.log("🧹 Auto-sync service destroyed");
   }
 }
 
-// Создаем глобальный экземпляр
-export const autoSyncService = new AutoSyncService();
+// Создаем глобальный экземпляр только в браузере
+let _autoSyncService: AutoSyncService | null = null;
+
+export const getAutoSyncService = (): AutoSyncService => {
+  if (typeof window === "undefined") {
+    // Возвращаем заглушку для серверного рендеринга
+    return {
+      startAutoSync: () => {},
+      stopAutoSync: () => {},
+      scheduleSync: () => {},
+      forceSync: async () => {},
+      syncCards: async () => {},
+      syncLogs: async () => {},
+      syncConfig: async () => {},
+      getSyncStatus: () => ({
+        isOnline: false,
+        lastSyncTime: 0,
+        isAutoSyncActive: false,
+        timeSinceLastSync: 0,
+      }),
+      destroy: () => {},
+    } as AutoSyncService;
+  }
+
+  if (!_autoSyncService) {
+    _autoSyncService = new AutoSyncService();
+  }
+
+  return _autoSyncService;
+};
 
 // Экспортируем для использования в других модулях
+export const autoSyncService = getAutoSyncService();
 export default autoSyncService;

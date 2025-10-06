@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { autoSyncService } from '@/lib/auto-sync';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { RefreshCw, Wifi, WifiOff, CheckCircle, AlertCircle, Clock } from 'lucide-react';
-import { toast } from 'sonner';
+import { useState, useEffect } from "react";
+import { getAutoSyncService } from "@/lib/auto-sync";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { RefreshCw, Wifi, WifiOff, CheckCircle, AlertCircle, Clock } from "lucide-react";
+import { toast } from "sonner";
 
 interface SyncStatusProps {
   className?: string;
@@ -17,17 +17,19 @@ export function SyncStatus({ className }: SyncStatusProps) {
     isOnline: true,
     lastSyncTime: 0,
     isAutoSyncActive: false,
-    timeSinceLastSync: 0
+    timeSinceLastSync: 0,
   });
   const [isManualSyncing, setIsManualSyncing] = useState(false);
 
   useEffect(() => {
     // Обновляем статус каждые 5 секунд
     const interval = setInterval(() => {
+      const autoSyncService = getAutoSyncService();
       setSyncStatus(autoSyncService.getSyncStatus());
     }, 5000);
 
     // Получаем начальный статус
+    const autoSyncService = getAutoSyncService();
     setSyncStatus(autoSyncService.getSyncStatus());
 
     return () => clearInterval(interval);
@@ -36,11 +38,12 @@ export function SyncStatus({ className }: SyncStatusProps) {
   const handleManualSync = async () => {
     setIsManualSyncing(true);
     try {
+      const autoSyncService = getAutoSyncService();
       await autoSyncService.forceSync();
-      toast.success('Синхронизация завершена успешно!');
+      toast.success("Синхронизация завершена успешно!");
     } catch (error) {
-      toast.error('Ошибка синхронизации');
-      console.error('Manual sync failed:', error);
+      toast.error("Ошибка синхронизации");
+      console.error("Manual sync failed:", error);
     } finally {
       setIsManualSyncing(false);
     }
@@ -58,7 +61,7 @@ export function SyncStatus({ className }: SyncStatusProps) {
     } else if (seconds > 0) {
       return `${seconds}с назад`;
     } else {
-      return 'только что';
+      return "только что";
     }
   };
 
@@ -66,44 +69,45 @@ export function SyncStatus({ className }: SyncStatusProps) {
     if (!syncStatus.isOnline) {
       return <WifiOff className="h-4 w-4 text-red-500" />;
     }
-    
+
     if (syncStatus.isAutoSyncActive) {
       return <RefreshCw className="h-4 w-4 text-blue-500 animate-spin" />;
     }
-    
-    if (syncStatus.timeSinceLastSync < 60000) { // Менее минуты
+
+    if (syncStatus.timeSinceLastSync < 60000) {
+      // Менее минуты
       return <CheckCircle className="h-4 w-4 text-green-500" />;
     }
-    
+
     return <Clock className="h-4 w-4 text-yellow-500" />;
   };
 
   const getStatusText = () => {
     if (!syncStatus.isOnline) {
-      return 'Офлайн';
+      return "Офлайн";
     }
-    
+
     if (syncStatus.isAutoSyncActive) {
-      return 'Синхронизация...';
+      return "Синхронизация...";
     }
-    
+
     if (syncStatus.timeSinceLastSync < 60000) {
-      return 'Синхронизировано';
+      return "Синхронизировано";
     }
-    
-    return 'Требуется синхронизация';
+
+    return "Требуется синхронизация";
   };
 
   const getStatusColor = () => {
     if (!syncStatus.isOnline) {
-      return 'destructive';
+      return "destructive";
     }
-    
+
     if (syncStatus.timeSinceLastSync < 60000) {
-      return 'default';
+      return "default";
     }
-    
-    return 'secondary';
+
+    return "secondary";
   };
 
   return (
@@ -121,7 +125,7 @@ export function SyncStatus({ className }: SyncStatusProps) {
             <span className="text-sm">{getStatusText()}</span>
           </div>
           <Badge variant={getStatusColor() as any}>
-            {syncStatus.isOnline ? 'Онлайн' : 'Офлайн'}
+            {syncStatus.isOnline ? "Онлайн" : "Офлайн"}
           </Badge>
         </div>
 
