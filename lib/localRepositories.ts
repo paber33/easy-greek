@@ -114,11 +114,35 @@ export const LocalCardsRepository: CardsRepository = {
 };
 
 /**
- * Репозиторий логов для localStorage
+ * Репозиторий логов для localStorage с автоматической синхронизацией Supabase
  */
 export const LocalLogsRepository: LogsRepository = {
   async list(profileId: ProfileId): Promise<SessionSummary[]> {
-    return load(ns(profileId, "logs"), [] as SessionSummary[]);
+    // Сначала пытаемся загрузить из localStorage
+    const localLogs = load(ns(profileId, "logs"), [] as SessionSummary[]);
+    
+    // Если есть локальные логи, возвращаем их
+    if (localLogs.length > 0) {
+      return localLogs;
+    }
+    
+    // Если локальных логов нет, пытаемся загрузить из Supabase
+    try {
+      const { syncService } = await import('../sync');
+      const userData = await syncService.loadUserData();
+      
+      if (userData && userData.logs.length > 0) {
+        // Сохраняем логи из Supabase в localStorage
+        save(ns(profileId, "logs"), userData.logs);
+        console.log(`Loaded ${userData.logs.length} logs from Supabase for profile ${profileId}`);
+        return userData.logs;
+      }
+    } catch (error) {
+      console.log('Failed to load logs from Supabase, using local data:', error);
+    }
+    
+    // Если ничего не найдено, возвращаем пустой массив
+    return [];
   },
 
   async append(profileId: ProfileId, log: SessionSummary): Promise<void> {
@@ -149,6 +173,15 @@ export const LocalLogsRepository: LogsRepository = {
     // Keep only last 90 days
     const sorted = logs.sort((a, b) => b.date.localeCompare(a.date)).slice(0, 90);
     save(ns(profileId, "logs"), sorted);
+    
+    // Автоматически синхронизируем с Supabase
+    try {
+      const { syncService } = await import('../sync');
+      await syncService.syncLogs(sorted);
+      console.log(`Synced ${sorted.length} logs to Supabase for profile ${profileId}`);
+    } catch (error) {
+      console.log('Failed to sync logs to Supabase:', error);
+    }
   },
 
   async clear(profileId: ProfileId): Promise<void> {
@@ -157,15 +190,48 @@ export const LocalLogsRepository: LogsRepository = {
 };
 
 /**
- * Репозиторий настроек для localStorage
+ * Репозиторий настроек для localStorage с автоматической синхронизацией Supabase
  */
 export const LocalConfigRepository: ConfigRepository = {
   async get(profileId: ProfileId): Promise<SRSConfig> {
-    return load(ns(profileId, "config"), DEFAULT_CONFIG);
+    // Сначала пытаемся загрузить из localStorage
+    const localConfig = load(ns(profileId, "config"), null);
+    
+    // Если есть локальные настройки, возвращаем их
+    if (localConfig) {
+      return localConfig;
+    }
+    
+    // Если локальных настроек нет, пытаемся загрузить из Supabase
+    try {
+      const { syncService } = await import('../sync');
+      const userData = await syncService.loadUserData();
+      
+      if (userData && userData.config) {
+        // Сохраняем настройки из Supabase в localStorage
+        save(ns(profileId, "config"), userData.config);
+        console.log(`Loaded config from Supabase for profile ${profileId}`);
+        return userData.config;
+      }
+    } catch (error) {
+      console.log('Failed to load config from Supabase, using default:', error);
+    }
+    
+    // Если ничего не найдено, возвращаем настройки по умолчанию
+    return DEFAULT_CONFIG;
   },
 
   async save(profileId: ProfileId, config: SRSConfig): Promise<void> {
     save(ns(profileId, "config"), config);
+    
+    // Автоматически синхронизируем с Supabase
+    try {
+      const { syncService } = await import('../sync');
+      await syncService.syncConfig(config);
+      console.log(`Synced config to Supabase for profile ${profileId}`);
+    } catch (error) {
+      console.log('Failed to sync config to Supabase:', error);
+    }
   }
 };
 

@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { NavigationWrapper } from "@/components/navigation-wrapper";
 import { ProfileProvider } from "@/app/providers/ProfileProvider";
+import { AutoSyncProvider } from "@/components/auto-sync-provider";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -40,8 +41,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ProfileProvider>
-            <NavigationWrapper>{children}</NavigationWrapper>
-            <Toaster />
+            <AutoSyncProvider>
+              <NavigationWrapper>{children}</NavigationWrapper>
+              <Toaster />
+            </AutoSyncProvider>
           </ProfileProvider>
         </ThemeProvider>
       </body>
