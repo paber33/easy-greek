@@ -1,0 +1,2185 @@
+[
+  {
+    "id": "pavel-1",
+    "greek": "Καλημέρα",
+    "translation": "Доброе утро",
+    "tags": [
+      "greetings",
+      "basic"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.034Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Καλημέρα! Πώς είσαι; - Доброе утро! Как дела?",
+      "Καλημέρα κύριε! - Доброе утро, господин!"
+    ],
+    "notes": "Используется до 12:00. После полудня говорят Καλησπέρα",
+    "pronunciation": "кали-мЭ-ра",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-2",
+    "greek": "Καλησπέρα",
+    "translation": "Добрый вечер",
+    "tags": [
+      "greetings",
+      "basic"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Καλησπέρα! Πώς περνάς; - Добрый вечер! Как дела?",
+      "Καλησπέρα κύριε! - Добрый вечер, господин!"
+    ],
+    "notes": "Используется после 12:00. До полудня говорят Καλημέρα",
+    "pronunciation": "кали-спЭ-ра",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-3",
+    "greek": "Ευχαριστώ",
+    "translation": "Спасибо",
+    "tags": [
+      "greetings",
+      "basic"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Ευχαριστώ πολύ! - Большое спасибо!",
+      "Ευχαριστώ για τη βοήθεια - Спасибо за помощь"
+    ],
+    "notes": "Можно сократить до Ευχαριστώ πολύ (большое спасибо)",
+    "pronunciation": "эф-ха-рис-тО",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-4",
+    "greek": "Παρακαλώ",
+    "translation": "Пожалуйста",
+    "tags": [
+      "greetings",
+      "basic"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Παρακαλώ, καθίστε - Пожалуйста, садитесь",
+      "Παρακαλώ, μπορείτε να με βοηθήσετε; - Пожалуйста, можете помочь?"
+    ],
+    "notes": "Используется как 'пожалуйста' и 'не за что'",
+    "pronunciation": "па-ра-ка-лО",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-5",
+    "greek": "Καληνύχτα",
+    "translation": "Спокойной ночи",
+    "tags": [
+      "greetings",
+      "basic"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Καληνύχτα! - Спокойной ночи!",
+      "Καληνύχτα, αγάπη μου - Спокойной ночи, любовь моя"
+    ],
+    "notes": "Используется при прощании на ночь",
+    "pronunciation": "кали-нИ-хта",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-6",
+    "greek": "γεια",
+    "translation": "привет",
+    "tags": [
+      "greetings",
+      "basic"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Γεια σου! - Привет тебе!",
+      "Γεια σας! - Привет вам! (вежливо)"
+    ],
+    "notes": "Неформальное приветствие",
+    "pronunciation": "йА",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-7",
+    "greek": "αντίο",
+    "translation": "до свидания",
+    "tags": [
+      "greetings",
+      "basic"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Αντίο! - До свидания!",
+      "Αντίο, φίλε μου - До свидания, мой друг"
+    ],
+    "notes": "Формальное прощание",
+    "pronunciation": "ан-дИ-о",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-8",
+    "greek": "συγνώμη",
+    "translation": "извините",
+    "tags": [
+      "greetings",
+      "basic"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Συγνώμη! - Извините!",
+      "Συγνώμη για την καθυστέρηση - Извините за опоздание"
+    ],
+    "notes": "Используется для извинений",
+    "pronunciation": "сиг-нО-ми",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-9",
+    "greek": "ναι",
+    "translation": "да",
+    "tags": [
+      "basic",
+      "words"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Ναι, σας καταλαβαίνω - Да, я вас понимаю",
+      "Ναι, θέλω - Да, хочу"
+    ],
+    "notes": "Положительный ответ",
+    "pronunciation": "нэ",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-10",
+    "greek": "όχι",
+    "translation": "нет",
+    "tags": [
+      "basic",
+      "words"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Όχι, δεν θέλω - Нет, не хочу",
+      "Όχι, ευχαριστώ - Нет, спасибо"
+    ],
+    "notes": "Отрицательный ответ",
+    "pronunciation": "О-хи",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-11",
+    "greek": "τρώω",
+    "translation": "есть (кушать)",
+    "tags": [
+      "verbs",
+      "food"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Τρώω ψωμί - Я ем хлеб",
+      "Τι τρως; - Что ты ешь?",
+      "Δεν τρώω κρέας - Я не ем мясо"
+    ],
+    "notes": "Неправильный глагол. Спряжение: τρώω, τρως, τρώει, τρώμε, τρώτε, τρώνε",
+    "pronunciation": "трО-о",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-12",
+    "greek": "πίνω",
+    "translation": "пить",
+    "tags": [
+      "verbs",
+      "food"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Πίνω νερό - Я пью воду",
+      "Τι πίνεις; - Что ты пьешь?",
+      "Πίνω καφέ - Я пью кофе"
+    ],
+    "notes": "Правильный глагол",
+    "pronunciation": "пИ-но",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-13",
+    "greek": "είμαι",
+    "translation": "быть (я есть)",
+    "tags": [
+      "verbs"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Είμαι καλά - Я в порядке",
+      "Είμαι από την Ελλάδα - Я из Греции",
+      "Πώς είσαι; - Как дела?"
+    ],
+    "notes": "Неправильный глагол. Спряжение: είμαι, είσαι, είναι, είμαστε, είστε, είναι",
+    "pronunciation": "И-мэ",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-14",
+    "greek": "έχω",
+    "translation": "иметь (я имею)",
+    "tags": [
+      "verbs"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Έχω ένα αυτοκίνητο - У меня есть машина",
+      "Έχεις χρόνο; - У тебя есть время?",
+      "Δεν έχω λεφτά - У меня нет денег"
+    ],
+    "notes": "Неправильный глагол",
+    "pronunciation": "Э-хо",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-15",
+    "greek": "θέλω",
+    "translation": "хотеть (я хочу)",
+    "tags": [
+      "verbs"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Θέλω να πάω - Я хочу пойти",
+      "Τι θέλεις; - Что ты хочешь?",
+      "Θέλω νερό - Я хочу воды"
+    ],
+    "notes": "Правильный глагол",
+    "pronunciation": "тЭ-ло",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-16",
+    "greek": "αγαπώ",
+    "translation": "любить",
+    "tags": [
+      "verbs"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Σε αγαπώ - Я тебя люблю",
+      "Αγαπώ την Ελλάδα - Я люблю Грецию",
+      "Αγαπώ τη μουσική - Я люблю музыку"
+    ],
+    "notes": "Правильный глагол",
+    "pronunciation": "а-га-пО",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-17",
+    "greek": "πηγαίνω",
+    "translation": "идти",
+    "tags": [
+      "verbs",
+      "movement"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Πηγαίνω στο σπίτι - Я иду домой",
+      "Πού πας; - Куда ты идешь?",
+      "Πηγαίνουμε στην παραλία - Мы идем на пляж"
+    ],
+    "notes": "Неправильный глагол",
+    "pronunciation": "пи-гЭ-но",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-18",
+    "greek": "έρχομαι",
+    "translation": "приходить",
+    "tags": [
+      "verbs",
+      "movement"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Έρχομαι από το γραφείο - Я прихожу с работы",
+      "Πότε έρχεσαι; - Когда ты придешь?",
+      "Έρχονται αύριο - Они приходят завтра"
+    ],
+    "notes": "Неправильный глагол",
+    "pronunciation": "Э-рхо-мэ",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-19",
+    "greek": "δουλεύω",
+    "translation": "работать",
+    "tags": [
+      "verbs",
+      "work"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Δουλεύω σε ένα γραφείο - Я работаю в офисе",
+      "Πού δουλεύεις; - Где ты работаешь?",
+      "Δουλεύω πολύ - Я много работаю"
+    ],
+    "notes": "Правильный глагол",
+    "pronunciation": "ду-лЭ-во",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-20",
+    "greek": "μαθαίνω",
+    "translation": "учиться",
+    "tags": [
+      "verbs",
+      "education"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Μαθαίνω ελληνικά - Я учу греческий",
+      "Τι μαθαίνεις; - Что ты изучаешь?",
+      "Μαθαίνω κάθε μέρα - Я учусь каждый день"
+    ],
+    "notes": "Правильный глагол",
+    "pronunciation": "ма-тЭ-но",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-21",
+    "greek": "μιλάω",
+    "translation": "говорить",
+    "tags": [
+      "verbs",
+      "communication"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Μιλάω ελληνικά - Я говорю по-гречески",
+      "Μιλάς αγγλικά; - Ты говоришь по-английски?",
+      "Δεν μιλάω πολύ - Я не говорю много"
+    ],
+    "notes": "Правильный глагол",
+    "pronunciation": "ми-лА-о",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-22",
+    "greek": "βλέπω",
+    "translation": "видеть",
+    "tags": [
+      "verbs",
+      "senses"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Βλέπω τη θάλασσα - Я вижу море",
+      "Τι βλέπεις; - Что ты видишь?",
+      "Δεν βλέπω καλά - Я плохо вижу"
+    ],
+    "notes": "Правильный глагол",
+    "pronunciation": "влЭ-по",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-23",
+    "greek": "ακούω",
+    "translation": "слышать",
+    "tags": [
+      "verbs",
+      "senses"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Ακούω μουσική - Я слушаю музыку",
+      "Δεν ακούω - Я не слышу",
+      "Ακούω τη φωνή σου - Я слышу твой голос"
+    ],
+    "notes": "Правильный глагол",
+    "pronunciation": "а-кУ-о",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-24",
+    "greek": "κοιμάμαι",
+    "translation": "спать",
+    "tags": [
+      "verbs",
+      "daily"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Κοιμάμαι 8 ώρες - Я сплю 8 часов",
+      "Πότε κοιμάσαι; - Когда ты спишь?",
+      "Κοιμάμαι νωρίς - Я рано ложусь спать"
+    ],
+    "notes": "Неправильный глагол",
+    "pronunciation": "ки-мА-мэ",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-25",
+    "greek": "ξυπνάω",
+    "translation": "просыпаться",
+    "tags": [
+      "verbs",
+      "daily"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Ξυπνάω στις 7 - Я просыпаюсь в 7",
+      "Πότε ξυπνάς; - Когда ты просыпаешься?",
+      "Ξυπνάω νωρίς - Я рано просыпаюсь"
+    ],
+    "notes": "Правильный глагол",
+    "pronunciation": "кси-пнА-о",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-26",
+    "greek": "νερό",
+    "translation": "вода",
+    "tags": [
+      "food",
+      "drinks"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Θέλω νερό - Я хочу воды",
+      "Το νερό είναι κρύο - Вода холодная",
+      "Πίνω νερό κάθε μέρα - Я пью воду каждый день"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "нэ-рО",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-27",
+    "greek": "κρασί",
+    "translation": "вино",
+    "tags": [
+      "food",
+      "drinks"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Πίνω κρασί - Я пью вино",
+      "Το κρασί είναι καλό - Вино хорошее",
+      "Κόκκινο κρασί - Красное вино"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "кра-сИ",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-28",
+    "greek": "καφές",
+    "translation": "кофе",
+    "tags": [
+      "food",
+      "drinks"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Πίνω καφέ - Я пью кофе",
+      "Θέλεις καφέ; - Хочешь кофе?",
+      "Ο καφές είναι ζεστός - Кофе горячий"
+    ],
+    "notes": "Мужской род",
+    "pronunciation": "ка-фЭс",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-29",
+    "greek": "τυρί",
+    "translation": "сыр",
+    "tags": [
+      "food"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Τρώω τυρί - Я ем сыр",
+      "Το τυρί είναι αλμυρό - Сыр соленый",
+      "Φέτα τυρί - Сыр фета"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "ти-рИ",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-30",
+    "greek": "ψωμί",
+    "translation": "хлеб",
+    "tags": [
+      "food"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Τρώω ψωμί - Я ем хлеб",
+      "Το ψωμί είναι φρέσκο - Хлеб свежий",
+      "Λευκό ψωμί - Белый хлеб"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "псо-мИ",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-31",
+    "greek": "κρέας",
+    "translation": "мясо",
+    "tags": [
+      "food"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Τρώω κρέας - Я ем мясо",
+      "Το κρέας είναι νόστιμο - Мясо вкусное",
+      "Κοτόπουλο κρέας - Куриное мясо"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "крЭ-ас",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-32",
+    "greek": "ψάρι",
+    "translation": "рыба",
+    "tags": [
+      "food"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Τρώω ψάρι - Я ем рыбу",
+      "Το ψάρι είναι φρέσκο - Рыба свежая",
+      "Ψητό ψάρι - Жареная рыба"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "псА-ри",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-33",
+    "greek": "φρούτα",
+    "translation": "фрукты",
+    "tags": [
+      "food"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Τρώω φρούτα - Я ем фрукты",
+      "Τα φρούτα είναι γλυκά - Фрукты сладкие",
+      "Φρέσκα φρούτα - Свежие фрукты"
+    ],
+    "notes": "Средний род, множественное число",
+    "pronunciation": "фрУ-та",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-34",
+    "greek": "λαχανικά",
+    "translation": "овощи",
+    "tags": [
+      "food"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Τρώω λαχανικά - Я ем овощи",
+      "Τα λαχανικά είναι υγιεινά - Овощи полезные",
+      "Φρέσκα λαχανικά - Свежие овощи"
+    ],
+    "notes": "Средний род, множественное число",
+    "pronunciation": "ла-ха-ни-кА",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-35",
+    "greek": "γλυκό",
+    "translation": "сладкое",
+    "tags": [
+      "food"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Τρώω γλυκό - Я ем сладкое",
+      "Το γλυκό είναι νόστιμο - Сладкое вкусное",
+      "Ελληνικό γλυκό - Греческие сладости"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "гли-кО",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-36",
+    "greek": "αλάτι",
+    "translation": "соль",
+    "tags": [
+      "food",
+      "spices"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Βάζω αλάτι - Я добавляю соль",
+      "Το αλάτι είναι αλμυρό - Соль соленая",
+      "Λίγο αλάτι - Немного соли"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "а-лА-ти",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-37",
+    "greek": "πιπέρι",
+    "translation": "перец",
+    "tags": [
+      "food",
+      "spices"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Βάζω πιπέρι - Я добавляю перец",
+      "Το πιπέρι είναι καυτερό - Перец острый",
+      "Μαύρο πιπέρι - Черный перец"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "пи-пЭ-ри",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-38",
+    "greek": "οικογένεια",
+    "translation": "семья",
+    "tags": [
+      "family",
+      "people"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Η οικογένειά μου - Моя семья",
+      "Αγαπώ την οικογένειά μου - Я люблю свою семью",
+      "Μεγάλη οικογένεια - Большая семья"
+    ],
+    "notes": "Женский род",
+    "pronunciation": "и-ко-гЭ-ни-а",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-39",
+    "greek": "φίλος",
+    "translation": "друг",
+    "tags": [
+      "family",
+      "people"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Ο φίλος μου - Мой друг",
+      "Έχω πολλούς φίλους - У меня много друзей",
+      "Καλός φίλος - Хороший друг"
+    ],
+    "notes": "Мужской род",
+    "pronunciation": "фИ-лос",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-40",
+    "greek": "φίλη",
+    "translation": "подруга",
+    "tags": [
+      "family",
+      "people"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Η φίλη μου - Моя подруга",
+      "Έχω καλή φίλη - У меня есть хорошая подруга",
+      "Η καλύτερη φίλη - Лучшая подруга"
+    ],
+    "notes": "Женский род",
+    "pronunciation": "фИ-ли",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
+  },
+  {
+    "id": "pavel-41",
+    "greek": "πατέρας",
+    "translation": "отец",
+    "tags": [
+      "family",
+      "people"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.036Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Ο πατέρας μου - Мой отец",
+      "Ο πατέρας δουλεύει - Отец работает",
+      "Αγαπώ τον πατέρα μου - Я люблю своего отца"
+    ],
+    "notes": "Мужской род",
+    "pronunciation": "па-тЭ-рас",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-42",
+    "greek": "μητέρα",
+    "translation": "мать",
+    "tags": [
+      "family",
+      "people"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Η μητέρα μου - Моя мать",
+      "Η μητέρα μαγειρεύει - Мать готовит",
+      "Αγαπώ τη μητέρα μου - Я люблю свою мать"
+    ],
+    "notes": "Женский род",
+    "pronunciation": "ми-тЭ-ра",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-43",
+    "greek": "αδελφός",
+    "translation": "брат",
+    "tags": [
+      "family",
+      "people"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Ο αδελφός μου - Мой брат",
+      "Έχω έναν αδελφό - У меня есть брат",
+      "Ο μεγάλος αδελφός - Старший брат"
+    ],
+    "notes": "Мужской род",
+    "pronunciation": "а-дел-фОс",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-44",
+    "greek": "αδελφή",
+    "translation": "сестра",
+    "tags": [
+      "family",
+      "people"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Η αδελφή μου - Моя сестра",
+      "Έχω μια αδελφή - У меня есть сестра",
+      "Η μικρή αδελφή - Младшая сестра"
+    ],
+    "notes": "Женский род",
+    "pronunciation": "а-дел-фИ",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-45",
+    "greek": "παιδί",
+    "translation": "ребенок",
+    "tags": [
+      "family",
+      "people"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το παιδί μου - Мой ребенок",
+      "Έχω δύο παιδιά - У меня двое детей",
+      "Μικρό παιδί - Маленький ребенок"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "пэ-дИ",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-46",
+    "greek": "σπίτι",
+    "translation": "дом",
+    "tags": [
+      "home",
+      "objects"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το σπίτι μου - Мой дом",
+      "Πηγαίνω στο σπίτι - Я иду домой",
+      "Μεγάλο σπίτι - Большой дом"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "спИ-ти",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-47",
+    "greek": "δωμάτιο",
+    "translation": "комната",
+    "tags": [
+      "home",
+      "objects"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το δωμάτιό μου - Моя комната",
+      "Μεγάλο δωμάτιο - Большая комната",
+      "Καθαρό δωμάτιο - Чистая комната"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "до-мА-ти-о",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-48",
+    "greek": "κρεβάτι",
+    "translation": "кровать",
+    "tags": [
+      "home",
+      "objects"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το κρεβάτι μου - Моя кровать",
+      "Κοιμάμαι στο κρεβάτι - Я сплю в кровати",
+      "Μεγάλο κρεβάτι - Большая кровать"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "крэ-вА-ти",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-49",
+    "greek": "τραπέζι",
+    "translation": "стол",
+    "tags": [
+      "home",
+      "objects"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το τραπέζι - Стол",
+      "Τρώω στο τραπέζι - Я ем за столом",
+      "Μεγάλο τραπέζι - Большой стол"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "тра-пЭ-зи",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-50",
+    "greek": "καρέκλα",
+    "translation": "стул",
+    "tags": [
+      "home",
+      "objects"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Η καρέκλα - Стул",
+      "Καθίζω στην καρέκλα - Я сажусь на стул",
+      "Άνετη καρέκλα - Удобный стул"
+    ],
+    "notes": "Женский род",
+    "pronunciation": "ка-рЭ-кла",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-51",
+    "greek": "βιβλίο",
+    "translation": "книга",
+    "tags": [
+      "objects",
+      "education"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το βιβλίο μου - Моя книга",
+      "Διαβάζω βιβλίο - Я читаю книгу",
+      "Ενδιαφέρον βιβλίο - Интересная книга"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "ви-влИ-о",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-52",
+    "greek": "χαρτί",
+    "translation": "бумага",
+    "tags": [
+      "objects",
+      "education"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το χαρτί - Бумага",
+      "Γράφω στο χαρτί - Я пишу на бумаге",
+      "Λευκό χαρτί - Белая бумага"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "хар-тИ",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-53",
+    "greek": "στυλό",
+    "translation": "ручка",
+    "tags": [
+      "objects",
+      "education"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το στυλό μου - Моя ручка",
+      "Γράφω με στυλό - Я пишу ручкой",
+      "Μπλε στυλό - Синяя ручка"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "сти-лО",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-54",
+    "greek": "τηλέφωνο",
+    "translation": "телефон",
+    "tags": [
+      "objects",
+      "technology"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το τηλέφωνό μου - Мой телефон",
+      "Παίρνω τηλέφωνο - Я звоню по телефону",
+      "Κινητό τηλέφωνο - Мобильный телефон"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "ти-лЭ-фо-но",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-55",
+    "greek": "αυτοκίνητο",
+    "translation": "машина",
+    "tags": [
+      "objects",
+      "transport"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το αυτοκίνητό μου - Моя машина",
+      "Οδηγώ αυτοκίνητο - Я вожу машину",
+      "Κόκκινο αυτοκίνητο - Красная машина"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "аф-то-кИ-ни-то",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-56",
+    "greek": "θάλασσα",
+    "translation": "море",
+    "tags": [
+      "nature",
+      "places"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Η θάλασσα - Море",
+      "Πηγαίνω στην θάλασσα - Я иду к морю",
+      "Η θάλασσα είναι μπλε - Море синее"
+    ],
+    "notes": "Женский род",
+    "pronunciation": "тА-ла-са",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-57",
+    "greek": "βουνό",
+    "translation": "гора",
+    "tags": [
+      "nature",
+      "places"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το βουνό - Гора",
+      "Πηγαίνω στο βουνό - Я иду в горы",
+      "Υψηλό βουνό - Высокая гора"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "ву-нО",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-58",
+    "greek": "δάσος",
+    "translation": "лес",
+    "tags": [
+      "nature",
+      "places"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το δάσος - Лес",
+      "Περπατάω στο δάσος - Я гуляю по лесу",
+      "Πυκνό δάσος - Густой лес"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "дА-сос",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-59",
+    "greek": "ποτάμι",
+    "translation": "река",
+    "tags": [
+      "nature",
+      "places"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το ποτάμι - Река",
+      "Το ποτάμι ρέει - Река течет",
+      "Μεγάλο ποτάμι - Большая река"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "по-тА-ми",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-60",
+    "greek": "ήλιος",
+    "translation": "солнце",
+    "tags": [
+      "nature",
+      "weather"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Ο ήλιος - Солнце",
+      "Ο ήλιος λάμπει - Солнце светит",
+      "Καυτός ήλιος - Жаркое солнце"
+    ],
+    "notes": "Мужской род",
+    "pronunciation": "И-ли-ос",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-61",
+    "greek": "φεγγάρι",
+    "translation": "луна",
+    "tags": [
+      "nature",
+      "weather"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το φεγγάρι - Луна",
+      "Το φεγγάρι φαίνεται - Луна видна",
+      "Πανσέληνος - Полная луна"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "фэ-гА-ри",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-62",
+    "greek": "αστέρι",
+    "translation": "звезда",
+    "tags": [
+      "nature",
+      "weather"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το αστέρι - Звезда",
+      "Τα αστέρια λάμπουν - Звезды светят",
+      "Φωτεινό αστέρι - Яркая звезда"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "а-стЭ-ри",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-63",
+    "greek": "άνθρωπος",
+    "translation": "человек",
+    "tags": [
+      "nature",
+      "people"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Ο άνθρωπος - Человек",
+      "Καλός άνθρωπος - Хороший человек",
+      "Όλοι οι άνθρωποι - Все люди"
+    ],
+    "notes": "Мужской род",
+    "pronunciation": "Ан-тро-пос",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-64",
+    "greek": "χρόνος",
+    "translation": "время",
+    "tags": [
+      "time",
+      "numbers"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Ο χρόνος - Время",
+      "Δεν έχω χρόνο - У меня нет времени",
+      "Πολύς χρόνος - Много времени"
+    ],
+    "notes": "Мужской род",
+    "pronunciation": "хрО-нос",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-65",
+    "greek": "μέρα",
+    "translation": "день",
+    "tags": [
+      "time",
+      "numbers"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Η μέρα - День",
+      "Καλή μέρα - Хорошего дня",
+      "Ολόκληρη μέρα - Целый день"
+    ],
+    "notes": "Женский род",
+    "pronunciation": "мЭ-ра",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-66",
+    "greek": "νύχτα",
+    "translation": "ночь",
+    "tags": [
+      "time",
+      "numbers"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Η νύχτα - Ночь",
+      "Καληνύχτα - Спокойной ночи",
+      "Σκοτεινή νύχτα - Темная ночь"
+    ],
+    "notes": "Женский род",
+    "pronunciation": "нИ-хта",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-67",
+    "greek": "χρήματα",
+    "translation": "деньги",
+    "tags": [
+      "objects",
+      "basic"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Έχω χρήματα - У меня есть деньги",
+      "Δεν έχω χρήματα - У меня нет денег",
+      "Πολλά χρήματα - Много денег"
+    ],
+    "notes": "Средний род, множественное число",
+    "pronunciation": "хрИ-ма-та",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-68",
+    "greek": "ρούχα",
+    "translation": "одежда",
+    "tags": [
+      "objects",
+      "daily"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Τα ρούχά μου - Моя одежда",
+      "Φοράω ρούχα - Я ношу одежду",
+      "Καθαρά ρούχα - Чистая одежда"
+    ],
+    "notes": "Средний род, множественное число",
+    "pronunciation": "рУ-ха",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-69",
+    "greek": "ποδήλατο",
+    "translation": "велосипед",
+    "tags": [
+      "objects",
+      "transport"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το ποδήλατό μου - Мой велосипед",
+      "Οδηγώ ποδήλατο - Я езжу на велосипеде",
+      "Κόκκινο ποδήλατο - Красный велосипед"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "по-дИ-ла-то",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-70",
+    "greek": "αεροπλάνο",
+    "translation": "самолет",
+    "tags": [
+      "objects",
+      "transport"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το αεροπλάνο - Самолет",
+      "Πετάω με αεροπλάνο - Я летаю на самолете",
+      "Μεγάλο αεροπλάνο - Большой самолет"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "а-э-ро-плА-но",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-71",
+    "greek": "αγόρι",
+    "translation": "мальчик",
+    "tags": [
+      "people",
+      "family"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το αγόρι - Мальчик",
+      "Μικρό αγόρι - Маленький мальчик",
+      "Το αγόρι παίζει - Мальчик играет"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "а-гО-ри",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-72",
+    "greek": "κορίτσι",
+    "translation": "девочка",
+    "tags": [
+      "people",
+      "family"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Το κορίτσι - Девочка",
+      "Μικρό κορίτσι - Маленькая девочка",
+      "Το κορίτσι διαβάζει - Девочка читает"
+    ],
+    "notes": "Средний род",
+    "pronunciation": "ко-рИ-ци",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-73",
+    "greek": "γάτα",
+    "translation": "кошка",
+    "tags": [
+      "animals",
+      "pets"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Η γάτα - Кошка",
+      "Η γάτα μου - Моя кошка",
+      "Μικρή γάτα - Маленькая кошка"
+    ],
+    "notes": "Женский род",
+    "pronunciation": "гА-та",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-74",
+    "greek": "σκύλος",
+    "translation": "собака",
+    "tags": [
+      "animals",
+      "pets"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Ο σκύλος - Собака",
+      "Ο σκύλος μου - Моя собака",
+      "Μεγάλος σκύλος - Большая собака"
+    ],
+    "notes": "Мужской род",
+    "pronunciation": "скИ-лос",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-75",
+    "greek": "μουσική",
+    "translation": "музыка",
+    "tags": [
+      "entertainment",
+      "culture"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Η μουσική - Музыка",
+      "Ακούω μουσική - Я слушаю музыку",
+      "Καλή μουσική - Хорошая музыка"
+    ],
+    "notes": "Женский род",
+    "pronunciation": "му-си-кИ",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  },
+  {
+    "id": "pavel-76",
+    "greek": "ταινία",
+    "translation": "фильм",
+    "tags": [
+      "entertainment",
+      "culture"
+    ],
+    "status": "new",
+    "reps": 0,
+    "lapses": 0,
+    "ease": 2.5,
+    "interval": 0,
+    "due": "2025-10-06T18:03:16.037Z",
+    "correct": 0,
+    "incorrect": 0,
+    "isLeech": false,
+    "examples": [
+      "Η ταινία - Фильм",
+      "Βλέπω ταινία - Я смотрю фильм",
+      "Καλή ταινία - Хороший фильм"
+    ],
+    "notes": "Женский род",
+    "pronunciation": "тэ-нИ-а",
+    "audioUrl": "",
+    "imageUrl": "",
+    "createdAt": "2025-10-06T18:03:16.037Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
+  }
+]
