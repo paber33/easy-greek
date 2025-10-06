@@ -9,7 +9,7 @@ const CONFIG_KEY = "easy-greek-config";
 const VERSION_KEY = "easy-greek-version";
 
 // Функция для получения ключей с привязкой к пользователю
-function getUserStorageKeys(userId?: string) {
+function getUserStorageKeys(userId?: string | null) {
   if (!userId) {
     // Если пользователь не указан, используем общие ключи (для обратной совместимости)
     return {

@@ -21,6 +21,7 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Handle Next.js static export routing - redirect all non-existent files to index.html for SPA routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
