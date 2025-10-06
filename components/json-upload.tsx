@@ -2,7 +2,6 @@
 
 import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription } from '@/components/ui/alert'
@@ -19,7 +18,7 @@ interface JsonUploadProps {
   hideHeader?: boolean
 }
 
-export function JsonUpload({ onCardsAdded, hideHeader = false }: JsonUploadProps) {
+export function JsonUpload({ onCardsAdded }: JsonUploadProps) {
   const profileId = useCurrentProfileId();
   const [isLoading, setIsLoading] = useState(false)
   const [uploadStatus, setUploadStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -28,6 +27,14 @@ export function JsonUpload({ onCardsAdded, hideHeader = false }: JsonUploadProps
   const [shareWithPartner, setShareWithPartner] = useState(true)
   const [isDragOver, setIsDragOver] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  
+  if (!profileId) {
+    return (
+      <div className="text-center py-8 text-muted-foreground">
+        Загрузка профиля...
+      </div>
+    );
+  }
 
   // Функция для определения текущего пользователя и партнера
   const getCurrentUserAndPartner = () => {

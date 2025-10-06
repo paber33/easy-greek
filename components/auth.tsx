@@ -6,13 +6,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { loadAndSaveUserDataFromSupabase, mergeUserDataWithLocal, syncAllDataToSupabase } from '@/lib/core/storage'
+import { loadAndSaveUserDataFromSupabase, syncAllDataToSupabase } from '@/lib/core/storage'
 import { testSupabaseConnection } from '@/lib/test-supabase'
 import { getTestCards } from '@/lib/test-data'
-import { USER_CONFIGS, getUserConfig, getCurrentUserFromEmail } from '@/lib/user-config'
+import { getUserConfig, getCurrentUserFromEmail } from '@/lib/user-config'
 import { clearAuthTokens, fixBrokenSession, safeSignIn, safeSignUp } from '@/lib/auth-utils'
 import { toast } from 'sonner'
-import { Logo } from '@/components/logo'
 
 export function AuthComponent() {
   const [isLoading, setIsLoading] = useState(false)
@@ -22,7 +21,6 @@ export function AuthComponent() {
   const [isSyncing, setIsSyncing] = useState(false)
   const [isTesting, setIsTesting] = useState(false)
   const [isAutoLogin, setIsAutoLogin] = useState(false)
-  const [isLoadingTestData, setIsLoadingTestData] = useState(false)
   const [currentUser, setCurrentUser] = useState<'pavel' | 'aleksandra' | null>(null)
 
   useEffect(() => {
@@ -219,32 +217,6 @@ export function AuthComponent() {
     }
   }
 
-  const handleAutoLogin = async () => {
-    // Для обратной совместимости - вход в Pavel
-    await handleUserLogin('pavel')
-  }
-
-  const handleLoadTestData = async () => {
-    setIsLoadingTestData(true)
-    try {
-      const testCards = getTestCards(currentUser || undefined)
-      
-      // Загружаем тестовые данные локально
-      const { saveCards } = await import('@/lib/core/storage')
-      saveCards(testCards)
-      
-      // Синхронизируем с Supabase
-      await syncAllDataToSupabase()
-      
-      const userName = currentUser ? getUserConfig(currentUser).name : 'Пользователь'
-      toast.success(`✅ Тестовые данные загружены для ${userName}!`)
-    } catch (error) {
-      console.error('Failed to load test data:', error)
-      toast.error('Ошибка загрузки тестовых данных')
-    } finally {
-      setIsLoadingTestData(false)
-    }
-  }
 
   if (isSignedIn) {
     return (

@@ -25,6 +25,8 @@ export const useQueue = () => {
    * Load and build queue for current session
    */
   const loadQueue = useCallback(async () => {
+    if (!profileId) return;
+    
     setIsLoading(true);
     try {
       const allCards = await LocalCardsRepository.list(profileId);
@@ -53,6 +55,8 @@ export const useQueue = () => {
    * Save current session state
    */
   const saveSessionState = useCallback(async () => {
+    if (!profileId) return;
+    
     try {
       await LocalSessionRepository.save(profileId, {
         currentCardIndex: currentIndex,
@@ -69,6 +73,8 @@ export const useQueue = () => {
    * Clear session state
    */
   const clearSession = useCallback(async () => {
+    if (!profileId) return;
+    
     try {
       await LocalSessionRepository.clear(profileId);
       setCurrentIndex(0);

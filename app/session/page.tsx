@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { CheckCircle2, XCircle, Home, BarChart3, Play } from "lucide-react";
+import { Home, BarChart3, Play } from "lucide-react";
 import confetti from "canvas-confetti";
 import { SessionSkeleton } from "@/components/ui/shimmer";
 import { LoadingScreen } from "@/components/ui/loading-screen";
@@ -22,15 +22,6 @@ import { StatusBadge } from "@/components/ui/status-badge";
 export default function SessionPage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
-  
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  
-  if (!mounted) {
-    return <LoadingScreen message="Загружаем сессию..." variant="default" />;
-  }
-  
   const profileId = useCurrentProfileId();
   const [cards, setCards] = useState<CardType[]>([]);
   const [queue, setQueue] = useState<CardType[]>([]);
@@ -48,12 +39,17 @@ export default function SessionPage() {
   const [reviewedCards, setReviewedCards] = useState<
     Array<{ card: CardType; rating: Rating }>
   >([]);
-  const [showConfetti, setShowConfetti] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  if (!mounted || !profileId) {
+    return <LoadingScreen message="Загружаем сессию..." variant="default" />;
+  }
 
   // Функция для запуска конфетти
   const triggerConfetti = () => {
-    setShowConfetti(true);
-    
     // Запускаем конфетти
     confetti({
       particleCount: 100,
@@ -72,10 +68,6 @@ export default function SessionPage() {
       });
     }, 500);
   };
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Load cards for current profile
   useEffect(() => {

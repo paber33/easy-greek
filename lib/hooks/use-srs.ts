@@ -34,6 +34,10 @@ export const useSRS = () => {
    * @returns Updated card with new SRS state
    */
   const rateCard = async (card: Card, rating: Rating): Promise<Card> => {
+    if (!profileId) {
+      throw new Error('No active profile');
+    }
+    
     const now = new Date();
     const updatedCard = scheduler.rate(card, rating, now);
     

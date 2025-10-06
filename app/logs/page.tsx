@@ -10,24 +10,22 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Progress } from "@/components/ui/progress";
 import { Flame, TrendingUp, Target, Calendar } from "lucide-react";
 import { ProgressCalendar } from "@/components/progress-calendar";
-import { CalendarSkeleton } from "@/components/ui/shimmer";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 
 export default function LogsPage() {
   const [mounted, setMounted] = useState(false);
+  const profileId = useCurrentProfileId();
+  const [logs, setLogs] = useState<SessionSummary[]>([]);
+  const [viewDays, setViewDays] = useState<7 | 30>(7);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   
   useEffect(() => {
     setMounted(true);
   }, []);
   
-  if (!mounted) {
+  if (!mounted || !profileId) {
     return <LoadingScreen message="Загружаем логи..." variant="default" />;
   }
-  
-  const profileId = useCurrentProfileId();
-  const [logs, setLogs] = useState<SessionSummary[]>([]);
-  const [viewDays, setViewDays] = useState<7 | 30>(7);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Load logs for current profile
   useEffect(() => {
@@ -134,7 +132,7 @@ export default function LogsPage() {
   const recentLogs = sortedLogs.slice(0, 30);
 
   let currentStreak = 0;
-  let checkDate = new Date();
+  const checkDate = new Date();
 
   for (let i = 0; i < sortedLogs.length; i++) {
     const logDate = sortedLogs[i].date.split("T")[0];

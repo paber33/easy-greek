@@ -27,24 +27,20 @@ export const useProfile = () => {
 /**
  * Hook to get current profile ID with validation
  * 
- * Convenience hook that extracts and validates the current profile ID.
- * Throws an error if no profile is active.
+ * Convenience hook that extracts the current profile ID.
+ * Returns null if no profile is active (for SSR compatibility).
  * 
  * @example
  * ```typescript
  * const profileId = useCurrentProfileId();
- * const cards = await LocalCardsRepository.list(profileId);
+ * if (profileId) {
+ *   const cards = await LocalCardsRepository.list(profileId);
+ * }
  * ```
  * 
- * @returns Current profile ID
- * @throws Error if no active profile
+ * @returns Current profile ID or null
  */
 export const useCurrentProfileId = () => {
   const { currentProfileId } = useProfile();
-  
-  if (!currentProfileId) {
-    throw new Error('No active profile. Make sure ProfileProvider is initialized.');
-  }
-  
   return currentProfileId;
 };

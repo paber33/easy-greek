@@ -65,12 +65,7 @@ export function useProfile(): ProfileContextType {
 /**
  * Хук для получения текущего profileId с проверкой
  */
-export function useCurrentProfileId(): ProfileId {
+export function useCurrentProfileId(): ProfileId | null {
   const { currentProfileId } = useProfile();
-  
-  if (!currentProfileId) {
-    throw new Error('No active profile. Make sure ProfileProvider is initialized.');
-  }
-  
   return currentProfileId;
 }

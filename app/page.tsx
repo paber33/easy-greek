@@ -2,16 +2,13 @@
 
 import { useEffect, useState, useMemo, useCallback, memo } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { Card, SessionSummary } from "@/types";
 import { useProfile } from "@/app/providers/ProfileProvider";
 import { LocalCardsRepository, LocalLogsRepository } from "@/lib/localRepositories";
 import { getTodayISO } from "@/lib/utils";
 import { Card as UICard, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Play, BarChart3, Flame, Target, Sparkles, CheckCircle2, Clock, AlertCircle } from "lucide-react";
-import { AuthComponent } from "@/components/auth";
 import { LoginScreen } from "@/components/login-screen";
 import { ProgressCalendar } from "@/components/progress-calendar";
 import { LoadingScreen } from "@/components/ui/loading-screen";
@@ -63,6 +60,7 @@ export default function Dashboard() {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [currentPhrase, setCurrentPhrase] = useState<typeof motivationalPhrases[0] | null>(null);
   const [currentTip, setCurrentTip] = useState<string | null>(null);
+  const [logs, setLogs] = useState<SessionSummary[]>([]);
 
   useEffect(() => {
     setMounted(true);
@@ -175,8 +173,6 @@ export default function Dashboard() {
       leeches: cards.filter((c) => c.isLeech).length,
     };
   }, [cards]);
-
-  const [logs, setLogs] = useState<SessionSummary[]>([]);
   
   // Memoized function to load logs
   const loadLogsForProfile = useCallback(async () => {
@@ -452,7 +448,7 @@ function calculateStreak(logs: SessionSummary[]): number {
 
   const sorted = [...logs].sort((a, b) => b.date.localeCompare(a.date));
   let streak = 0;
-  let checkDate = new Date();
+  const checkDate = new Date();
 
   for (let i = 0; i < sorted.length; i++) {
     const logDate = sorted[i].date.split("T")[0];

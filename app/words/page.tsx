@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState, Suspense, useMemo, useCallback, memo } from "react";
+import { useEffect, useState, Suspense, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card as CardType } from "@/types";
 import { LocalCardsRepository } from "@/lib/localRepositories";
 import { exportToCSV, importFromCSV } from "@/lib/core/csv";
 import { useCurrentProfileId } from "@/lib/hooks/use-profile";
 import { formatDueDate } from "@/lib/utils";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -18,7 +18,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { toast } from "sonner";
 import { Plus, Play, Search, Download, Upload, MoreVertical, Edit2, RotateCcw, Trash2, FileUp } from "lucide-react";
 import { JsonUpload } from "@/components/json-upload";
-import { TableSkeleton } from "@/components/ui/shimmer";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { StatusBadge } from "@/components/ui/status-badge";
 
@@ -262,7 +261,9 @@ function WordsPageContent() {
     reader.readAsText(file);
   };
 
-  const handleJsonCardsAdded = async (newCards: CardType[]) => {
+  const handleJsonCardsAdded = async () => {
+    if (!profileId) return;
+    
     // Reload cards from repository after JSON upload
     try {
       const updatedCards = await LocalCardsRepository.list(profileId);
@@ -281,7 +282,7 @@ function WordsPageContent() {
 
   const dueCount = cards.filter((c) => c.due <= new Date().toISOString()).length;
 
-  if (!mounted) {
+  if (!mounted || !profileId) {
     return <LoadingScreen message="Загружаем слова..." variant="default" />;
   }
 
