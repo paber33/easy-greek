@@ -484,7 +484,7 @@ function WordsPageContent() {
                 ))}
               </SelectContent>
             </Select>
-            <Select value={sortBy} onValueChange={v => setSortBy(v as any)}>
+            <Select value={sortBy} onValueChange={v => setSortBy(v as "due" | "greek" | "reps")}>
               <SelectTrigger className="w-full sm:w-[150px] h-11 border-2 focus:border-primary/50 transition-colors duration-200">
                 <SelectValue placeholder="Сортировка" />
               </SelectTrigger>

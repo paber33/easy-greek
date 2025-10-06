@@ -1,49 +1,49 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
-import { ThemeToggle } from '@/components/theme-toggle'
-import { ProfileSwitcher } from '@/components/profile-switcher'
-import { Logo } from '@/components/logo'
-import { Home, BookOpen, Play, BarChart3 } from 'lucide-react'
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { supabase } from "@/lib/supabase";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { ProfileSwitcher } from "@/components/profile-switcher";
+import { Home, BookOpen, Play, BarChart3 } from "lucide-react";
 
 interface NavigationWrapperProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export function NavigationWrapper({ children }: NavigationWrapperProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setIsAuthenticated(!!session)
-      }
-    )
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAuthenticated(!!session);
+    });
 
     // Проверяем текущую сессию
     const checkCurrentSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      setIsAuthenticated(!!session)
-      setIsLoading(false)
-    }
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setIsAuthenticated(!!session);
+      setIsLoading(false);
+    };
 
-    checkCurrentSession()
+    checkCurrentSession();
 
-    return () => subscription.unsubscribe()
-  }, [])
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Показываем загрузку пока проверяем аутентификацию
   if (isLoading) {
-    return <div className="min-h-screen bg-background">{children}</div>
+    return <div className="min-h-screen bg-background">{children}</div>;
   }
 
   // Если пользователь не авторизован, показываем только контент без навигации
   if (!isAuthenticated) {
-    return <div className="min-h-screen bg-background">{children}</div>
+    return <div className="min-h-screen bg-background">{children}</div>;
   }
 
   // Если авторизован, показываем полный интерфейс с навигацией
@@ -58,7 +58,7 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
                 Greekly
               </span>
             </Link>
-            
+
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-1 flex-1">
               <NavLink href="/" icon={<Home className="h-4 w-4" />}>
@@ -74,15 +74,23 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
                 Статистика
               </NavLink>
             </nav>
-            
+
             {/* Mobile Navigation */}
             <nav className="flex md:hidden items-center gap-1 flex-1 justify-center">
-              <MobileNavLink href="/session" icon={<Play className="h-4 w-4" />} label="Тренировка" />
+              <MobileNavLink
+                href="/session"
+                icon={<Play className="h-4 w-4" />}
+                label="Тренировка"
+              />
               <MobileNavLink href="/" icon={<Home className="h-4 w-4" />} label="Главная" />
               <MobileNavLink href="/words" icon={<BookOpen className="h-4 w-4" />} label="Слова" />
-              <MobileNavLink href="/logs" icon={<BarChart3 className="h-4 w-4" />} label="Статистика" />
+              <MobileNavLink
+                href="/logs"
+                icon={<BarChart3 className="h-4 w-4" />}
+                label="Статистика"
+              />
             </nav>
-            
+
             <div className="flex items-center gap-1 md:gap-2">
               <div className="hidden sm:block">
                 <ProfileSwitcher />
@@ -94,7 +102,9 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">{children}</main>
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
+        {children}
+      </main>
 
       {/* Footer */}
       <footer className="border-t py-6 md:py-0">
@@ -105,7 +115,7 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
 function NavLink({

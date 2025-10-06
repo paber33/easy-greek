@@ -15,7 +15,6 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { Home, BarChart3, Play } from "lucide-react";
 import confetti from "canvas-confetti";
-import { SessionSkeleton } from "@/components/ui/shimmer";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { StatusBadge } from "@/components/ui/status-badge";
 
@@ -36,38 +35,11 @@ export default function SessionPage() {
     reviewCards: 0,
     learningCards: 0,
   });
-  const [reviewedCards, setReviewedCards] = useState<
-    Array<{ card: CardType; rating: Rating }>
-  >([]);
-  
+  const [reviewedCards, setReviewedCards] = useState<Array<{ card: CardType; rating: Rating }>>([]);
+
   useEffect(() => {
     setMounted(true);
   }, []);
-  
-  if (!mounted || !profileId) {
-    return <LoadingScreen message="Загружаем сессию..." variant="default" />;
-  }
-
-  // Функция для запуска конфетти
-  const triggerConfetti = () => {
-    // Запускаем конфетти
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff']
-    });
-
-    // Дополнительный взрыв конфетти через 500мс
-    setTimeout(() => {
-      confetti({
-        particleCount: 50,
-        spread: 100,
-        origin: { y: 0.6 },
-        colors: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff']
-      });
-    }, 500);
-  };
 
   // Load cards for current profile
   useEffect(() => {
@@ -87,7 +59,7 @@ export default function SessionPage() {
             setQueue(sessionQueue);
           }
         } catch (error) {
-          console.error('Failed to load cards:', error);
+          console.error("Failed to load cards:", error);
           setCards([]);
           setQueue([]);
         }
@@ -114,6 +86,27 @@ export default function SessionPage() {
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [currentIndex, showAnswer, queue]);
 
+  // Функция для запуска конфетти
+  const triggerConfetti = () => {
+    // Запускаем конфетти
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57", "#ff9ff3", "#54a0ff"],
+    });
+
+    // Дополнительный взрыв конфетти через 500мс
+    setTimeout(() => {
+      confetti({
+        particleCount: 50,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57", "#ff9ff3", "#54a0ff"],
+      });
+    }, 500);
+  };
+
   const currentCard = queue[currentIndex];
   const isSessionComplete = currentIndex >= queue.length;
 
@@ -123,16 +116,16 @@ export default function SessionPage() {
     const now = new Date();
     const updatedCard = scheduler.rate(currentCard, rating, now);
 
-    const newCards = cards.map((c) =>
-      c.id === updatedCard.id ? updatedCard : c
-    );
+    const newCards = cards.map(c => (c.id === updatedCard.id ? updatedCard : c));
     setCards(newCards);
-    
+
     // Save updated cards to repository
     try {
-      await LocalCardsRepository.bulkSave(profileId, newCards);
+      if (profileId) {
+        await LocalCardsRepository.bulkSave(profileId, newCards);
+      }
     } catch (error) {
-      console.error('Failed to save cards:', error);
+      console.error("Failed to save cards:", error);
     }
 
     const isCorrect = rating >= 2;
@@ -140,16 +133,11 @@ export default function SessionPage() {
       reviewed: sessionStats.reviewed + 1,
       correct: sessionStats.correct + (isCorrect ? 1 : 0),
       incorrect: sessionStats.incorrect + (isCorrect ? 0 : 1),
-      newCards:
-        sessionStats.newCards + (currentCard.status === "new" ? 1 : 0),
-      reviewCards:
-        sessionStats.reviewCards + (currentCard.status === "review" ? 1 : 0),
+      newCards: sessionStats.newCards + (currentCard.status === "new" ? 1 : 0),
+      reviewCards: sessionStats.reviewCards + (currentCard.status === "review" ? 1 : 0),
       learningCards:
         sessionStats.learningCards +
-        (currentCard.status === "learning" ||
-        currentCard.status === "relearning"
-          ? 1
-          : 0),
+        (currentCard.status === "learning" || currentCard.status === "relearning" ? 1 : 0),
     };
     setSessionStats(newStats);
 
@@ -168,15 +156,15 @@ export default function SessionPage() {
         reviewCards: newStats.reviewCards,
         learningCards: newStats.learningCards,
         accuracy:
-          newStats.reviewed > 0
-            ? Math.round((newStats.correct / newStats.reviewed) * 100)
-            : 0,
+          newStats.reviewed > 0 ? Math.round((newStats.correct / newStats.reviewed) * 100) : 0,
       };
       // Save session log to repository
       try {
-        await LocalLogsRepository.append(profileId, summary);
+        if (profileId) {
+          await LocalLogsRepository.append(profileId, summary);
+        }
       } catch (error) {
-        console.error('Failed to save session log:', error);
+        console.error("Failed to save session log:", error);
       }
       toast.success("Тренировка завершена!", {
         description: `Повторено ${newStats.reviewed} карточек с точностью ${summary.accuracy}%`,
@@ -187,8 +175,8 @@ export default function SessionPage() {
     }
   };
 
-  if (!mounted) {
-    return <SessionSkeleton />;
+  if (!mounted || !profileId) {
+    return <LoadingScreen message="Загружаем сессию..." variant="default" />;
   }
 
   if (queue.length === 0) {
@@ -226,17 +214,13 @@ export default function SessionPage() {
                 <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
                   {sessionStats.reviewed}
                 </div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  Повторено
-                </div>
+                <div className="text-sm text-muted-foreground mt-1">Повторено</div>
               </div>
               <div className="text-center p-4 rounded-lg bg-green-50 dark:bg-green-950/30">
                 <div className="text-3xl font-bold text-green-600 dark:text-green-400">
                   {accuracy}%
                 </div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  Точность
-                </div>
+                <div className="text-sm text-muted-foreground mt-1">Точность</div>
               </div>
               <div className="text-center p-4 rounded-lg bg-purple-50 dark:bg-purple-950/30">
                 <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
@@ -248,18 +232,16 @@ export default function SessionPage() {
                 <div className="text-3xl font-bold text-orange-600 dark:text-orange-400">
                   {sessionStats.reviewCards}
                 </div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  Повторений
-                </div>
+                <div className="text-sm text-muted-foreground mt-1">Повторений</div>
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Button 
+              <Button
                 onClick={() => {
                   // Перезагружаем страницу для новой тренировки
                   window.location.reload();
-                }} 
-                size="lg" 
+                }}
+                size="lg"
                 className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-violet-500 hover:from-purple-600 hover:to-violet-600"
               >
                 <Play className="mr-2 h-4 w-4" />
@@ -296,9 +278,7 @@ export default function SessionPage() {
                   <div className="flex-1">
                     <span className="font-semibold">{card.greek}</span>
                     <span className="mx-2 text-muted-foreground">→</span>
-                    <span className="text-muted-foreground">
-                      {card.translation}
-                    </span>
+                    <span className="text-muted-foreground">{card.translation}</span>
                   </div>
                   <RatingBadge rating={rating} />
                 </div>
@@ -341,7 +321,7 @@ export default function SessionPage() {
             <p className="text-4xl sm:text-6xl font-bold">{currentCard.greek}</p>
             {currentCard.tags && currentCard.tags.length > 0 && (
               <div className="flex gap-2 justify-center flex-wrap">
-                {currentCard.tags.map((tag) => (
+                {currentCard.tags.map(tag => (
                   <Badge key={tag} variant="secondary" className="text-xs">
                     {tag}
                   </Badge>
@@ -414,9 +394,7 @@ export default function SessionPage() {
                     <> • Стабильность: {currentCard.stability.toFixed(1)} дней</>
                   )}
                   {currentCard.lapses > 0 && (
-                    <span className="text-orange-600 ml-2">
-                      • Ошибок: {currentCard.lapses}
-                    </span>
+                    <span className="text-orange-600 ml-2">• Ошибок: {currentCard.lapses}</span>
                   )}
                 </p>
               )}
@@ -428,25 +406,28 @@ export default function SessionPage() {
       {/* Keyboard shortcuts hint - hidden on mobile */}
       <div className="hidden md:block text-center text-sm text-muted-foreground">
         <p>
-          Горячие клавиши: <kbd className="px-2 py-1 rounded bg-muted mx-1">Space</kbd> —
-          показать ответ, <kbd className="px-2 py-1 rounded bg-muted mx-1">1-4</kbd> — оценить
+          Горячие клавиши: <kbd className="px-2 py-1 rounded bg-muted mx-1">Space</kbd> — показать
+          ответ, <kbd className="px-2 py-1 rounded bg-muted mx-1">1-4</kbd> — оценить
         </p>
       </div>
     </div>
   );
 }
 
-
 function RatingBadge({ rating }: { rating: Rating }) {
   const configs = [
     { label: "Again", className: "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-200" },
-    { label: "Hard", className: "bg-orange-100 text-orange-800 dark:bg-orange-950 dark:text-orange-200" },
+    {
+      label: "Hard",
+      className: "bg-orange-100 text-orange-800 dark:bg-orange-950 dark:text-orange-200",
+    },
     { label: "Good", className: "bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-200" },
-    { label: "Easy", className: "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-200" },
+    {
+      label: "Easy",
+      className: "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-200",
+    },
   ];
 
   const config = configs[rating];
-  return (
-    <Badge className={config.className}>{config.label}</Badge>
-  );
+  return <Badge className={config.className}>{config.label}</Badge>;
 }

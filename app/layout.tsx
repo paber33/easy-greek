@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { NavigationWrapper } from "@/components/navigation-wrapper";
@@ -41,9 +40,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ProfileProvider>
-            <NavigationWrapper>
-              {children}
-            </NavigationWrapper>
+            <NavigationWrapper>{children}</NavigationWrapper>
             <Toaster />
           </ProfileProvider>
         </ThemeProvider>
@@ -51,4 +48,3 @@ export default function RootLayout({
     </html>
   );
 }
-

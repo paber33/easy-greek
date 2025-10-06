@@ -1,16 +1,16 @@
-import { ProfileId } from '@/types/profile';
-import { ns, MIGRATION_FLAG_KEY, LEGACY_KEYS, isLegacyKey } from './ns';
-import { localRepository } from './localRepositories';
-import { getTestCards } from './test-data';
+import { ProfileId } from "@/types/profile";
+import { MIGRATION_FLAG_KEY, LEGACY_KEYS, isLegacyKey } from "./ns";
+import { localRepository } from "./localRepositories";
+import { getTestCards } from "./test-data";
 
 /**
  * Проверяет, была ли уже выполнена миграция
  */
 const isMigrationCompleted = (): boolean => {
   if (typeof window === "undefined") return true;
-  
+
   try {
-    return localStorage.getItem(MIGRATION_FLAG_KEY) === 'true';
+    return localStorage.getItem(MIGRATION_FLAG_KEY) === "true";
   } catch {
     return true;
   }
@@ -21,11 +21,11 @@ const isMigrationCompleted = (): boolean => {
  */
 const markMigrationCompleted = (): void => {
   if (typeof window === "undefined") return;
-  
+
   try {
-    localStorage.setItem(MIGRATION_FLAG_KEY, 'true');
+    localStorage.setItem(MIGRATION_FLAG_KEY, "true");
   } catch (error) {
-    console.error('Failed to mark migration as completed:', error);
+    console.error("Failed to mark migration as completed:", error);
   }
 };
 
@@ -34,7 +34,7 @@ const markMigrationCompleted = (): void => {
  */
 const findLegacyKeys = (): string[] => {
   if (typeof window === "undefined") return [];
-  
+
   try {
     const allKeys = Object.keys(localStorage);
     return allKeys.filter(key => isLegacyKey(key));
@@ -79,7 +79,6 @@ const migrateLegacyDataToProfile = async (profileId: ProfileId): Promise<void> =
       await localRepository.config.save(profileId, config);
       console.log(`Migrated config to profile ${profileId}`);
     }
-
   } catch (error) {
     console.error(`Failed to migrate data to profile ${profileId}:`, error);
   }
@@ -98,7 +97,7 @@ const cleanupLegacyKeys = (): void => {
     });
     console.log(`Cleaned up ${legacyKeys.length} legacy keys`);
   } catch (error) {
-    console.error('Failed to cleanup legacy keys:', error);
+    console.error("Failed to cleanup legacy keys:", error);
   }
 };
 
@@ -108,7 +107,7 @@ const cleanupLegacyKeys = (): void => {
 const initializeProfileData = async (profileId: ProfileId): Promise<void> => {
   try {
     const cards = await localRepository.cards.list(profileId);
-    
+
     // Если у профиля нет карточек, добавляем тестовые данные
     if (cards.length === 0) {
       const testCards = getTestCards();
@@ -128,27 +127,27 @@ export const migrateLegacyData = async (): Promise<void> => {
     return; // Миграция уже выполнена
   }
 
-  console.log('Starting legacy data migration...');
+  console.log("Starting legacy data migration...");
 
   try {
     const legacyKeys = findLegacyKeys();
-    
+
     if (legacyKeys.length > 0) {
       // Если есть старые данные, мигрируем их в профиль Pavel
-      await migrateLegacyDataToProfile('pavel');
+      await migrateLegacyDataToProfile("pavel");
       cleanupLegacyKeys();
     }
 
     // Инициализируем данные для обоих профилей
-    await initializeProfileData('pavel');
-    await initializeProfileData('aleksandra');
+    await initializeProfileData("pavel");
+    await initializeProfileData("aleksandra");
 
     // Помечаем миграцию как выполненную
     markMigrationCompleted();
-    
-    console.log('Legacy data migration completed successfully');
+
+    console.log("Legacy data migration completed successfully");
   } catch (error) {
-    console.error('Migration failed:', error);
+    console.error("Migration failed:", error);
     // Не помечаем как выполненную, чтобы попробовать снова
   }
 };

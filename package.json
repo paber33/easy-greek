@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start",
     "lint": "npx eslint . --ext .ts,.tsx,.js,.jsx",
@@ -48,6 +48,7 @@
   "devDependencies": {
     "@playwright/test": "^1.55.1",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.9.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^20",
     "@types/react": "^19",

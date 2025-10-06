@@ -1,5 +1,4 @@
 import { Card } from "@/types";
-import { DEFAULT_CONFIG } from "../constants";
 
 /**
  * Build session queue with proper prioritization
@@ -15,27 +14,24 @@ export function buildSessionQueue(
 
   // 1. All due learning/relearning cards (time-critical)
   const learningDue = allCards.filter(
-    (c) =>
-      (c.status === "learning" || c.status === "relearning") && c.due <= nowISO
+    c => (c.status === "learning" || c.status === "relearning") && c.due <= nowISO
   );
   queue.push(...learningDue);
 
   // 2. Due review cards (sorted by overdue, then by difficulty)
   const reviewDue = allCards
-    .filter((c) => c.status === "review" && c.due <= nowISO)
-    .map((c) => ({
+    .filter(c => c.status === "review" && c.due <= nowISO)
+    .map(c => ({
       card: c,
       overdue: now.getTime() - new Date(c.due).getTime(),
     }))
     .sort((a, b) => b.overdue - a.overdue)
     .slice(0, dailyReviews)
-    .map((x) => x.card);
+    .map(x => x.card);
   queue.push(...reviewDue);
 
   // 3. New cards (FIFO or tag-balanced)
-  const newCards = allCards
-    .filter((c) => c.status === "new")
-    .slice(0, dailyNew);
+  const newCards = allCards.filter(c => c.status === "new").slice(0, dailyNew);
   queue.push(...newCards);
 
   return queue;
@@ -53,9 +49,9 @@ export function generateDistractors(
 
   // Try to get distractors from same tags
   const sameTags = allCards.filter(
-    (c) =>
+    c =>
       c.id !== correctCard.id &&
-      c.tags?.some((t) => correctCard.tags?.includes(t)) &&
+      c.tags?.some(t => correctCard.tags?.includes(t)) &&
       c.translation !== correctCard.translation &&
       !correctCard.translation.includes(c.translation) &&
       !c.translation.includes(correctCard.translation)
@@ -71,7 +67,7 @@ export function generateDistractors(
 
   // Fill remaining with random cards
   const otherCards = allCards.filter(
-    (c) =>
+    c =>
       c.id !== correctCard.id &&
       c.translation !== correctCard.translation &&
       !correctCard.translation.includes(c.translation) &&
@@ -99,4 +95,3 @@ export function shuffleArray<T>(array: T[]): T[] {
   }
   return result;
 }
-

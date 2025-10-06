@@ -1,20 +1,34 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Card, SessionSummary } from '@/types';
-import { useProfile } from '@/lib/hooks/use-profile';
-import { LocalCardsRepository, LocalLogsRepository } from '@/lib/localRepositories';
-import { getTodayISO } from '@/lib/utils';
-import { Card as UICard, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { BookOpen, Play, BarChart3, Flame, Target, Sparkles, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
-import { AuthComponent } from '@/components/auth';
-import { LoginScreen } from '@/components/login-screen';
-import { ProgressCalendar } from '@/components/progress-calendar';
-import { LoadingScreen } from '@/components/ui/loading-screen';
-import { supabase } from '@/lib/supabase';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Card, SessionSummary } from "@/types";
+import { useProfile } from "@/lib/hooks/use-profile";
+import { LocalCardsRepository, LocalLogsRepository } from "@/lib/localRepositories";
+import { getTodayISO } from "@/lib/utils";
+import {
+  Card as UICard,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  BookOpen,
+  Play,
+  BarChart3,
+  Flame,
+  Target,
+  Sparkles,
+  CheckCircle2,
+  Clock,
+  AlertCircle,
+} from "lucide-react";
+import { AuthComponent } from "@/components/auth";
+import { LoginScreen } from "@/components/login-screen";
+import { ProgressCalendar } from "@/components/progress-calendar";
+import { LoadingScreen } from "@/components/ui/loading-screen";
+import { supabase } from "@/lib/supabase";
 
 // ============================================================================
 // Constants
@@ -23,7 +37,10 @@ import { supabase } from '@/lib/supabase';
 const MOTIVATIONAL_PHRASES = [
   { greek: "Κάθε μέρα είναι μια νέα αρχή!", translation: "Каждый день — это новое начало!" },
   { greek: "Η γνώση είναι δύναμη!", translation: "Знание — это сила!" },
-  { greek: "Μικρά βήματα, μεγάλα αποτελέσματα!", translation: "Маленькие шаги, большие результаты!" },
+  {
+    greek: "Μικρά βήματα, μεγάλα αποτελέσματα!",
+    translation: "Маленькие шаги, большие результаты!",
+  },
   { greek: "Η επιμονή πληρώνει!", translation: "Упорство окупается!" },
   { greek: "Μάθε κάτι νέο κάθε μέρα!", translation: "Учись чему-то новому каждый день!" },
   { greek: "Η γλώσσα ανοίγει πόρτες!", translation: "Язык открывает двери!" },
@@ -31,10 +48,16 @@ const MOTIVATIONAL_PHRASES = [
   { greek: "Η πρακτική κάνει τέλειο!", translation: "Практика делает совершенным!" },
   { greek: "Μην τα παρατάς ποτέ!", translation: "Никогда не сдавайся!" },
   { greek: "Κάθε λέξη είναι ένα βήμα προς το στόχο!", translation: "Каждое слово — шаг к цели!" },
-  { greek: "Η επιτυχία είναι το άθροισμα μικρών προσπαθειών!", translation: "Успех — это сумма маленьких усилий!" },
+  {
+    greek: "Η επιτυχία είναι το άθροισμα μικρών προσπαθειών!",
+    translation: "Успех — это сумма маленьких усилий!",
+  },
   { greek: "Μάθε με χαρά και πάθος!", translation: "Учись с радостью и страстью!" },
   { greek: "Η γνώση δεν έχει όρια!", translation: "Знание не имеет границ!" },
-  { greek: "Κάθε δυσκολία είναι μια ευκαιρία!", translation: "Каждая трудность — это возможность!" },
+  {
+    greek: "Κάθε δυσκολία είναι μια ευκαιρία!",
+    translation: "Каждая трудность — это возможность!",
+  },
   { greek: "Το μέλλον ανήκει σε εσένα!", translation: "Будущее принадлежит тебе!" },
 ];
 
@@ -67,7 +90,7 @@ export default function DashboardPage() {
   const [mounted, setMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
-  const [currentPhrase, setCurrentPhrase] = useState<typeof MOTIVATIONAL_PHRASES[0] | null>(null);
+  const [currentPhrase, setCurrentPhrase] = useState<(typeof MOTIVATIONAL_PHRASES)[0] | null>(null);
   const [currentTip, setCurrentTip] = useState<string | null>(null);
 
   // ============================================================================
@@ -76,7 +99,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     setMounted(true);
-    
+
     // Initialize phrase and tip deterministically
     const timeIndex = 0; // Always show first phrase
     const tipIndex = 0; // Always show first tip
@@ -92,7 +115,7 @@ export default function DashboardPage() {
           const cards = await LocalCardsRepository.list(currentProfileId);
           setCards(cards);
         } catch (error) {
-          console.error('Failed to load cards:', error);
+          console.error("Failed to load cards:", error);
           setCards([]);
         }
       };
@@ -108,7 +131,7 @@ export default function DashboardPage() {
           const profileLogs = await LocalLogsRepository.list(currentProfileId);
           setLogs(profileLogs);
         } catch (error) {
-          console.error('Failed to load logs:', error);
+          console.error("Failed to load logs:", error);
           setLogs([]);
         }
       };
@@ -120,10 +143,12 @@ export default function DashboardPage() {
   useEffect(() => {
     const checkAuthState = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
         setIsLoggedIn(!!session);
       } catch (error) {
-        console.error('Error checking auth state:', error);
+        console.error("Error checking auth state:", error);
         setIsLoggedIn(false);
       } finally {
         setIsCheckingAuth(false);
@@ -133,7 +158,9 @@ export default function DashboardPage() {
     checkAuthState();
 
     // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
       setIsLoggedIn(!!session);
     });
 
@@ -144,30 +171,33 @@ export default function DashboardPage() {
   // Computed Values
   // ============================================================================
 
-  const nowISO = new Date().toISOString();
+  // Use stable date for SSR consistency
+  const nowISO = mounted ? new Date().toISOString() : "2024-01-01T00:00:00.000Z";
   const stats = {
     total: cards.length,
-    new: cards.filter((c) => c.status === "new").length,
-    learning: cards.filter((c) => c.status === "learning").length,
-    review: cards.filter((c) => c.status === "review").length,
-    due: cards.filter((c) => c.due <= nowISO).length,
-    leeches: cards.filter((c) => c.isLeech).length,
+    new: cards.filter(c => c.status === "new").length,
+    learning: cards.filter(c => c.status === "learning").length,
+    review: cards.filter(c => c.status === "review").length,
+    due: cards.filter(c => c.due <= nowISO).length,
+    leeches: cards.filter(c => c.isLeech).length,
   };
 
-  const todayLog = logs.find((log) => log.date === getTodayISO());
-  const streak = calculateStreak(logs);
+  const todayLog = logs.find(log => log.date === (mounted ? getTodayISO() : "2024-01-01"));
+  const streak = calculateStreak(logs, mounted);
 
   // ============================================================================
   // Loading States
   // ============================================================================
 
-  if (!mounted || isCheckingAuth || profileLoading || !currentProfileId || !currentPhrase || !currentTip) {
-    return (
-      <LoadingScreen
-        message="Загружаем ваши данные..."
-        variant="greek"
-      />
-    );
+  if (
+    !mounted ||
+    isCheckingAuth ||
+    profileLoading ||
+    !currentProfileId ||
+    !currentPhrase ||
+    !currentTip
+  ) {
+    return <LoadingScreen message="Загружаем ваши данные..." variant="greek" />;
   }
 
   if (!isLoggedIn) {
@@ -183,12 +213,8 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
-            Добро пожаловать! 👋
-          </h1>
-          <p className="text-muted-foreground mt-1">
-            Готовы изучать греческий язык?
-          </p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Добро пожаловать! 👋</h1>
+          <p className="text-muted-foreground mt-1">Готовы изучать греческий язык?</p>
         </div>
         <AuthComponent />
       </div>
@@ -221,7 +247,7 @@ export default function DashboardPage() {
                 <div>
                   <h3 className="font-semibold text-lg">Начать тренировку</h3>
                   <p className="text-sm text-muted-foreground">
-                    {stats.due > 0 ? `${stats.due} карточек готовы` : 'Нет карточек для повторения'}
+                    {stats.due > 0 ? `${stats.due} карточек готовы` : "Нет карточек для повторения"}
                   </p>
                 </div>
               </div>
@@ -257,7 +283,7 @@ export default function DashboardPage() {
                 <div>
                   <h3 className="font-semibold text-lg">Статистика</h3>
                   <p className="text-sm text-muted-foreground">
-                    {streak > 0 ? `${streak} дней подряд` : 'Начните серию!'}
+                    {streak > 0 ? `${streak} дней подряд` : "Начните серию!"}
                   </p>
                 </div>
               </div>
@@ -318,21 +344,15 @@ export default function DashboardPage() {
           <CardContent>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">
-                  {todayLog.totalReviewed}
-                </div>
+                <div className="text-2xl font-bold text-primary">{todayLog.totalReviewed}</div>
                 <div className="text-sm text-muted-foreground">Просмотрено</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">
-                  {todayLog.correct}
-                </div>
+                <div className="text-2xl font-bold text-green-600">{todayLog.correct}</div>
                 <div className="text-sm text-muted-foreground">Правильно</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-red-600">
-                  {todayLog.incorrect}
-                </div>
+                <div className="text-2xl font-bold text-red-600">{todayLog.incorrect}</div>
                 <div className="text-sm text-muted-foreground">Ошибок</div>
               </div>
               <div className="text-center">
@@ -356,9 +376,7 @@ export default function DashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-green-700 dark:text-green-300 leading-relaxed">
-              {currentTip}
-            </p>
+            <p className="text-green-700 dark:text-green-300 leading-relaxed">{currentTip}</p>
           </CardContent>
         </UICard>
       )}
@@ -367,9 +385,7 @@ export default function DashboardPage() {
       <UICard>
         <CardHeader>
           <CardTitle>Календарь прогресса</CardTitle>
-          <CardDescription>
-            Ваша активность за последние 30 дней
-          </CardDescription>
+          <CardDescription>Ваша активность за последние 30 дней</CardDescription>
         </CardHeader>
         <CardContent>
           <ProgressCalendar />
@@ -387,26 +403,24 @@ interface StatCardProps {
   icon: React.ReactNode;
   label: string;
   value: number;
-  color: 'blue' | 'purple' | 'orange' | 'green' | 'red' | 'yellow';
+  color: "blue" | "purple" | "orange" | "green" | "red" | "yellow";
 }
 
 function StatCard({ icon, label, value, color }: StatCardProps) {
   const colorClasses = {
-    blue: 'text-blue-600 dark:text-blue-400',
-    purple: 'text-purple-600 dark:text-purple-400',
-    orange: 'text-orange-600 dark:text-orange-400',
-    green: 'text-green-600 dark:text-green-400',
-    red: 'text-red-600 dark:text-red-400',
-    yellow: 'text-yellow-600 dark:text-yellow-400',
+    blue: "text-blue-600 dark:text-blue-400",
+    purple: "text-purple-600 dark:text-purple-400",
+    orange: "text-orange-600 dark:text-orange-400",
+    green: "text-green-600 dark:text-green-400",
+    red: "text-red-600 dark:text-red-400",
+    yellow: "text-yellow-600 dark:text-yellow-400",
   };
 
   return (
     <UICard className="hover:shadow-md transition-shadow duration-200">
       <CardContent className="p-4">
         <div className="flex items-center space-x-3">
-          <div className={colorClasses[color]}>
-            {icon}
-          </div>
+          <div className={colorClasses[color]}>{icon}</div>
           <div>
             <div className="text-2xl font-bold">{value}</div>
             <div className="text-sm text-muted-foreground">{label}</div>
@@ -421,12 +435,13 @@ function StatCard({ icon, label, value, color }: StatCardProps) {
 // Helper Functions
 // ============================================================================
 
-function calculateStreak(logs: SessionSummary[]): number {
+function calculateStreak(logs: SessionSummary[], mounted: boolean): number {
   if (logs.length === 0) return 0;
 
   const sorted = [...logs].sort((a, b) => b.date.localeCompare(a.date));
   let streak = 0;
-  let checkDate = new Date();
+  // Use stable date for SSR consistency
+  let checkDate = mounted ? new Date() : new Date("2024-01-01");
 
   for (const log of sorted) {
     const logDate = new Date(log.date);

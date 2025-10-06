@@ -6,7 +6,14 @@ import { LocalLogsRepository } from "@/lib/localRepositories";
 import { useCurrentProfileId } from "@/lib/hooks/use-profile";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
 import { Flame, TrendingUp, Target, Calendar } from "lucide-react";
 import { ProgressCalendar } from "@/components/progress-calendar";
@@ -18,36 +25,6 @@ export default function LogsPage() {
   const [logs, setLogs] = useState<SessionSummary[]>([]);
   const [viewDays, setViewDays] = useState<7 | 30>(7);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  
-  if (!mounted || !profileId) {
-    return <LoadingScreen message="Загружаем логи..." variant="default" />;
-  }
-
-  // Load logs for current profile
-  useEffect(() => {
-    if (mounted && profileId) {
-      const loadLogsForProfile = async () => {
-        try {
-          const profileLogs = await LocalLogsRepository.list(profileId);
-          setLogs(profileLogs);
-        } catch (error) {
-          console.error('Failed to load logs:', error);
-          setLogs([]);
-        }
-      };
-      loadLogsForProfile();
-    }
-  }, [mounted, profileId]);
-
-  useEffect(() => {
-    if (mounted && canvasRef.current) {
-      drawChart();
-    }
-  }, [logs, viewDays, mounted]);
 
   const drawChart = () => {
     const canvas = canvasRef.current;
@@ -67,13 +44,11 @@ export default function LogsPage() {
 
     ctx.clearRect(0, 0, width, height);
 
-    const sortedLogs = [...logs]
-      .sort((a, b) => a.date.localeCompare(b.date))
-      .slice(-viewDays);
+    const sortedLogs = [...logs].sort((a, b) => a.date.localeCompare(b.date)).slice(-viewDays);
 
     if (sortedLogs.length === 0) return;
 
-    const maxValue = Math.max(...sortedLogs.map((l) => l.totalReviewed), 1);
+    const maxValue = Math.max(...sortedLogs.map(l => l.totalReviewed), 1);
     const padding = 40;
     const chartHeight = height - padding * 2;
     const barWidth = (width - padding * 2) / sortedLogs.length;
@@ -106,7 +81,8 @@ export default function LogsPage() {
       });
       ctx.fillText(label, x + barWidth / 2, height - padding + 15);
 
-      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--foreground') || "#111827";
+      ctx.fillStyle =
+        getComputedStyle(document.documentElement).getPropertyValue("--foreground") || "#111827";
       ctx.font = "12px sans-serif";
       ctx.fillText(String(log.totalReviewed), x + barWidth / 2, y - 5);
     });
@@ -124,8 +100,34 @@ export default function LogsPage() {
     ctx.stroke();
   };
 
-  if (!mounted) {
-    return <div className="text-center py-8">Загрузка...</div>;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Load logs for current profile
+  useEffect(() => {
+    if (mounted && profileId) {
+      const loadLogsForProfile = async () => {
+        try {
+          const profileLogs = await LocalLogsRepository.list(profileId);
+          setLogs(profileLogs);
+        } catch (error) {
+          console.error("Failed to load logs:", error);
+          setLogs([]);
+        }
+      };
+      loadLogsForProfile();
+    }
+  }, [mounted, profileId]);
+
+  useEffect(() => {
+    if (mounted && canvasRef.current) {
+      drawChart();
+    }
+  }, [logs, viewDays, mounted, drawChart]);
+
+  if (!mounted || !profileId) {
+    return <LoadingScreen message="Загружаем логи..." variant="default" />;
   }
 
   const sortedLogs = [...logs].sort((a, b) => b.date.localeCompare(a.date));
@@ -148,8 +150,7 @@ export default function LogsPage() {
 
   const totalReviewed = logs.reduce((sum, log) => sum + log.totalReviewed, 0);
   const totalCorrect = logs.reduce((sum, log) => sum + log.correct, 0);
-  const overallAccuracy =
-    totalReviewed > 0 ? Math.round((totalCorrect / totalReviewed) * 100) : 0;
+  const overallAccuracy = totalReviewed > 0 ? Math.round((totalCorrect / totalReviewed) * 100) : 0;
 
   const formatDate = (isoDate: string) => {
     const date = new Date(isoDate);
@@ -158,11 +159,7 @@ export default function LogsPage() {
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
-    const logDate = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate()
-    );
+    const logDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
     if (logDate.getTime() === today.getTime()) return "Сегодня";
     if (logDate.getTime() === yesterday.getTime()) return "Вчера";
@@ -190,61 +187,61 @@ export default function LogsPage() {
       <div className="grid gap-3 sm:gap-4 grid-cols-2 md:grid-cols-4">
         <Card className="border border-slate-200/50 dark:border-slate-700/50 shadow-sm bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">Дней подряд</CardTitle>
+            <CardTitle className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
+              Дней подряд
+            </CardTitle>
             <Flame className="h-4 w-4 text-orange-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl sm:text-3xl font-bold text-orange-600 dark:text-orange-400">
               {currentStreak}
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-              Продолжайте!
-            </p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Продолжайте!</p>
           </CardContent>
         </Card>
 
         <Card className="border border-slate-200/50 dark:border-slate-700/50 shadow-sm bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">Повторений</CardTitle>
+            <CardTitle className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
+              Повторений
+            </CardTitle>
             <TrendingUp className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl sm:text-3xl font-bold text-green-600 dark:text-green-400">
               {totalReviewed}
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-              За все время
-            </p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">За все время</p>
           </CardContent>
         </Card>
 
         <Card className="border border-slate-200/50 dark:border-slate-700/50 shadow-sm bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">Точность</CardTitle>
+            <CardTitle className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
+              Точность
+            </CardTitle>
             <Target className="h-4 w-4 text-purple-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl sm:text-3xl font-bold text-purple-600 dark:text-purple-400">
               {overallAccuracy}%
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-              Правильных
-            </p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Правильных</p>
           </CardContent>
         </Card>
 
         <Card className="border border-slate-200/50 dark:border-slate-700/50 shadow-sm bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">Сессий</CardTitle>
+            <CardTitle className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
+              Сессий
+            </CardTitle>
             <Calendar className="h-4 w-4 text-blue-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400">
               {logs.length}
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-              Учебных
-            </p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Учебных</p>
           </CardContent>
         </Card>
       </div>
@@ -257,15 +254,21 @@ export default function LogsPage() {
         <CardHeader>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
             <div>
-              <CardTitle className="text-slate-800 dark:text-slate-200">График активности</CardTitle>
+              <CardTitle className="text-slate-800 dark:text-slate-200">
+                График активности
+              </CardTitle>
               <CardDescription className="text-slate-600 dark:text-slate-400 mt-1">
                 Ваша активность за последние дни
               </CardDescription>
             </div>
-            <Tabs value={viewDays.toString()} onValueChange={(v) => setViewDays(Number(v) as 7 | 30)}>
+            <Tabs value={viewDays.toString()} onValueChange={v => setViewDays(Number(v) as 7 | 30)}>
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="7" className="text-xs sm:text-sm">7 дней</TabsTrigger>
-                <TabsTrigger value="30" className="text-xs sm:text-sm">30 дней</TabsTrigger>
+                <TabsTrigger value="7" className="text-xs sm:text-sm">
+                  7 дней
+                </TabsTrigger>
+                <TabsTrigger value="30" className="text-xs sm:text-sm">
+                  30 дней
+                </TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
@@ -326,11 +329,9 @@ export default function LogsPage() {
                   </TableCell>
                 </TableRow>
               ) : (
-                recentLogs.map((log) => (
+                recentLogs.map(log => (
                   <TableRow key={log.date}>
-                    <TableCell className="font-medium">
-                      {formatDate(log.date)}
-                    </TableCell>
+                    <TableCell className="font-medium">{formatDate(log.date)}</TableCell>
                     <TableCell>{log.totalReviewed}</TableCell>
                     <TableCell className="text-green-600 dark:text-green-400">
                       {log.correct}
@@ -341,9 +342,7 @@ export default function LogsPage() {
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Progress value={log.accuracy} className="h-2 w-20" />
-                        <span className="text-sm font-semibold min-w-[45px]">
-                          {log.accuracy}%
-                        </span>
+                        <span className="text-sm font-semibold min-w-[45px]">{log.accuracy}%</span>
                       </div>
                     </TableCell>
                     <TableCell className="text-sm">{log.newCards}</TableCell>

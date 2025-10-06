@@ -1,15 +1,26 @@
-'use client'
+"use client";
 
-import { useState } from 'react';
-import { useProfile, useCurrentProfileId } from '@/app/providers/ProfileProvider';
-import { ProfileId } from '@/types/profile';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
-import { toast } from 'sonner';
-import { ChevronDown, User, LogOut } from 'lucide-react';
+import { useState } from "react";
+import { useProfile } from "@/app/providers/ProfileProvider";
+import { ProfileId } from "@/types/profile";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
+import { ChevronDown, User, LogOut } from "lucide-react";
 
 export function ProfileSwitcher() {
-  const { currentProfileId, setCurrentProfileId, profiles, isLoading: profileLoading } = useProfile();
+  const {
+    currentProfileId,
+    setCurrentProfileId,
+    profiles,
+    isLoading: profileLoading,
+  } = useProfile();
   const [isLoading, setIsLoading] = useState(false);
 
   if (profileLoading || !currentProfileId) {
@@ -26,7 +37,7 @@ export function ProfileSwitcher() {
       setCurrentProfileId(profileId as ProfileId);
       toast.success(`✅ Переключение на ${profiles.find(p => p.id === profileId)?.name}`);
     } catch (error: any) {
-      console.error('Profile switch failed:', error);
+      console.error("Profile switch failed:", error);
       toast.error(`Ошибка: ${error.message}`);
     } finally {
       setIsLoading(false);
@@ -47,8 +58,8 @@ export function ProfileSwitcher() {
           Переключить профиль
         </div>
         <DropdownMenuSeparator />
-        
-        {profiles.map((profile) => (
+
+        {profiles.map(profile => (
           <DropdownMenuItem
             key={profile.id}
             onClick={() => handleProfileSwitch(profile.id)}
@@ -62,11 +73,11 @@ export function ProfileSwitcher() {
             )}
           </DropdownMenuItem>
         ))}
-        
+
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
-            toast.info('Выход из профиля не требуется - просто переключитесь на другой профиль');
+            toast.info("Выход из профиля не требуется - просто переключитесь на другой профиль");
           }}
           className="cursor-pointer text-muted-foreground"
         >
