@@ -37,11 +37,35 @@ const save = (key: string, value: unknown): void => {
 };
 
 /**
- * Репозиторий карточек для localStorage
+ * Репозиторий карточек для localStorage с автоматической синхронизацией Supabase
  */
 export const LocalCardsRepository: CardsRepository = {
   async list(profileId: ProfileId): Promise<Card[]> {
-    return load(ns(profileId, "cards"), [] as Card[]);
+    // Сначала пытаемся загрузить из localStorage
+    const localCards = load(ns(profileId, "cards"), [] as Card[]);
+    
+    // Если есть локальные карточки, возвращаем их
+    if (localCards.length > 0) {
+      return localCards;
+    }
+    
+    // Если локальных карточек нет, пытаемся загрузить из Supabase
+    try {
+      const { syncService } = await import('../sync');
+      const userData = await syncService.loadUserData();
+      
+      if (userData && userData.cards.length > 0) {
+        // Сохраняем карточки из Supabase в localStorage
+        save(ns(profileId, "cards"), userData.cards);
+        console.log(`Loaded ${userData.cards.length} cards from Supabase for profile ${profileId}`);
+        return userData.cards;
+      }
+    } catch (error) {
+      console.log('Failed to load cards from Supabase, using local data:', error);
+    }
+    
+    // Если ничего не найдено, возвращаем пустой массив
+    return [];
   },
 
   async upsert(profileId: ProfileId, card: Card): Promise<void> {
@@ -55,10 +79,27 @@ export const LocalCardsRepository: CardsRepository = {
     }
     
     save(ns(profileId, "cards"), cards);
+    
+    // Автоматически синхронизируем с Supabase
+    try {
+      const { syncService } = await import('../sync');
+      await syncService.syncCards(cards);
+    } catch (error) {
+      console.log('Failed to sync cards to Supabase:', error);
+    }
   },
 
   async bulkSave(profileId: ProfileId, cards: Card[]): Promise<void> {
     save(ns(profileId, "cards"), cards);
+    
+    // Автоматически синхронизируем с Supabase
+    try {
+      const { syncService } = await import('../sync');
+      await syncService.syncCards(cards);
+      console.log(`Synced ${cards.length} cards to Supabase for profile ${profileId}`);
+    } catch (error) {
+      console.log('Failed to sync cards to Supabase:', error);
+    }
   },
 
   async remove(profileId: ProfileId, id: string): Promise<void> {
