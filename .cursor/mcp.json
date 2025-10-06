@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "servers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["mcp-playwright"],
+      "env": {
+        "PLAYWRIGHT_BROWSERS_PATH": "0",
+        "PLAYWRIGHT_HEADLESS": "true"
+      }
+    }
+  }
+}
