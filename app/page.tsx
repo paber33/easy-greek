@@ -33,27 +33,59 @@ const motivationalPhrases = [
   { greek: "Το μέλλον ανήκει σε εσένα!", translation: "Будущее принадлежит тебе!" }
 ];
 
+// Советы для изучения греческого языка
+const learningTips = [
+  "Старайтесь заниматься каждый день хотя бы 10-15 минут. Регулярные повторения — ключ к эффективному запоминанию!",
+  "Используйте мнемотехники для запоминания сложных слов. Создавайте ассоциации с русскими словами.",
+  "Слушайте греческую музыку и смотрите фильмы с субтитрами. Это поможет развить восприятие на слух.",
+  "Практикуйте произношение вслух. Греческий язык имеет уникальные звуки, которые важно освоить.",
+  "Изучайте не только слова, но и грамматику. Понимание структуры языка ускорит обучение.",
+  "Используйте карточки для повторения. Система интервальных повторений поможет закрепить материал.",
+  "Читайте простые тексты на греческом. Начните с детских книг или адаптированной литературы.",
+  "Общайтесь с носителями языка. Практика разговорной речи — важная часть изучения.",
+  "Ведите дневник на греческом языке. Записывайте новые слова и фразы, которые выучили.",
+  "Изучайте греческую культуру и историю. Это поможет лучше понять контекст языка.",
+  "Используйте приложения для изучения языков как дополнение к основным занятиям.",
+  "Повторяйте материал в разное время дня. Утренние и вечерние занятия по-разному влияют на память.",
+  "Создавайте собственные примеры с новыми словами. Это поможет лучше их запомнить.",
+  "Не бойтесь делать ошибки. Они — естественная часть процесса обучения.",
+  "Ставьте конкретные цели. Например, выучить 50 новых слов за неделю или прочитать первую главу книги."
+];
+
 export default function Dashboard() {
   const [cards, setCards] = useState<Card[]>([]);
   const [mounted, setMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentPhrase, setCurrentPhrase] = useState(motivationalPhrases[0]);
+  const [currentTip, setCurrentTip] = useState(learningTips[0]);
 
   useEffect(() => {
     setMounted(true);
     setCards(loadCards());
     
-    // Инициализируем случайную фразу только на клиенте
+    // Инициализируем случайную фразу и совет только на клиенте
     setCurrentPhrase(motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)]);
+    setCurrentTip(learningTips[Math.floor(Math.random() * learningTips.length)]);
   }, []);
 
-  // Смена мотивирующей фразы каждые 5 секунд
+  // Смена мотивирующей фразы каждые 30 секунд
   useEffect(() => {
     if (!mounted) return;
     
     const interval = setInterval(() => {
       setCurrentPhrase(motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)]);
-    }, 5000);
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [mounted]);
+
+  // Смена совета каждый час (3600000 мс)
+  useEffect(() => {
+    if (!mounted) return;
+    
+    const interval = setInterval(() => {
+      setCurrentTip(learningTips[Math.floor(Math.random() * learningTips.length)]);
+    }, 3600000);
 
     return () => clearInterval(interval);
   }, [mounted]);
@@ -94,14 +126,11 @@ export default function Dashboard() {
       {/* Header with user switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="space-y-1 sm:space-y-2">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight bg-gradient-to-r from-slate-600 to-slate-800 dark:from-slate-300 dark:to-slate-100 bg-clip-text text-transparent">
-            Добро пожаловать в Greekly! 🇬🇷
-          </h1>
           <div className="space-y-1">
-            <p className="text-lg sm:text-xl font-medium text-slate-700 dark:text-slate-300 transition-all duration-500">
+            <p className="text-xl sm:text-2xl lg:text-3xl font-medium text-slate-700 dark:text-slate-300 transition-all duration-500">
               {currentPhrase.greek}
             </p>
-            <p className="text-muted-foreground text-sm sm:text-base transition-all duration-500">
+            <p className="text-muted-foreground text-base sm:text-lg transition-all duration-500">
               {currentPhrase.translation}
             </p>
           </div>
@@ -271,15 +300,14 @@ export default function Dashboard() {
 
       {/* Tips */}
       <UICard className="bg-blue-50/50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-lg">
-            💡 Совет дня
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-base">
+            💡 Совет
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <p className="text-foreground">
-            Старайтесь заниматься каждый день хотя бы 10-15 минут. Регулярные
-            повторения — ключ к эффективному запоминанию!
+        <CardContent className="pt-0">
+          <p className="text-sm text-foreground transition-all duration-500">
+            {currentTip}
           </p>
         </CardContent>
       </UICard>

@@ -10,6 +10,7 @@ import { loadUserDataFromSupabase, mergeUserDataWithLocal, syncAllDataToSupabase
 import { testSupabaseConnection } from '@/lib/test-supabase'
 import { getTestCards } from '@/lib/test-data'
 import { USER_CONFIGS, getUserConfig, getCurrentUserFromEmail } from '@/lib/user-config'
+import { clearAuthTokens, fixBrokenSession, safeSignIn, safeSignUp } from '@/lib/auth-utils'
 import { toast } from 'sonner'
 import { Logo } from '@/components/logo'
 
@@ -27,37 +28,68 @@ export function AuthComponent() {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        setIsSignedIn(!!session)
-        
-        if (event === 'SIGNED_IN' && session) {
-          const userType = getCurrentUserFromEmail(session.user.email || '')
-          setCurrentUser(userType)
+        try {
+          setIsSignedIn(!!session)
           
-          const userConfig = userType ? getUserConfig(userType) : null
-          const userName = userConfig?.name || 'Пользователь'
-          
-          toast.success(`Добро пожаловать, ${userName}! 👋`)
-          // Загружаем данные пользователя из Supabase
-          await handleLoadUserData()
-        } else if (event === 'SIGNED_OUT') {
-          setCurrentUser(null)
-          toast.info('Вы вышли из системы')
+          if (event === 'SIGNED_IN' && session) {
+            const userType = getCurrentUserFromEmail(session.user.email || '')
+            setCurrentUser(userType)
+            
+            const userConfig = userType ? getUserConfig(userType) : null
+            const userName = userConfig?.name || 'Пользователь'
+            
+            toast.success(`Добро пожаловать, ${userName}! 👋`)
+            // Загружаем данные пользователя из Supabase
+            await handleLoadUserData()
+          } else if (event === 'SIGNED_OUT') {
+            setCurrentUser(null)
+            toast.info('Вы вышли из системы')
+          } else if (event === 'TOKEN_REFRESHED') {
+            console.log('Token refreshed successfully')
+          }
+        } catch (error) {
+          console.error('Auth state change error:', error)
+          // Если произошла ошибка с токеном, выходим из системы
+          if (error instanceof Error && error.message.includes('refresh token')) {
+            await supabase.auth.signOut()
+            toast.error('Сессия истекла. Пожалуйста, войдите заново.')
+          }
         }
       }
     )
 
     // Автоматический вход в учетную запись Pavel при загрузке
     const autoLoginOnStartup = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (!session) {
-        // Если пользователь не авторизован, автоматически входим в учетную запись Pavel
+      try {
+        const result = await fixBrokenSession()
+        
+        if (!result.success) {
+          if (result.needsReauth) {
+            // Если нужна повторная аутентификация, автоматически входим в Pavel
+            setTimeout(() => {
+              handleUserLogin('pavel')
+            }, 1000)
+          }
+          return
+        }
+        
+        if (!result.session) {
+          // Если пользователь не авторизован, автоматически входим в учетную запись Pavel
+          setTimeout(() => {
+            handleUserLogin('pavel')
+          }, 1000) // Небольшая задержка для лучшего UX
+        } else {
+          // Определяем текущего пользователя
+          const userType = getCurrentUserFromEmail(result.session.user.email || '')
+          setCurrentUser(userType)
+        }
+      } catch (error) {
+        console.error('Auto login error:', error)
+        // В случае ошибки, очищаем сессию и пытаемся войти заново
+        clearAuthTokens()
         setTimeout(() => {
           handleUserLogin('pavel')
-        }, 1000) // Небольшая задержка для лучшего UX
-      } else {
-        // Определяем текущего пользователя
-        const userType = getCurrentUserFromEmail(session.user.email || '')
-        setCurrentUser(userType)
+        }, 1000)
       }
     }
 
@@ -69,12 +101,12 @@ export function AuthComponent() {
   const handleSignUp = async () => {
     setIsLoading(true)
     try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-      })
-      if (error) throw error
-      toast.success('Проверьте вашу почту для подтверждения регистрации!')
+      const result = await safeSignUp(email, password)
+      if (result.success) {
+        toast.success('Проверьте вашу почту для подтверждения регистрации!')
+      } else {
+        toast.error(result.error || 'Ошибка регистрации')
+      }
     } catch (error: any) {
       toast.error(error.message || 'Ошибка регистрации')
     } finally {
@@ -85,11 +117,10 @@ export function AuthComponent() {
   const handleSignIn = async () => {
     setIsLoading(true)
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-      if (error) throw error
+      const result = await safeSignIn(email, password)
+      if (!result.success) {
+        toast.error(result.error || 'Ошибка входа')
+      }
     } catch (error: any) {
       toast.error(error.message || 'Ошибка входа')
     } finally {
@@ -98,7 +129,16 @@ export function AuthComponent() {
   }
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
+    try {
+      await supabase.auth.signOut()
+      // Очищаем localStorage от возможных поврежденных токенов
+      localStorage.removeItem('sb-' + (process.env.NEXT_PUBLIC_SUPABASE_URL?.split('//')[1]?.split('.')[0] || 'dummy') + '-auth-token')
+    } catch (error) {
+      console.error('Sign out error:', error)
+      // Принудительно очищаем localStorage
+      localStorage.clear()
+      window.location.reload()
+    }
   }
 
   const handleLoadUserData = async () => {
@@ -281,9 +321,22 @@ export function AuthComponent() {
             </div>
           </div>
 
-          <Button onClick={handleSignOut} variant="destructive" className="w-full">
-            Выйти
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={handleSignOut} variant="destructive" className="flex-1">
+              Выйти
+            </Button>
+            <Button 
+              onClick={() => {
+                clearAuthTokens()
+                toast.success('Токены очищены. Перезагрузите страницу.')
+              }} 
+              variant="outline" 
+              className="flex-1"
+              title="Очистить поврежденные токены аутентификации"
+            >
+              🔧
+            </Button>
+          </div>
         </CardContent>
       </Card>
     )

@@ -16,6 +16,15 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Easy Greek - Spaced Repetition Learning",
   description: "Учите греческий язык с умным FSRS-lite алгоритмом повторений",
+  keywords: "греческий язык, изучение языков, spaced repetition, FSRS",
+  authors: [{ name: "Easy Greek Team" }],
+  robots: "index, follow",
+  openGraph: {
+    title: "Easy Greek - Spaced Repetition Learning",
+    description: "Учите греческий язык с умным FSRS-lite алгоритмом повторений",
+    type: "website",
+    locale: "ru_RU",
+  },
 };
 
 export default function RootLayout({
