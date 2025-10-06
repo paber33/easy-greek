@@ -11,12 +11,51 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
-import { Plus, Play, Search, Download, Upload, MoreVertical, Edit2, RotateCcw, Trash2, FileUp } from "lucide-react";
+import {
+  Plus,
+  Play,
+  Search,
+  Download,
+  Upload,
+  MoreVertical,
+  Edit2,
+  RotateCcw,
+  Trash2,
+  FileUp,
+} from "lucide-react";
 import { JsonUpload } from "@/components/json-upload";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -51,13 +90,13 @@ function WordsPageContent() {
   // Memoized function to load cards
   const loadCardsForProfile = useCallback(async () => {
     if (!profileId) return;
-    
+
     try {
       const loaded = await LocalCardsRepository.list(profileId);
       setCards(loaded);
       setFilteredCards(loaded);
     } catch (error) {
-      console.error('Failed to load cards:', error);
+      console.error("Failed to load cards:", error);
       setCards([]);
       setFilteredCards([]);
     }
@@ -74,7 +113,7 @@ function WordsPageContent() {
     // Apply URL parameters
     const status = searchParams.get("status");
     const leech = searchParams.get("leech");
-    
+
     if (status) {
       setStatusFilter(status);
     }
@@ -86,15 +125,15 @@ function WordsPageContent() {
   // Auto-save cards when they change
   useEffect(() => {
     if (!mounted || !profileId || cards.length === 0) return;
-    
+
     const saveCardsToRepository = async () => {
       try {
         await LocalCardsRepository.bulkSave(profileId, cards);
       } catch (error) {
-        console.error('Failed to save cards:', error);
+        console.error("Failed to save cards:", error);
       }
     };
-    
+
     saveCardsToRepository();
   }, [cards, mounted, profileId]);
 
@@ -105,22 +144,20 @@ function WordsPageContent() {
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       result = result.filter(
-        (c) =>
-          c.greek.toLowerCase().includes(term) ||
-          c.translation.toLowerCase().includes(term)
+        c => c.greek.toLowerCase().includes(term) || c.translation.toLowerCase().includes(term)
       );
     }
 
     if (statusFilter !== "all") {
-      result = result.filter((c) => c.status === statusFilter);
+      result = result.filter(c => c.status === statusFilter);
     }
 
     if (tagFilter !== "all") {
-      result = result.filter((c) => c.tags?.includes(tagFilter));
+      result = result.filter(c => c.tags?.includes(tagFilter));
     }
 
     if (leechFilter) {
-      result = result.filter((c) => c.isLeech);
+      result = result.filter(c => c.isLeech);
     }
 
     result.sort((a, b) => {
@@ -148,7 +185,7 @@ function WordsPageContent() {
       translation: formData.translation,
       tags: formData.tags
         .split(",")
-        .map((t) => t.trim())
+        .map(t => t.trim())
         .filter(Boolean),
       status: "new",
       reps: 0,
@@ -164,7 +201,7 @@ function WordsPageContent() {
     };
 
     if (editingId) {
-      setCards(cards.map((c) => (c.id === editingId ? { ...c, ...newCard } : c)));
+      setCards(cards.map(c => (c.id === editingId ? { ...c, ...newCard } : c)));
       toast.success("Карточка обновлена");
     } else {
       setCards([...cards, newCard]);
@@ -188,7 +225,7 @@ function WordsPageContent() {
 
   const handleReset = (id: string) => {
     setCards(
-      cards.map((c) =>
+      cards.map(c =>
         c.id === id
           ? {
               ...c,
@@ -214,7 +251,7 @@ function WordsPageContent() {
   };
 
   const handleDelete = (id: string) => {
-    setCards(cards.filter((c) => c.id !== id));
+    setCards(cards.filter(c => c.id !== id));
     toast.success("Карточка удалена");
   };
 
@@ -223,8 +260,12 @@ function WordsPageContent() {
       toast.info("Словарь уже пуст");
       return;
     }
-    
-    if (confirm(`Вы уверены, что хотите удалить все ${cards.length} слов из словаря? Это действие нельзя отменить.`)) {
+
+    if (
+      confirm(
+        `Вы уверены, что хотите удалить все ${cards.length} слов из словаря? Это действие нельзя отменить.`
+      )
+    ) {
       setCards([]);
       setFilteredCards([]);
       toast.success(`Удалено ${cards.length} слов из словаря`);
@@ -248,7 +289,7 @@ function WordsPageContent() {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = event => {
       const csv = event.target?.result as string;
       if (csv) {
         const imported = importFromCSV(csv);
@@ -263,24 +304,22 @@ function WordsPageContent() {
 
   const handleJsonCardsAdded = async () => {
     if (!profileId) return;
-    
+
     // Reload cards from repository after JSON upload
     try {
       const updatedCards = await LocalCardsRepository.list(profileId);
       setCards(updatedCards);
       setFilteredCards(updatedCards);
     } catch (error) {
-      console.error('Failed to reload cards after JSON upload:', error);
+      console.error("Failed to reload cards after JSON upload:", error);
     }
     // Закрываем попап после успешной загрузки
     setShowJsonUploadDialog(false);
   };
 
-  const allTags = Array.from(
-    new Set(cards.flatMap((c) => c.tags || []))
-  ).sort();
+  const allTags = Array.from(new Set(cards.flatMap(c => c.tags || []))).sort();
 
-  const dueCount = cards.filter((c) => c.due <= new Date().toISOString()).length;
+  const dueCount = cards.filter(c => c.due <= new Date().toISOString()).length;
 
   if (!mounted || !profileId) {
     return <LoadingScreen message="Загружаем слова..." variant="default" />;
@@ -307,7 +346,9 @@ function WordsPageContent() {
                   </Badge>
                 )}
                 {leechFilter && (
-                  <Badge variant="destructive" className="text-xs">Трудные</Badge>
+                  <Badge variant="destructive" className="text-xs">
+                    Трудные
+                  </Badge>
                 )}
               </span>
             )}
@@ -316,8 +357,11 @@ function WordsPageContent() {
         <div className="flex gap-3 flex-wrap">
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
             <DialogTrigger asChild>
-              <Button 
-                onClick={() => { setEditingId(null); setFormData({ greek: "", translation: "", tags: "" }); }} 
+              <Button
+                onClick={() => {
+                  setEditingId(null);
+                  setFormData({ greek: "", translation: "", tags: "" });
+                }}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg transition-all duration-200"
               >
                 <Plus className="mr-2 h-4 w-4" />
@@ -329,9 +373,7 @@ function WordsPageContent() {
                 <DialogTitle>
                   {editingId ? "Редактировать слово" : "Добавить новое слово"}
                 </DialogTitle>
-                <DialogDescription>
-                  Введите греческое слово, перевод и теги
-                </DialogDescription>
+                <DialogDescription>Введите греческое слово, перевод и теги</DialogDescription>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
@@ -339,9 +381,7 @@ function WordsPageContent() {
                   <Input
                     placeholder="Γεια σου"
                     value={formData.greek}
-                    onChange={(e) =>
-                      setFormData({ ...formData, greek: e.target.value })
-                    }
+                    onChange={e => setFormData({ ...formData, greek: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -349,21 +389,15 @@ function WordsPageContent() {
                   <Input
                     placeholder="Привет"
                     value={formData.translation}
-                    onChange={(e) =>
-                      setFormData({ ...formData, translation: e.target.value })
-                    }
+                    onChange={e => setFormData({ ...formData, translation: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    Теги (через запятую)
-                  </label>
+                  <label className="text-sm font-medium">Теги (через запятую)</label>
                   <Input
                     placeholder="greetings, basics"
                     value={formData.tags}
-                    onChange={(e) =>
-                      setFormData({ ...formData, tags: e.target.value })
-                    }
+                    onChange={e => setFormData({ ...formData, tags: e.target.value })}
                   />
                 </div>
               </div>
@@ -371,16 +405,14 @@ function WordsPageContent() {
                 <Button variant="outline" onClick={() => setShowAddDialog(false)}>
                   Отмена
                 </Button>
-                <Button onClick={handleSave}>
-                  {editingId ? "Сохранить" : "Добавить"}
-                </Button>
+                <Button onClick={handleSave}>{editingId ? "Сохранить" : "Добавить"}</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
           <Dialog open={showJsonUploadDialog} onOpenChange={setShowJsonUploadDialog}>
             <DialogTrigger asChild>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="border-2 border-primary/20 hover:border-primary/40 bg-background hover:bg-primary/5 text-foreground transition-all duration-200"
               >
                 <FileUp className="mr-2 h-4 w-4" />
@@ -408,7 +440,6 @@ function WordsPageContent() {
         </div>
       </div>
 
-
       {/* Filters */}
       <Card className="border-2 border-primary/10 shadow-lg">
         <CardHeader className="pb-4">
@@ -424,7 +455,7 @@ function WordsPageContent() {
               <Input
                 placeholder="Поиск по греческому слову или переводу..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={e => setSearchTerm(e.target.value)}
                 className="pl-10 h-11 border-2 focus:border-primary/50 transition-colors duration-200"
               />
             </div>
@@ -446,14 +477,14 @@ function WordsPageContent() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Все теги</SelectItem>
-                {allTags.map((tag) => (
+                {allTags.map(tag => (
                   <SelectItem key={tag} value={tag}>
                     {tag}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            <Select value={sortBy} onValueChange={(v) => setSortBy(v as any)}>
+            <Select value={sortBy} onValueChange={v => setSortBy(v as any)}>
               <SelectTrigger className="w-full sm:w-[150px] h-11 border-2 focus:border-primary/50 transition-colors duration-200">
                 <SelectValue placeholder="Сортировка" />
               </SelectTrigger>
@@ -465,20 +496,20 @@ function WordsPageContent() {
             </Select>
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handleExport} 
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleExport}
               className="w-full sm:w-auto border-2 border-primary/20 hover:border-primary/40 bg-background hover:bg-primary/5 text-foreground transition-all duration-200"
             >
               <Download className="mr-2 h-4 w-4" />
               Экспорт CSV
             </Button>
             <label className="w-full sm:w-auto">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                asChild 
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
                 className="w-full sm:w-auto border-2 border-primary/20 hover:border-primary/40 bg-background hover:bg-primary/5 text-foreground transition-all duration-200"
               >
                 <span>
@@ -486,16 +517,11 @@ function WordsPageContent() {
                   Импорт CSV
                 </span>
               </Button>
-              <input
-                type="file"
-                accept=".csv"
-                onChange={handleImport}
-                className="hidden"
-              />
+              <input type="file" accept=".csv" onChange={handleImport} className="hidden" />
             </label>
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               onClick={handleDeleteAll}
               disabled={cards.length === 0}
               className="w-full sm:w-auto border-2 border-red-200 hover:border-red-400 bg-background hover:bg-red-50 text-red-600 hover:text-red-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -527,7 +553,7 @@ function WordsPageContent() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredCards.map((card) => (
+                {filteredCards.map(card => (
                   <TableRow key={card.id}>
                     <TableCell className="font-semibold text-lg">
                       {card.greek}
@@ -540,7 +566,7 @@ function WordsPageContent() {
                     <TableCell>{card.translation}</TableCell>
                     <TableCell>
                       <div className="flex gap-1 flex-wrap">
-                        {card.tags?.map((tag) => (
+                        {card.tags?.map(tag => (
                           <Badge key={tag} variant="secondary">
                             {tag}
                           </Badge>
@@ -550,28 +576,23 @@ function WordsPageContent() {
                     <TableCell>
                       <StatusBadge status={card.status} />
                     </TableCell>
-                    <TableCell className="text-sm">
-                      {formatDueDate(card.due)}
-                    </TableCell>
+                    <TableCell className="text-sm">{formatDueDate(card.due)}</TableCell>
                     <TableCell className="text-sm">
                       {card.reps}
                       {card.lapses > 0 && (
-                        <span className="text-destructive ml-1">
-                          ({card.lapses})
-                        </span>
+                        <span className="text-destructive ml-1">({card.lapses})</span>
                       )}
                     </TableCell>
                     <TableCell className="text-sm">
                       {card.correct + card.incorrect > 0
-                        ? Math.round(
-                            (card.correct / (card.correct + card.incorrect)) *
-                              100
-                          ) + "%"
+                        ? Math.round((card.correct / (card.correct + card.incorrect)) * 100) + "%"
                         : "—"}
                     </TableCell>
                     <TableCell className="text-sm">
                       {card.stability && card.stability > 0 ? card.stability.toFixed(1) : "—"} /{" "}
-                      {card.difficulty && card.difficulty !== null ? card.difficulty.toFixed(1) : "—"}
+                      {card.difficulty && card.difficulty !== null
+                        ? card.difficulty.toFixed(1)
+                        : "—"}
                     </TableCell>
                     <TableCell>
                       <DropdownMenu>
@@ -611,7 +632,7 @@ function WordsPageContent() {
           {/* Mobile Cards */}
           <div className="lg:hidden">
             <div className="space-y-3 p-4">
-              {filteredCards.map((card) => (
+              {filteredCards.map(card => (
                 <Card key={card.id} className="p-4">
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex-1">
@@ -653,15 +674,15 @@ function WordsPageContent() {
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
-                  
+
                   <div className="flex flex-wrap gap-2 mb-3">
-                    {card.tags?.map((tag) => (
+                    {card.tags?.map(tag => (
                       <Badge key={tag} variant="secondary" className="text-xs">
                         {tag}
                       </Badge>
                     ))}
                   </div>
-                  
+
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     <div>
                       <span className="text-muted-foreground">Статус:</span>
@@ -676,9 +697,7 @@ function WordsPageContent() {
                       <span className="ml-1">
                         {card.reps}
                         {card.lapses > 0 && (
-                          <span className="text-destructive ml-1">
-                            ({card.lapses})
-                          </span>
+                          <span className="text-destructive ml-1">({card.lapses})</span>
                         )}
                       </span>
                     </div>
@@ -686,10 +705,7 @@ function WordsPageContent() {
                       <span className="text-muted-foreground">Успех:</span>
                       <span className="ml-1">
                         {card.correct + card.incorrect > 0
-                          ? Math.round(
-                              (card.correct / (card.correct + card.incorrect)) *
-                                100
-                            ) + "%"
+                          ? Math.round((card.correct / (card.correct + card.incorrect)) * 100) + "%"
                           : "—"}
                       </span>
                     </div>
@@ -703,7 +719,6 @@ function WordsPageContent() {
     </div>
   );
 }
-
 
 export default function WordsPage() {
   return (
