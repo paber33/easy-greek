@@ -1,4 +1,5 @@
 import { Card } from "@/types";
+import { DEFAULT_CONFIG } from "../constants";
 
 /**
  * Build session queue with proper prioritization

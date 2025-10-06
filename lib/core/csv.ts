@@ -1,5 +1,5 @@
 import { Card } from "@/types";
-import { INITIAL_DIFFICULTY } from "./constants";
+import { INITIAL_DIFFICULTY } from "../constants";
 
 /**
  * Export cards to CSV format

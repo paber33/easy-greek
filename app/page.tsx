@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback, memo } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Card, SessionSummary } from "@/types";
 import { useProfile } from "@/app/providers/ProfileProvider";
 import { LocalCardsRepository, LocalLogsRepository } from "@/lib/localRepositories";
@@ -74,37 +75,25 @@ export default function Dashboard() {
     setCurrentTip(learningTips[tipIndex]);
   }, []);
 
-  // Загружаем карточки для текущего профиля
+  // Memoized function to load cards
+  const loadCardsForProfile = useCallback(async () => {
+    if (!currentProfileId) return;
+    
+    try {
+      const cards = await LocalCardsRepository.list(currentProfileId);
+      setCards(cards);
+    } catch (error) {
+      console.error('Failed to load cards:', error);
+      setCards([]);
+    }
+  }, [currentProfileId]);
+
+  // Load cards for current profile
   useEffect(() => {
     if (mounted && currentProfileId && !profileLoading) {
-      const loadCardsForProfile = async () => {
-        try {
-          const cards = await LocalCardsRepository.list(currentProfileId);
-          setCards(cards);
-        } catch (error) {
-          console.error('Failed to load cards:', error);
-          setCards([]);
-        }
-      };
       loadCardsForProfile();
     }
-  }, [mounted, currentProfileId, profileLoading]);
-
-  // Обновляем данные при изменении пользователя
-  useEffect(() => {
-    if (mounted && isLoggedIn && currentProfileId && !profileLoading) {
-      const loadCardsForProfile = async () => {
-        try {
-          const cards = await LocalCardsRepository.list(currentProfileId);
-          setCards(cards);
-        } catch (error) {
-          console.error('Failed to load cards:', error);
-          setCards([]);
-        }
-      };
-      loadCardsForProfile();
-    }
-  }, [mounted, isLoggedIn, currentProfileId, profileLoading]);
+  }, [mounted, currentProfileId, profileLoading, loadCardsForProfile]);
 
   // Проверяем состояние аутентификации при загрузке
   useEffect(() => {
@@ -170,98 +159,111 @@ export default function Dashboard() {
     return <LoginScreen onLogin={() => setIsLoggedIn(true)} />;
   }
 
-  const now = new Date();
-  const nowISO = now.toISOString();
+  // Memoized stats calculation
+  const stats = useMemo(() => {
+    const now = new Date();
+    const nowISO = now.toISOString();
 
-  const stats = {
-    total: cards.length,
-    new: cards.filter((c) => c.status === "new").length,
-    learning: cards.filter(
-      (c) => c.status === "learning" || c.status === "relearning"
-    ).length,
-    review: cards.filter((c) => c.status === "review").length,
-    due: cards.filter((c) => c.due <= nowISO).length,
-    leeches: cards.filter((c) => c.isLeech).length,
-  };
+    return {
+      total: cards.length,
+      new: cards.filter((c) => c.status === "new").length,
+      learning: cards.filter(
+        (c) => c.status === "learning" || c.status === "relearning"
+      ).length,
+      review: cards.filter((c) => c.status === "review").length,
+      due: cards.filter((c) => c.due <= nowISO).length,
+      leeches: cards.filter((c) => c.isLeech).length,
+    };
+  }, [cards]);
 
   const [logs, setLogs] = useState<SessionSummary[]>([]);
   
+  // Memoized function to load logs
+  const loadLogsForProfile = useCallback(async () => {
+    if (!currentProfileId) return;
+    
+    try {
+      const profileLogs = await LocalLogsRepository.list(currentProfileId);
+      setLogs(profileLogs);
+    } catch (error) {
+      console.error('Failed to load logs:', error);
+      setLogs([]);
+    }
+  }, [currentProfileId]);
+
   // Load logs for current profile
   useEffect(() => {
     if (mounted && currentProfileId && !profileLoading) {
-      const loadLogsForProfile = async () => {
-        try {
-          const profileLogs = await LocalLogsRepository.list(currentProfileId);
-          setLogs(profileLogs);
-        } catch (error) {
-          console.error('Failed to load logs:', error);
-          setLogs([]);
-        }
-      };
       loadLogsForProfile();
     }
-  }, [mounted, currentProfileId, profileLoading]);
+  }, [mounted, currentProfileId, profileLoading, loadLogsForProfile]);
 
-  const todayLog = logs.find((log) => log.date === getTodayISO());
-  const streak = calculateStreak(logs);
+  // Memoized log calculations
+  const todayLog = useMemo(() => 
+    logs.find((log) => log.date === getTodayISO()), 
+    [logs]
+  );
+  
+  const streak = useMemo(() => 
+    calculateStreak(logs), 
+    [logs]
+  );
 
   return (
-    <div className="space-y-4 sm:space-y-6 lg:space-y-8" suppressHydrationWarning>
-      {/* Header with user switcher */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div className="space-y-1 sm:space-y-2">
-          <div className="space-y-1">
-            <p className="text-xl sm:text-2xl lg:text-3xl font-medium text-slate-700 dark:text-slate-300 transition-all duration-500">
-              {currentPhrase.greek}
-            </p>
-            <p className="text-muted-foreground text-base sm:text-lg transition-all duration-500">
-              {currentPhrase.translation}
-            </p>
-          </div>
+    <div className="space-y-6 sm:space-y-8 lg:space-y-10" suppressHydrationWarning>
+      {/* Header with motivational phrase */}
+      <div className="text-center space-y-4">
+        <div className="space-y-2">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground transition-all duration-300">
+            {currentPhrase.greek}
+          </h1>
+          <p className="text-lg sm:text-xl text-muted-foreground transition-all duration-300">
+            {currentPhrase.translation}
+          </p>
         </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid gap-2 grid-cols-3 sm:grid-cols-6">
+      <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
         <StatCard 
           title="Всего слов" 
           value={stats.total} 
-          icon={<BookOpen />} 
+          icon={<BookOpen className="h-4 w-4" />} 
           variant="blue" 
           href="/words"
         />
         <StatCard 
           title="Новые" 
           value={stats.new} 
-          icon={<Sparkles />} 
+          icon={<Sparkles className="h-4 w-4" />} 
           variant="purple" 
           href="/words?status=new"
         />
         <StatCard 
           title="Изучаются" 
           value={stats.learning} 
-          icon={<Target />} 
+          icon={<Target className="h-4 w-4" />} 
           variant="yellow" 
           href="/words?status=learning"
         />
         <StatCard 
           title="На повторении" 
           value={stats.review} 
-          icon={<CheckCircle2 />} 
+          icon={<CheckCircle2 className="h-4 w-4" />} 
           variant="green" 
           href="/words?status=review"
         />
         <StatCard 
           title="К повторению" 
           value={stats.due} 
-          icon={<Clock />} 
+          icon={<Clock className="h-4 w-4" />} 
           variant="training" 
           href="/session"
         />
         <StatCard 
           title="Трудные" 
           value={stats.leeches} 
-          icon={<AlertCircle />} 
+          icon={<AlertCircle className="h-4 w-4" />} 
           variant="red" 
           href="/words?leech=true"
         />
@@ -269,38 +271,38 @@ export default function Dashboard() {
 
       {/* Today's Progress */}
       {todayLog && (
-        <UICard>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5" />
+        <UICard className="border-2 border-primary/10 shadow-lg">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-2 text-xl">
+              <BarChart3 className="h-5 w-5 text-primary" />
               Сегодняшний прогресс
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-              <div>
-                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary">
                   {todayLog.totalReviewed}
                 </div>
-                <div className="text-sm text-muted-foreground">Повторено</div>
+                <div className="text-sm text-muted-foreground mt-1">Повторено</div>
               </div>
-              <div>
+              <div className="text-center">
                 <div className="text-3xl font-bold text-green-600 dark:text-green-400">
                   {todayLog.accuracy}%
                 </div>
-                <div className="text-sm text-muted-foreground">Точность</div>
+                <div className="text-sm text-muted-foreground mt-1">Точность</div>
               </div>
-              <div>
+              <div className="text-center">
                 <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
                   {todayLog.newCards}
                 </div>
-                <div className="text-sm text-muted-foreground">Новых</div>
+                <div className="text-sm text-muted-foreground mt-1">Новых</div>
               </div>
-              <div>
-                <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 flex items-center gap-1">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 flex items-center justify-center gap-1">
                   {streak} <Flame className="h-6 w-6" />
                 </div>
-                <div className="text-sm text-muted-foreground">Дней подряд</div>
+                <div className="text-sm text-muted-foreground mt-1">Дней подряд</div>
               </div>
             </div>
           </CardContent>
@@ -309,17 +311,19 @@ export default function Dashboard() {
 
       {/* Quick Actions */}
       <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        <Link href="/session" className="group col-span-1 sm:col-span-2 lg:col-span-1">
-          <UICard className="h-full transition-all duration-500 hover:shadow-2xl hover:scale-[1.02] bg-gradient-to-br from-slate-50 via-purple-50 to-violet-50 dark:from-slate-800/50 dark:via-purple-900/30 dark:to-violet-900/30 border border-slate-200/60 dark:border-slate-700/60 shadow-lg hover:shadow-purple-500/20 dark:hover:shadow-purple-400/20">
-            <CardHeader>
-              <div className="text-4xl mb-2">
-                <Play className="h-12 w-12 text-slate-600 dark:text-slate-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-all duration-300 group-hover:scale-110" />
+        <Link href="/session" className="group">
+          <UICard className="h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.02] border-2 border-primary/20 hover:border-primary/40 bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20">
+            <CardHeader className="text-center">
+              <div className="mx-auto mb-4 p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
+                <Play className="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
               </div>
-              <CardTitle className="text-2xl font-bold text-slate-800 dark:text-slate-200 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors duration-300">Начать тренировку</CardTitle>
-              <CardDescription className="text-base text-slate-600 dark:text-slate-400">
+              <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                Начать тренировку
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
                 {stats.due > 0 ? (
                   <>
-                    <Badge variant="default" className="mr-2 bg-gradient-to-r from-purple-500 to-violet-500 text-white border-0 shadow-md">
+                    <Badge variant="default" className="mr-2 bg-primary text-primary-foreground">
                       {stats.due}
                     </Badge>
                     карточек готовы к повторению
@@ -329,8 +333,8 @@ export default function Dashboard() {
                 )}
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-slate-500 dark:text-slate-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-all duration-300 font-medium group-hover:translate-x-1">
+            <CardContent className="text-center">
+              <p className="text-sm text-muted-foreground group-hover:text-primary transition-colors duration-300 font-medium">
                 Нажмите, чтобы начать →
               </p>
             </CardContent>
@@ -338,18 +342,20 @@ export default function Dashboard() {
         </Link>
 
         <Link href="/words" className="group">
-          <UICard className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 border border-slate-200/50 dark:border-slate-700/50">
-            <CardHeader className="pb-3">
-              <div className="text-3xl mb-2">
-                <BookOpen className="h-8 w-8 text-slate-600 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors duration-300" />
+          <UICard className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border hover:border-primary/30">
+            <CardHeader className="text-center">
+              <div className="mx-auto mb-4 p-4 rounded-full bg-blue-100 dark:bg-blue-900/20 group-hover:bg-blue-200 dark:group-hover:bg-blue-900/30 transition-colors duration-300">
+                <BookOpen className="h-8 w-8 text-blue-600 dark:text-blue-400" />
               </div>
-              <CardTitle className="text-xl text-slate-800 dark:text-slate-200">Список слов</CardTitle>
-              <CardDescription className="text-sm text-slate-600 dark:text-slate-400">
+              <CardTitle className="text-xl font-bold text-foreground">
+                Список слов
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
                 Управляйте своей базой из {stats.total} слов
               </CardDescription>
             </CardHeader>
-            <CardContent className="pt-0">
-              <p className="text-xs text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-all duration-300 group-hover:translate-x-1">
+            <CardContent className="text-center">
+              <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                 Добавить, редактировать →
               </p>
             </CardContent>
@@ -357,18 +363,20 @@ export default function Dashboard() {
         </Link>
 
         <Link href="/logs" className="group">
-          <UICard className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 border border-slate-200/50 dark:border-slate-700/50">
-            <CardHeader className="pb-3">
-              <div className="text-3xl mb-2">
-                <BarChart3 className="h-8 w-8 text-slate-600 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors duration-300" />
+          <UICard className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border hover:border-primary/30">
+            <CardHeader className="text-center">
+              <div className="mx-auto mb-4 p-4 rounded-full bg-purple-100 dark:bg-purple-900/20 group-hover:bg-purple-200 dark:group-hover:bg-purple-900/30 transition-colors duration-300">
+                <BarChart3 className="h-8 w-8 text-purple-600 dark:text-purple-400" />
               </div>
-              <CardTitle className="text-xl text-slate-800 dark:text-slate-200">Статистика</CardTitle>
-              <CardDescription className="text-sm text-slate-600 dark:text-slate-400">
+              <CardTitle className="text-xl font-bold text-foreground">
+                Статистика
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
                 Просмотрите свой прогресс и аналитику
               </CardDescription>
             </CardHeader>
-            <CardContent className="pt-0">
-              <p className="text-xs text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-all duration-300 group-hover:translate-x-1">
+            <CardContent className="text-center">
+              <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                 Открыть журнал →
               </p>
             </CardContent>
@@ -380,14 +388,15 @@ export default function Dashboard() {
       <ProgressCalendar />
 
       {/* Tips */}
-      <UICard className="bg-blue-50/50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-2 text-base">
-            💡 Совет
+      <UICard className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border-blue-200 dark:border-blue-800 shadow-md">
+        <CardHeader className="pb-4">
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <span className="text-2xl">💡</span>
+            Совет дня
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-0">
-          <p className="text-sm text-foreground transition-all duration-500">
+          <p className="text-base text-foreground leading-relaxed">
             {currentTip}
           </p>
         </CardContent>
@@ -404,31 +413,39 @@ interface StatCardProps {
   href: string;
 }
 
-function StatCard({ title, value, icon, variant, href }: StatCardProps) {
+const StatCard = memo(({ title, value, icon, variant, href }: StatCardProps) => {
   const variants = {
-    blue: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
-    purple: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
-    yellow: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
-    green: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
-    orange: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
-    red: "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700/50 dark:hover:to-slate-800/50 transition-all duration-300",
-    training: "bg-gradient-to-br from-purple-50 via-violet-50 to-fuchsia-50 dark:from-purple-900/30 dark:via-violet-900/30 dark:to-fuchsia-900/30 text-slate-800 dark:text-slate-200 border border-purple-200/60 dark:border-purple-700/60 hover:from-purple-100 hover:via-violet-100 hover:to-fuchsia-100 dark:hover:from-purple-800/40 dark:hover:via-violet-800/40 dark:hover:to-fuchsia-800/40 shadow-lg hover:shadow-purple-500/20 dark:hover:shadow-purple-400/20 transition-all duration-500",
+    blue: "border-blue-200 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-700 bg-blue-50/50 dark:bg-blue-950/20 hover:bg-blue-100/50 dark:hover:bg-blue-950/30",
+    purple: "border-purple-200 dark:border-purple-800 hover:border-purple-300 dark:hover:border-purple-700 bg-purple-50/50 dark:bg-purple-950/20 hover:bg-purple-100/50 dark:hover:bg-purple-950/30",
+    yellow: "border-yellow-200 dark:border-yellow-800 hover:border-yellow-300 dark:hover:border-yellow-700 bg-yellow-50/50 dark:bg-yellow-950/20 hover:bg-yellow-100/50 dark:hover:bg-yellow-950/30",
+    green: "border-green-200 dark:border-green-800 hover:border-green-300 dark:hover:border-green-700 bg-green-50/50 dark:bg-green-950/20 hover:bg-green-100/50 dark:hover:bg-green-950/30",
+    orange: "border-orange-200 dark:border-orange-800 hover:border-orange-300 dark:hover:border-orange-700 bg-orange-50/50 dark:bg-orange-950/20 hover:bg-orange-100/50 dark:hover:bg-orange-950/30",
+    red: "border-red-200 dark:border-red-800 hover:border-red-300 dark:hover:border-red-700 bg-red-50/50 dark:bg-red-950/20 hover:bg-red-100/50 dark:hover:bg-red-950/30",
+    training: "border-primary/30 hover:border-primary/50 bg-primary/5 dark:bg-primary/10 hover:bg-primary/10 dark:hover:bg-primary/20 shadow-md hover:shadow-lg",
   };
 
   return (
-    <Link href={href} className="block">
-      <UICard className={`transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer ${variants[variant]}`}>
-        <CardContent className="px-4 py-1">
-          <div className="flex items-baseline gap-4 mb-1">
-            <div className="h-4 w-4 transition-transform duration-300 hover:scale-110">{icon}</div>
-            <div className="text-lg font-bold transition-colors duration-300">{value}</div>
+    <Link href={href} className="block group">
+      <UICard className={`transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border-2 ${variants[variant]}`}>
+        <CardContent className="p-4 text-center">
+          <div className="flex flex-col items-center gap-2">
+            <div className="p-2 rounded-full bg-background/50 group-hover:bg-background/80 transition-colors duration-300">
+              {icon}
+            </div>
+            <div className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+              {value}
+            </div>
+            <div className="text-xs text-muted-foreground font-medium">
+              {title}
+            </div>
           </div>
-          <div className="text-xs opacity-75">{title}</div>
         </CardContent>
       </UICard>
     </Link>
   );
-}
+});
+
+StatCard.displayName = "StatCard";
 
 function calculateStreak(logs: SessionSummary[]): number {
   if (logs.length === 0) return 0;

@@ -1,36 +1,108 @@
+// ============================================================================
+// Core Types
+// ============================================================================
+
+/** Card status in the SRS system */
 export type CardStatus = "new" | "learning" | "review" | "relearning";
 
+/** Rating values for card reviews */
 export type Rating = 0 | 1 | 2 | 3; // Again, Hard, Good, Easy
 
+/** Profile ID type */
+export type ProfileId = 'pavel' | 'aleksandra';
+
+/**
+ * Card interface representing a flashcard in the SRS system
+ */
 export interface Card {
+  /** Unique identifier */
   id: string;
+  
+  /** Greek text */
   greek: string;
+  
+  /** Translation text */
   translation: string;
+  
+  /** Optional tags for categorization */
   tags?: string[];
-  // SRS state (SM-2 Algorithm)
+  
+  // ============================================================================
+  // SRS State (SM-2 Algorithm)
+  // ============================================================================
+  
+  /** Current status in the learning process */
   status: CardStatus;
-  reps: number;        // total reviews
-  lapses: number;      // times failed from review→relearning
-  ease: number;        // EF (Ease Factor), start 2.5
-  interval: number;    // in days
-  lastReview?: string; // ISO
-  due: string;         // ISO
-  // stats
+  
+  /** Total number of reviews */
+  reps: number;
+  
+  /** Number of times failed from review to relearning */
+  lapses: number;
+  
+  /** Ease factor (EF), starts at 2.5 */
+  ease: number;
+  
+  /** Current interval in days */
+  interval: number;
+  
+  /** Last review timestamp (ISO string) */
+  lastReview?: string;
+  
+  /** Due date for next review (ISO string) */
+  due: string;
+  
+  // ============================================================================
+  // Statistics
+  // ============================================================================
+  
+  /** Number of correct answers */
   correct: number;
+  
+  /** Number of incorrect answers */
   incorrect: number;
-  // learning/relearning state
-  learningStepIndex?: number; // current position in LEARNING_STEPS
-  isLeech?: boolean;    // marked as leech
-  // Additional content fields
-  examples?: string[];  // примеры использования слова
-  notes?: string;       // дополнительные заметки/помощь
-  pronunciation?: string; // транскрипция произношения
-  audioUrl?: string;    // ссылка на аудио файл
-  imageUrl?: string;    // ссылка на изображение
-  // Legacy fields for backward compatibility
-  difficulty?: number;  // D, 1..10 (lower = easier), init 6.0
-  stability?: number;   // S, days, init depends on first rating
-  currentStep?: number; // current position in LEARNING_STEPS
+  
+  // ============================================================================
+  // Learning State
+  // ============================================================================
+  
+  /** Current position in learning steps */
+  learningStepIndex?: number;
+  
+  /** Whether card is marked as leech */
+  isLeech?: boolean;
+  
+  // ============================================================================
+  // Additional Content
+  // ============================================================================
+  
+  /** Usage examples */
+  examples?: string[];
+  
+  /** Additional notes */
+  notes?: string;
+  
+  /** Pronunciation guide */
+  pronunciation?: string;
+  
+  /** Audio file URL */
+  audioUrl?: string;
+  
+  /** Image file URL */
+  imageUrl?: string;
+  
+  // ============================================================================
+  // Legacy Fields (for backward compatibility)
+  // ============================================================================
+  
+  /** Difficulty rating (1-10, lower = easier) */
+  difficulty?: number;
+  
+  /** Stability in days */
+  stability?: number;
+  
+  /** Current step in learning process */
+  currentStep?: number;
 }
 
 export interface SessionSummary {

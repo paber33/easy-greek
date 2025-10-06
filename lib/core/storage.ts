@@ -1,6 +1,6 @@
 import { Card, SessionSummary, SRSConfig } from "@/types";
-import { DEFAULT_CONFIG } from "./constants";
-import { syncService } from "./sync";
+import { DEFAULT_CONFIG } from "../constants";
+import { syncService } from "../sync";
 
 const STORAGE_VERSION = "1";
 const CARDS_KEY = "easy-greek-cards";
@@ -8,8 +8,13 @@ const LOGS_KEY = "easy-greek-logs";
 const CONFIG_KEY = "easy-greek-config";
 const VERSION_KEY = "easy-greek-version";
 
-// Функция для получения ключей с привязкой к пользователю
-function getUserStorageKeys(userId?: string | null) {
+/**
+ * Get storage keys with user-specific namespace
+ * 
+ * @param userId - User ID for namespacing, null for legacy keys
+ * @returns Object with storage keys for different data types
+ */
+const getUserStorageKeys = (userId?: string | null) => {
   if (!userId) {
     // Если пользователь не указан, используем общие ключи (для обратной совместимости)
     return {
@@ -28,8 +33,12 @@ function getUserStorageKeys(userId?: string | null) {
   };
 }
 
-// Функция для получения текущего пользователя из Supabase
-function getCurrentUserId(): string | null {
+/**
+ * Get current user ID from Supabase auth token
+ * 
+ * @returns User ID if authenticated, null otherwise
+ */
+const getCurrentUserId = (): string | null => {
   if (typeof window === "undefined") return null;
   
   try {
@@ -47,9 +56,11 @@ function getCurrentUserId(): string | null {
 }
 
 /**
- * Seed data with Greek words
+ * Generate seed data with Greek words for new users
+ * 
+ * @returns Array of initial Greek learning cards
  */
-function getSeedCards(): Card[] {
+const getSeedCards = (): Card[] => {
   const now = new Date();
   const yesterday = new Date(now.getTime() - 1 * 864e5);
   const twoDaysAgo = new Date(now.getTime() - 2 * 864e5);
@@ -371,7 +382,12 @@ function getSeedCards(): Card[] {
   ];
 }
 
-export function loadCards(): Card[] {
+/**
+ * Load cards from localStorage with user-specific namespace
+ * 
+ * @returns Array of cards, or seed data for new users
+ */
+export const loadCards = (): Card[] => {
   if (typeof window === "undefined") return [];
 
   try {
@@ -430,7 +446,12 @@ export function loadCards(): Card[] {
   }
 }
 
-export function saveCards(cards: Card[]): void {
+/**
+ * Save cards to localStorage with user-specific namespace
+ * 
+ * @param cards - Array of cards to save
+ */
+export const saveCards = (cards: Card[]): void => {
   if (typeof window === "undefined") return;
 
   try {
@@ -447,7 +468,12 @@ export function saveCards(cards: Card[]): void {
   }
 }
 
-export function loadLogs(): SessionSummary[] {
+/**
+ * Load session logs from localStorage
+ * 
+ * @returns Array of session summaries
+ */
+export const loadLogs = (): SessionSummary[] => {
   if (typeof window === "undefined") return [];
 
   try {
@@ -463,7 +489,12 @@ export function loadLogs(): SessionSummary[] {
   }
 }
 
-export function appendSessionLog(summary: SessionSummary): void {
+/**
+ * Append or merge session log for the day
+ * 
+ * @param summary - Session summary to add
+ */
+export const appendSessionLog = (summary: SessionSummary): void => {
   if (typeof window === "undefined") return;
 
   try {
@@ -505,7 +536,12 @@ export function appendSessionLog(summary: SessionSummary): void {
   }
 }
 
-export function loadConfig(): SRSConfig {
+/**
+ * Load SRS configuration from localStorage
+ * 
+ * @returns SRS configuration, or default config if not found
+ */
+export const loadConfig = (): SRSConfig => {
   if (typeof window === "undefined") return DEFAULT_CONFIG;
 
   try {
@@ -521,7 +557,12 @@ export function loadConfig(): SRSConfig {
   }
 }
 
-export function saveConfig(config: SRSConfig): void {
+/**
+ * Save SRS configuration to localStorage
+ * 
+ * @param config - SRS configuration to save
+ */
+export const saveConfig = (config: SRSConfig): void => {
   if (typeof window === "undefined") return;
 
   try {
@@ -537,20 +578,32 @@ export function saveConfig(config: SRSConfig): void {
   }
 }
 
-// Функции для работы с аутентификацией и синхронизацией
-export async function loadUserDataFromSupabase(): Promise<{ cards: Card[], logs: SessionSummary[], config: SRSConfig } | null> {
+/**
+ * Load user data from Supabase cloud storage
+ * 
+ * @returns User data object or null if not found
+ */
+export const loadUserDataFromSupabase = async (): Promise<{ cards: Card[], logs: SessionSummary[], config: SRSConfig } | null> => {
   return await syncService.loadUserData();
-}
+};
 
-export async function syncAllDataToSupabase(): Promise<void> {
+/**
+ * Force sync all local data to Supabase
+ */
+export const syncAllDataToSupabase = async (): Promise<void> => {
   const cards = loadCards();
   const logs = loadLogs();
   const config = loadConfig();
   
   await syncService.forceSyncAll(cards, logs, config);
-}
+};
 
-export async function mergeUserDataWithLocal(userData: { cards: Card[], logs: SessionSummary[], config: SRSConfig }): Promise<void> {
+/**
+ * Merge cloud user data with local data
+ * 
+ * @param userData - Data from cloud storage
+ */
+export const mergeUserDataWithLocal = async (userData: { cards: Card[], logs: SessionSummary[], config: SRSConfig }): Promise<void> => {
   // Загружаем локальные данные
   const localCards = loadCards();
   const localLogs = loadLogs();
@@ -592,8 +645,10 @@ export async function mergeUserDataWithLocal(userData: { cards: Card[], logs: Se
   saveConfig(mergedConfig);
 }
 
-// Функция для очистки данных при смене пользователя
-export function clearUserData(): void {
+/**
+ * Clear all user-specific data from localStorage
+ */
+export const clearUserData = (): void => {
   if (typeof window === "undefined") return;
   
   try {
@@ -616,12 +671,14 @@ export function clearUserData(): void {
   }
 }
 
-// Функция для загрузки и сохранения данных пользователя из Supabase
-export async function loadAndSaveUserDataFromSupabase(): Promise<void> {
+/**
+ * Load and save user data from Supabase to localStorage
+ */
+export const loadAndSaveUserDataFromSupabase = async (): Promise<void> => {
   if (typeof window === "undefined") return;
   
   try {
-    const { syncService } = await import('./sync');
+    const { syncService } = await import('../sync');
     const userData = await syncService.loadUserDataFromSupabase();
     
     // Сохраняем данные в localStorage

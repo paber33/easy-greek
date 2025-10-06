@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { loadAndSaveUserDataFromSupabase, mergeUserDataWithLocal, syncAllDataToSupabase } from '@/lib/storage'
+import { loadAndSaveUserDataFromSupabase, mergeUserDataWithLocal, syncAllDataToSupabase } from '@/lib/core/storage'
 import { testSupabaseConnection } from '@/lib/test-supabase'
 import { getTestCards } from '@/lib/test-data'
 import { USER_CONFIGS, getUserConfig, getCurrentUserFromEmail } from '@/lib/user-config'
@@ -230,7 +230,7 @@ export function AuthComponent() {
       const testCards = getTestCards(currentUser || undefined)
       
       // Загружаем тестовые данные локально
-      const { saveCards } = await import('@/lib/storage')
+      const { saveCards } = await import('@/lib/core/storage')
       saveCards(testCards)
       
       // Синхронизируем с Supabase

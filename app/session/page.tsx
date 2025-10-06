@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card as CardType, Rating } from "@/types";
-import { loadCards, saveCards, appendSessionLog } from "@/lib/storage";
-import { SRSScheduler } from "@/lib/srs";
+import { LocalCardsRepository, LocalLogsRepository } from "@/lib/localRepositories";
+import { SRSScheduler } from "@/lib/core/srs";
+import { useCurrentProfileId } from "@/lib/hooks/use-profile";
 import { DEFAULT_CONFIG } from "@/lib/constants";
 import { getTodayISO } from "@/lib/utils";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -16,15 +17,26 @@ import { CheckCircle2, XCircle, Home, BarChart3, Play } from "lucide-react";
 import confetti from "canvas-confetti";
 import { SessionSkeleton } from "@/components/ui/shimmer";
 import { LoadingScreen } from "@/components/ui/loading-screen";
+import { StatusBadge } from "@/components/ui/status-badge";
 
 export default function SessionPage() {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  if (!mounted) {
+    return <LoadingScreen message="Загружаем сессию..." variant="default" />;
+  }
+  
+  const profileId = useCurrentProfileId();
   const [cards, setCards] = useState<CardType[]>([]);
   const [queue, setQueue] = useState<CardType[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [scheduler, setScheduler] = useState<SRSScheduler | null>(null);
-  const [mounted, setMounted] = useState(false);
   const [sessionStats, setSessionStats] = useState({
     reviewed: 0,
     correct: 0,
@@ -63,19 +75,34 @@ export default function SessionPage() {
 
   useEffect(() => {
     setMounted(true);
-    const loaded = loadCards();
-    const srs = new SRSScheduler(DEFAULT_CONFIG);
-    const sessionQueue = srs.buildQueue(loaded, new Date());
-
-    setCards(loaded);
-    setScheduler(srs);
-
-    if (sessionQueue.length === 0) {
-      setQueue([]);
-    } else {
-      setQueue(sessionQueue);
-    }
   }, []);
+
+  // Load cards for current profile
+  useEffect(() => {
+    if (mounted && profileId) {
+      const loadCardsForProfile = async () => {
+        try {
+          const loaded = await LocalCardsRepository.list(profileId);
+          const srs = new SRSScheduler(DEFAULT_CONFIG);
+          const sessionQueue = srs.buildQueue(loaded, new Date());
+
+          setCards(loaded);
+          setScheduler(srs);
+
+          if (sessionQueue.length === 0) {
+            setQueue([]);
+          } else {
+            setQueue(sessionQueue);
+          }
+        } catch (error) {
+          console.error('Failed to load cards:', error);
+          setCards([]);
+          setQueue([]);
+        }
+      };
+      loadCardsForProfile();
+    }
+  }, [mounted, profileId]);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -98,7 +125,7 @@ export default function SessionPage() {
   const currentCard = queue[currentIndex];
   const isSessionComplete = currentIndex >= queue.length;
 
-  const handleRate = (rating: Rating) => {
+  const handleRate = async (rating: Rating) => {
     if (!currentCard || !scheduler) return;
 
     const now = new Date();
@@ -108,7 +135,13 @@ export default function SessionPage() {
       c.id === updatedCard.id ? updatedCard : c
     );
     setCards(newCards);
-    saveCards(newCards);
+    
+    // Save updated cards to repository
+    try {
+      await LocalCardsRepository.bulkSave(profileId, newCards);
+    } catch (error) {
+      console.error('Failed to save cards:', error);
+    }
 
     const isCorrect = rating >= 2;
     const newStats = {
@@ -147,7 +180,12 @@ export default function SessionPage() {
             ? Math.round((newStats.correct / newStats.reviewed) * 100)
             : 0,
       };
-      appendSessionLog(summary);
+      // Save session log to repository
+      try {
+        await LocalLogsRepository.append(profileId, summary);
+      } catch (error) {
+        console.error('Failed to save session log:', error);
+      }
       toast.success("Тренировка завершена!", {
         description: `Повторено ${newStats.reviewed} карточек с точностью ${summary.accuracy}%`,
       });
@@ -406,17 +444,6 @@ export default function SessionPage() {
   );
 }
 
-function StatusBadge({ status }: { status: CardType["status"] }) {
-  const variants = {
-    new: { label: "Новая карточка", variant: "default" as const },
-    learning: { label: "Изучается", variant: "secondary" as const },
-    review: { label: "Повторение", variant: "outline" as const },
-    relearning: { label: "Переизучается", variant: "secondary" as const },
-  };
-
-  const config = variants[status];
-  return <Badge variant={config.variant}>{config.label}</Badge>;
-}
 
 function RatingBadge({ rating }: { rating: Rating }) {
   const configs = [

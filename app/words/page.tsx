@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense, useMemo, useCallback, memo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card as CardType } from "@/types";
-import { loadCards, saveCards } from "@/lib/storage";
-import { exportToCSV, importFromCSV } from "@/lib/csv";
+import { LocalCardsRepository } from "@/lib/localRepositories";
+import { exportToCSV, importFromCSV } from "@/lib/core/csv";
+import { useCurrentProfileId } from "@/lib/hooks/use-profile";
 import { formatDueDate } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -19,10 +20,12 @@ import { Plus, Play, Search, Download, Upload, MoreVertical, Edit2, RotateCcw, T
 import { JsonUpload } from "@/components/json-upload";
 import { TableSkeleton } from "@/components/ui/shimmer";
 import { LoadingScreen } from "@/components/ui/loading-screen";
+import { StatusBadge } from "@/components/ui/status-badge";
 
 function WordsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const profileId = useCurrentProfileId();
   const [cards, setCards] = useState<CardType[]>([]);
   const [filteredCards, setFilteredCards] = useState<CardType[]>([]);
   const [mounted, setMounted] = useState(false);
@@ -44,10 +47,31 @@ function WordsPageContent() {
 
   useEffect(() => {
     setMounted(true);
-    const loaded = loadCards();
-    setCards(loaded);
-    setFilteredCards(loaded);
+  }, []);
 
+  // Memoized function to load cards
+  const loadCardsForProfile = useCallback(async () => {
+    if (!profileId) return;
+    
+    try {
+      const loaded = await LocalCardsRepository.list(profileId);
+      setCards(loaded);
+      setFilteredCards(loaded);
+    } catch (error) {
+      console.error('Failed to load cards:', error);
+      setCards([]);
+      setFilteredCards([]);
+    }
+  }, [profileId]);
+
+  // Load cards for current profile
+  useEffect(() => {
+    if (mounted && profileId) {
+      loadCardsForProfile();
+    }
+  }, [mounted, profileId, loadCardsForProfile]);
+
+  useEffect(() => {
     // Apply URL parameters
     const status = searchParams.get("status");
     const leech = searchParams.get("leech");
@@ -60,16 +84,23 @@ function WordsPageContent() {
     }
   }, [searchParams]);
 
+  // Auto-save cards when they change
   useEffect(() => {
-    if (!mounted) return;
-    saveCards(cards);
-  }, [cards, mounted]);
+    if (!mounted || !profileId || cards.length === 0) return;
+    
+    const saveCardsToRepository = async () => {
+      try {
+        await LocalCardsRepository.bulkSave(profileId, cards);
+      } catch (error) {
+        console.error('Failed to save cards:', error);
+      }
+    };
+    
+    saveCardsToRepository();
+  }, [cards, mounted, profileId]);
 
-  useEffect(() => {
-    applyFilters();
-  }, [cards, searchTerm, statusFilter, tagFilter, sortBy, leechFilter]);
-
-  const applyFilters = () => {
+  // Memoized filter function
+  const applyFilters = useCallback(() => {
     let result = [...cards];
 
     if (searchTerm) {
@@ -100,7 +131,11 @@ function WordsPageContent() {
     });
 
     setFilteredCards(result);
-  };
+  }, [cards, searchTerm, statusFilter, tagFilter, sortBy, leechFilter]);
+
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
 
   const handleSave = () => {
     if (!formData.greek || !formData.translation) {
@@ -227,11 +262,15 @@ function WordsPageContent() {
     reader.readAsText(file);
   };
 
-  const handleJsonCardsAdded = (newCards: CardType[]) => {
-    // Обновляем список карточек после загрузки JSON
-    const updatedCards = loadCards();
-    setCards(updatedCards);
-    setFilteredCards(updatedCards);
+  const handleJsonCardsAdded = async (newCards: CardType[]) => {
+    // Reload cards from repository after JSON upload
+    try {
+      const updatedCards = await LocalCardsRepository.list(profileId);
+      setCards(updatedCards);
+      setFilteredCards(updatedCards);
+    } catch (error) {
+      console.error('Failed to reload cards after JSON upload:', error);
+    }
     // Закрываем попап после успешной загрузки
     setShowJsonUploadDialog(false);
   };
@@ -250,14 +289,16 @@ function WordsPageContent() {
     <div className="space-y-4 sm:space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Список слов 📚</h1>
-          <p className="text-muted-foreground mt-1 text-sm sm:text-base">
+        <div className="space-y-2">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+            Список слов 📚
+          </h1>
+          <p className="text-muted-foreground text-base sm:text-lg">
             {filteredCards.length} из {cards.length} слов • {dueCount} к повторению
             {(statusFilter !== "all" || leechFilter) && (
-              <span className="ml-2">
+              <span className="ml-3 flex flex-wrap gap-2">
                 {statusFilter !== "all" && (
-                  <Badge variant="secondary" className="mr-1 text-xs">
+                  <Badge variant="secondary" className="text-xs">
                     {statusFilter === "new" && "Новые"}
                     {statusFilter === "learning" && "Изучаются"}
                     {statusFilter === "review" && "На повторении"}
@@ -271,10 +312,13 @@ function WordsPageContent() {
             )}
           </p>
         </div>
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-3 flex-wrap">
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
             <DialogTrigger asChild>
-              <Button onClick={() => { setEditingId(null); setFormData({ greek: "", translation: "", tags: "" }); }} className="bg-white border-gray-200 hover:bg-gray-50 text-gray-900">
+              <Button 
+                onClick={() => { setEditingId(null); setFormData({ greek: "", translation: "", tags: "" }); }} 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg transition-all duration-200"
+              >
                 <Plus className="mr-2 h-4 w-4" />
                 Добавить
               </Button>
@@ -334,7 +378,10 @@ function WordsPageContent() {
           </Dialog>
           <Dialog open={showJsonUploadDialog} onOpenChange={setShowJsonUploadDialog}>
             <DialogTrigger asChild>
-              <Button variant="outline" className="bg-white border-gray-200 hover:bg-gray-50 text-gray-900">
+              <Button 
+                variant="outline" 
+                className="border-2 border-primary/20 hover:border-primary/40 bg-background hover:bg-primary/5 text-foreground transition-all duration-200"
+              >
                 <FileUp className="mr-2 h-4 w-4" />
                 Загрузить JSON
               </Button>
@@ -352,8 +399,7 @@ function WordsPageContent() {
           <Button
             onClick={() => router.push("/session")}
             disabled={dueCount === 0}
-            variant="default"
-            className="bg-white border-gray-200 hover:bg-gray-50 text-gray-900"
+            className="bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Play className="mr-2 h-4 w-4" />
             Начать сессию ({dueCount})
@@ -363,23 +409,26 @@ function WordsPageContent() {
 
 
       {/* Filters */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Фильтры и поиск</CardTitle>
+      <Card className="border-2 border-primary/10 shadow-lg">
+        <CardHeader className="pb-4">
+          <CardTitle className="flex items-center gap-2 text-xl">
+            <Search className="h-5 w-5 text-primary" />
+            Фильтры и поиск
+          </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="flex flex-col sm:flex-row gap-2">
+        <CardContent className="space-y-4">
+          <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Поиск..."
+                placeholder="Поиск по греческому слову или переводу..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8"
+                className="pl-10 h-11 border-2 focus:border-primary/50 transition-colors duration-200"
               />
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-full sm:w-[140px]">
+              <SelectTrigger className="w-full sm:w-[160px] h-11 border-2 focus:border-primary/50 transition-colors duration-200">
                 <SelectValue placeholder="Все статусы" />
               </SelectTrigger>
               <SelectContent>
@@ -391,7 +440,7 @@ function WordsPageContent() {
               </SelectContent>
             </Select>
             <Select value={tagFilter} onValueChange={setTagFilter}>
-              <SelectTrigger className="w-full sm:w-[120px]">
+              <SelectTrigger className="w-full sm:w-[140px] h-11 border-2 focus:border-primary/50 transition-colors duration-200">
                 <SelectValue placeholder="Все теги" />
               </SelectTrigger>
               <SelectContent>
@@ -404,7 +453,7 @@ function WordsPageContent() {
               </SelectContent>
             </Select>
             <Select value={sortBy} onValueChange={(v) => setSortBy(v as any)}>
-              <SelectTrigger className="w-full sm:w-[130px]">
+              <SelectTrigger className="w-full sm:w-[150px] h-11 border-2 focus:border-primary/50 transition-colors duration-200">
                 <SelectValue placeholder="Сортировка" />
               </SelectTrigger>
               <SelectContent>
@@ -414,13 +463,23 @@ function WordsPageContent() {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex flex-col sm:flex-row gap-2">
-            <Button variant="outline" size="sm" onClick={handleExport} className="w-full sm:w-auto bg-white border-gray-200 hover:bg-gray-50">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleExport} 
+              className="w-full sm:w-auto border-2 border-primary/20 hover:border-primary/40 bg-background hover:bg-primary/5 text-foreground transition-all duration-200"
+            >
               <Download className="mr-2 h-4 w-4" />
               Экспорт CSV
             </Button>
             <label className="w-full sm:w-auto">
-              <Button variant="outline" size="sm" asChild className="w-full sm:w-auto bg-white border-gray-200 hover:bg-gray-50">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                asChild 
+                className="w-full sm:w-auto border-2 border-primary/20 hover:border-primary/40 bg-background hover:bg-primary/5 text-foreground transition-all duration-200"
+              >
                 <span>
                   <Upload className="mr-2 h-4 w-4" />
                   Импорт CSV
@@ -438,7 +497,7 @@ function WordsPageContent() {
               size="sm" 
               onClick={handleDeleteAll}
               disabled={cards.length === 0}
-              className="w-full sm:w-auto bg-white border-gray-200 hover:bg-gray-50 text-muted-foreground hover:text-destructive hover:border-destructive/50"
+              className="w-full sm:w-auto border-2 border-red-200 hover:border-red-400 bg-background hover:bg-red-50 text-red-600 hover:text-red-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Trash2 className="mr-2 h-4 w-4" />
               Удалить все
@@ -448,7 +507,7 @@ function WordsPageContent() {
       </Card>
 
       {/* Table */}
-      <Card>
+      <Card className="border-2 border-primary/10 shadow-lg">
         <CardContent className="p-0">
           {/* Desktop Table */}
           <div className="hidden lg:block">
@@ -644,17 +703,6 @@ function WordsPageContent() {
   );
 }
 
-function StatusBadge({ status }: { status: CardType["status"] }) {
-  const variants = {
-    new: { label: "Новая", className: "bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-200" },
-    learning: { label: "Изучается", className: "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-200" },
-    review: { label: "Повторение", className: "bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-200" },
-    relearning: { label: "Переизучается", className: "bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-200" },
-  };
-
-  const config = variants[status];
-  return <Badge className={config.className}>{config.label}</Badge>;
-}
 
 export default function WordsPage() {
   return (

@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import { SessionSummary } from "@/types";
-import { loadLogs } from "@/lib/storage";
+import { LocalLogsRepository } from "@/lib/localRepositories";
+import { useCurrentProfileId } from "@/lib/hooks/use-profile";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -13,15 +14,36 @@ import { CalendarSkeleton } from "@/components/ui/shimmer";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 
 export default function LogsPage() {
-  const [logs, setLogs] = useState<SessionSummary[]>([]);
   const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  if (!mounted) {
+    return <LoadingScreen message="Загружаем логи..." variant="default" />;
+  }
+  
+  const profileId = useCurrentProfileId();
+  const [logs, setLogs] = useState<SessionSummary[]>([]);
   const [viewDays, setViewDays] = useState<7 | 30>(7);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // Load logs for current profile
   useEffect(() => {
-    setMounted(true);
-    setLogs(loadLogs());
-  }, []);
+    if (mounted && profileId) {
+      const loadLogsForProfile = async () => {
+        try {
+          const profileLogs = await LocalLogsRepository.list(profileId);
+          setLogs(profileLogs);
+        } catch (error) {
+          console.error('Failed to load logs:', error);
+          setLogs([]);
+        }
+      };
+      loadLogsForProfile();
+    }
+  }, [mounted, profileId]);
 
   useEffect(() => {
     if (mounted && canvasRef.current) {

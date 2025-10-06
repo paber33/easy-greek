@@ -1,5 +1,46 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   Typography Scale
+   ============================================================================ */
+
+/* Consistent font sizes */
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.text-base { font-size: 1rem; line-height: 1.5rem; }
+.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+
+/* ============================================================================
+   Spacing Scale
+   ============================================================================ */
+
+/* Consistent spacing */
+.space-4 { gap: 1rem; }
+.space-6 { gap: 1.5rem; }
+.space-8 { gap: 2rem; }
+
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+
+/* ============================================================================
+   Focus Styles for Accessibility
+   ============================================================================ */
+
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+.focus-ring-inset {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset;
+}
+
+/* ============================================================================
+   Animations
+   ============================================================================ */
+
 /* Shimmer animation */
 @keyframes shimmer {
   0% {
@@ -22,6 +63,29 @@
     transform: translateY(-5px);
   }
 }
+
+/* Smooth transitions */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================================
+   Reduced Motion Support
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================================
+   Dark Theme Variants
+   ============================================================================ */
 
 @custom-variant dark (&:is(.dark *));
 

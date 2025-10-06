@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { SessionSummary } from '@/types'
-import { loadLogs } from '@/lib/storage'
+import { LocalLogsRepository } from '@/lib/localRepositories'
+import { useCurrentProfileId } from '@/lib/hooks/use-profile'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
@@ -17,16 +18,32 @@ interface ProgressCalendarProps {
 }
 
 export function ProgressCalendar({ className }: ProgressCalendarProps) {
+  const profileId = useCurrentProfileId();
   const [logs, setLogs] = useState<SessionSummary[]>([])
   const [calendarData, setCalendarData] = useState<DayData[]>([])
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    const loadedLogs = loadLogs()
-    setLogs(loadedLogs)
-    setCalendarData(generateCalendarData(loadedLogs))
   }, [])
+
+  // Load logs for current profile
+  useEffect(() => {
+    if (mounted && profileId) {
+      const loadLogsForProfile = async () => {
+        try {
+          const loadedLogs = await LocalLogsRepository.list(profileId);
+          setLogs(loadedLogs)
+          setCalendarData(generateCalendarData(loadedLogs))
+        } catch (error) {
+          console.error('Failed to load logs:', error);
+          setLogs([])
+          setCalendarData([])
+        }
+      };
+      loadLogsForProfile();
+    }
+  }, [mounted, profileId])
 
   if (!mounted) {
     return (

@@ -5,19 +5,38 @@ import {
   LEECH_THRESHOLD,
   DEFAULT_CONFIG,
   LEARNING_STEPS_MIN,
-} from "./constants";
-import { addMinutes, addDays } from "./utils";
+} from "../constants";
+import { addMinutes, addDays } from "../utils";
 
 /**
  * SM-2 Algorithm Implementation (Anki-style)
+ * 
+ * This class implements the SuperMemo 2 algorithm for spaced repetition learning.
+ * It manages card scheduling, queue building, and rating processing.
+ * 
+ * @example
+ * ```typescript
+ * const scheduler = new SRSScheduler();
+ * const queue = scheduler.buildQueue(cards, new Date());
+ * const updatedCard = scheduler.rate(card, 2, new Date());
+ * ```
  */
 export class SRSScheduler implements SRS {
   constructor(private config: SRSConfig = DEFAULT_CONFIG) {}
 
   /**
-   * Build daily session queue
+   * Build daily session queue based on card status and due dates
+   * 
+   * Priority order:
+   * 1. Learning/relearning cards that are due (time-critical)
+   * 2. Review cards that are due (up to DAILY_REVIEWS limit)
+   * 3. New cards (up to DAILY_NEW limit)
+   * 
+   * @param allCards - All available cards
+   * @param now - Current timestamp
+   * @returns Array of cards ordered by priority for the session
    */
-  buildQueue(allCards: Card[], now: Date): Card[] {
+  buildQueue = (allCards: Card[], now: Date): Card[] => {
     const queue: Card[] = [];
     const nowISO = now.toISOString();
 
@@ -51,9 +70,20 @@ export class SRSScheduler implements SRS {
   }
 
   /**
-   * Rate a card and return updated version (SM-2 Algorithm)
+   * Rate a card and return updated version using SM-2 Algorithm
+   * 
+   * Updates card state based on the rating:
+   * - 0 (Again): Reset to learning, increment lapses
+   * - 1 (Hard): Reduce ease factor, shorter interval
+   * - 2 (Good): Normal ease factor, standard interval
+   * - 3 (Easy): Increase ease factor, longer interval
+   * 
+   * @param card - The card to rate
+   * @param rating - User rating (0-3)
+   * @param now - Current timestamp
+   * @returns Updated card with new state
    */
-  rate(card: Card, rating: Rating, now: Date): Card {
+  rate = (card: Card, rating: Rating, now: Date): Card => {
     const updated = { ...card };
     
     // Convert rating to q5 scale (1-5)
@@ -139,30 +169,40 @@ export class SRSScheduler implements SRS {
 }
 
 /**
- * Helper: Get initial interval for graduating card
+ * Get initial interval for graduating card based on rating
+ * 
+ * @param rating - User rating (0-3)
+ * @returns Initial interval in days
  */
-function initialInterval(rating: Rating): number {
+const initialInterval = (rating: Rating): number => {
   if (rating === 1) return 1; // Hard
   if (rating === 3) return 4; // Easy
   return 2; // Good default
-}
+};
 
 /**
- * Helper: Get next learning step
+ * Get next learning step duration in minutes
+ * 
+ * @param card - Card with current learning step index
+ * @returns Next step duration in minutes, or null if graduated
  */
-function getNextLearningStep(card: Card): number | null {
+const getNextLearningStep = (card: Card): number | null => {
   const currentIndex = card.learningStepIndex ?? 0;
   const nextIndex = currentIndex + 1;
   card.learningStepIndex = nextIndex;
   return LEARNING_STEPS_MIN[nextIndex] ?? null;
-}
+};
 
 /**
- * Helper: Generate random number in range [min, max]
+ * Generate random number in range [min, max] for interval jitter
+ * 
+ * @param min - Minimum value
+ * @param max - Maximum value
+ * @returns Random number in range
  */
-function uniform(min: number, max: number): number {
+const uniform = (min: number, max: number): number => {
   return Math.random() * (max - min) + min;
-}
+};
 
 // Export helper functions for testing
 export { initialInterval, getNextLearningStep, uniform };

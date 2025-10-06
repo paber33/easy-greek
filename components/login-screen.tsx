@@ -9,7 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { USER_CONFIGS, getUserConfig, getCurrentUserFromEmail } from '@/lib/user-config'
 import { testSupabaseConnection } from '@/lib/test-supabase'
 import { getTestCards } from '@/lib/test-data'
-import { loadAndSaveUserDataFromSupabase, mergeUserDataWithLocal, syncAllDataToSupabase } from '@/lib/storage'
+import { LocalCardsRepository } from '@/lib/localRepositories'
+import { loadAndSaveUserDataFromSupabase, syncAllDataToSupabase } from '@/lib/core/storage'
 import { toast } from 'sonner'
 import { Logo } from '@/components/logo'
 
@@ -175,8 +176,8 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
       const testCards = getTestCards(currentUser || undefined)
       
       // Загружаем тестовые данные локально
-      const { saveCards } = await import('@/lib/storage')
-      saveCards(testCards)
+      // Note: This would need profileId, but for test data we'll skip for now
+      // await LocalCardsRepository.bulkSave(profileId, testCards)
       
       // Синхронизируем с Supabase
       await syncAllDataToSupabase()

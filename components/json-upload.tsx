@@ -9,7 +9,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Upload, FileText, CheckCircle, AlertCircle, Download } from 'lucide-react'
 import { Card as CardType } from '@/types'
-import { saveCards } from '@/lib/storage'
+import { LocalCardsRepository } from '@/lib/localRepositories'
+import { useCurrentProfileId } from '@/lib/hooks/use-profile'
 import { syncService } from '@/lib/sync'
 import { toast } from 'sonner'
 
@@ -19,6 +20,7 @@ interface JsonUploadProps {
 }
 
 export function JsonUpload({ onCardsAdded, hideHeader = false }: JsonUploadProps) {
+  const profileId = useCurrentProfileId();
   const [isLoading, setIsLoading] = useState(false)
   const [uploadStatus, setUploadStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
@@ -157,7 +159,7 @@ export function JsonUpload({ onCardsAdded, hideHeader = false }: JsonUploadProps
       }
 
       // Сохраняем карточки
-      await saveCards(validCards)
+      await LocalCardsRepository.bulkSave(profileId, validCards)
       setUploadedCards(validCards)
       setUploadStatus('success')
 
