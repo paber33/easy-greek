@@ -38,21 +38,24 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
 
   // Показываем загрузку пока проверяем аутентификацию
   if (isLoading) {
-    return <div className="min-h-screen bg-background">{children}</div>;
+    return <div className="min-h-screen bg-background" suppressHydrationWarning>{children}</div>;
   }
 
   // Если пользователь не авторизован, показываем только контент без навигации
   if (!isAuthenticated) {
-    return <div className="min-h-screen bg-background">{children}</div>;
+    return <div className="min-h-screen bg-background" suppressHydrationWarning>{children}</div>;
   }
 
   // Если авторизован, показываем полный интерфейс с навигацией
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" suppressHydrationWarning>
       {/* Navigation */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="flex h-14 items-center">
+      <header 
+        className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        suppressHydrationWarning
+      >
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8" suppressHydrationWarning>
+          <div className="flex h-14 items-center" suppressHydrationWarning>
             <Link href="/" className="mr-3 sm:mr-6 flex items-center">
               <span className="font-bold text-lg sm:text-xl bg-gradient-to-r from-slate-600 to-slate-800 dark:from-slate-300 dark:to-slate-100 bg-clip-text text-transparent">
                 Greekly
@@ -102,14 +105,23 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
+      <main 
+        className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8"
+        suppressHydrationWarning
+      >
         {children}
       </main>
 
       {/* Footer */}
-      <footer className="border-t py-6 md:py-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-14 items-center justify-center text-sm text-muted-foreground">
+      <footer 
+        className="border-t py-6 md:py-0"
+        suppressHydrationWarning
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" suppressHydrationWarning>
+          <div 
+            className="flex h-14 items-center justify-center text-sm text-muted-foreground"
+            suppressHydrationWarning
+          >
             Built with Next.js + TypeScript + TailwindCSS • FSRS-lite Algorithm
           </div>
         </div>

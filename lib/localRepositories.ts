@@ -41,31 +41,16 @@ const save = (key: string, value: unknown): void => {
  */
 export const LocalCardsRepository: CardsRepository = {
   async list(profileId: ProfileId): Promise<Card[]> {
-    // Сначала пытаемся загрузить из localStorage
-    const localCards = load(ns(profileId, "cards"), [] as Card[]);
-
-    // Если есть локальные карточки, возвращаем их
-    if (localCards.length > 0) {
-      return localCards;
-    }
-
-    // Если локальных карточек нет, пытаемся загрузить из Supabase
+    // Используем новую функцию loadCards, которая загружает из Supabase
     try {
-      const { syncService } = await import("./sync");
-      const userData = await syncService.loadUserData();
-
-      if (userData && userData.cards.length > 0) {
-        // Сохраняем карточки из Supabase в localStorage
-        save(ns(profileId, "cards"), userData.cards);
-        console.log(`Loaded ${userData.cards.length} cards from Supabase for profile ${profileId}`);
-        return userData.cards;
-      }
+      const { loadCards } = await import("./core/storage");
+      const cards = await loadCards();
+      console.log(`Loaded ${cards.length} cards for profile ${profileId}`);
+      return cards;
     } catch (error) {
-      console.log("Failed to load cards from Supabase, using local data:", error);
+      console.log("Failed to load cards:", error);
+      return [];
     }
-
-    // Если ничего не найдено, возвращаем пустой массив
-    return [];
   },
 
   async upsert(profileId: ProfileId, card: Card): Promise<void> {
@@ -160,9 +145,13 @@ export const LocalLogsRepository: LogsRepository = {
         newCards: existing.newCards + log.newCards,
         reviewCards: existing.reviewCards + log.reviewCards,
         learningCards: existing.learningCards + log.learningCards,
-        accuracy: Math.round(
-          ((existing.correct + log.correct) / (existing.totalReviewed + log.totalReviewed)) * 100
-        ),
+        accuracy:
+          existing.totalReviewed + log.totalReviewed > 0
+            ? Math.round(
+                ((existing.correct + log.correct) / (existing.totalReviewed + log.totalReviewed)) *
+                  100
+              )
+            : 0,
       };
     } else {
       logs.push(log);

@@ -29,6 +29,7 @@ import { LoginScreen } from "@/components/login-screen";
 import { ProgressCalendar } from "@/components/progress-calendar";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { supabase } from "@/lib/supabase";
+import { cleanupLocalStorage } from "@/lib/data-cleanup";
 
 // Мотивирующие фразы на греческом языке
 const motivationalPhrases = [
@@ -106,7 +107,25 @@ export default function Dashboard() {
 
     try {
       const profileLogs = await LocalLogsRepository.list(currentProfileId);
-      setLogs(profileLogs);
+
+      // Фильтруем поврежденные логи перед отображением
+      const validLogs = profileLogs.filter(log => {
+        return !(
+          log.totalReviewed > 10000 ||
+          log.newCards > 1000 ||
+          log.reviewCards > 10000 ||
+          log.learningCards > 1000 ||
+          (log.accuracy === 0 && log.totalReviewed > 100)
+        );
+      });
+
+      if (validLogs.length !== profileLogs.length) {
+        console.log(
+          `🧹 Отфильтровано ${profileLogs.length - validLogs.length} поврежденных записей`
+        );
+      }
+
+      setLogs(validLogs);
     } catch (error) {
       console.error("Failed to load logs:", error);
       setLogs([]);
@@ -123,14 +142,15 @@ export default function Dashboard() {
       new: cards.filter(c => c.status === "new").length,
       learning: cards.filter(c => c.status === "learning" || c.status === "relearning").length,
       review: cards.filter(c => c.status === "review").length,
-      due: cards.filter(c => c.due <= nowISO).length,
+      due: mounted ? cards.filter(c => c.due <= nowISO).length : 0, // Only calculate when mounted
       leeches: cards.filter(c => c.isLeech).length,
     };
   }, [cards, mounted]);
 
   // Memoized log calculations - use stable date for SSR
   const todayLog = useMemo(() => {
-    const todayISO = mounted ? getTodayISO() : "2024-01-01";
+    if (!mounted) return null; // Don't show today's log until mounted
+    const todayISO = getTodayISO();
     return logs.find(log => log.date === todayISO);
   }, [logs, mounted]);
 
@@ -139,8 +159,49 @@ export default function Dashboard() {
   useEffect(() => {
     setMounted(true);
 
-    // Инициализируем фразу и совет на основе времени (детерминированно)
-    // Используем фиксированные индексы для предотвращения проблем с гидратацией
+    // Очищаем поврежденные данные в localStorage
+    cleanupLocalStorage();
+
+    // Дополнительно очищаем логи с нереалистичными значениями
+    if (typeof window !== "undefined") {
+      try {
+        const keys = Object.keys(localStorage);
+        keys.forEach(key => {
+          if (key.includes("logs")) {
+            try {
+              const data = JSON.parse(localStorage.getItem(key) || "[]");
+              if (Array.isArray(data)) {
+                const cleanedData = data.filter(log => {
+                  // Проверяем на нереалистичные значения
+                  return !(
+                    log.totalReviewed > 10000 ||
+                    log.newCards > 1000 ||
+                    log.reviewCards > 10000 ||
+                    log.learningCards > 1000 ||
+                    (log.accuracy === 0 && log.totalReviewed > 100)
+                  );
+                });
+
+                if (cleanedData.length !== data.length) {
+                  console.log(
+                    `🧹 Очищено ${data.length - cleanedData.length} поврежденных записей из ${key}`
+                  );
+                  localStorage.setItem(key, JSON.stringify(cleanedData));
+                }
+              }
+            } catch (error) {
+              console.warn(`🗑️ Удаляем поврежденный ключ ${key}:`, error);
+              localStorage.removeItem(key);
+            }
+          }
+        });
+      } catch (error) {
+        console.error("Ошибка очистки логов:", error);
+      }
+    }
+
+    // Инициализируем фразу и совет детерминированно для предотвращения проблем с гидратацией
+    // Используем фиксированные индексы, которые будут одинаковыми на сервере и клиенте
     const timeIndex = 0; // Всегда показываем первую фразу
     const tipIndex = 0; // Всегда показываем первый совет
     setCurrentPhrase(motivationalPhrases[timeIndex]);
@@ -232,21 +293,27 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="space-y-6 sm:space-y-8 lg:space-y-10" suppressHydrationWarning>
+    <div className="space-y-8 sm:space-y-10 lg:space-y-12" suppressHydrationWarning>
       {/* Header with motivational phrase */}
-      <div className="text-center space-y-4">
-        <div className="space-y-2">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground transition-all duration-300">
+      <div className="text-center space-y-6" suppressHydrationWarning>
+        <div className="space-y-4" suppressHydrationWarning>
+          <h1
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent transition-all duration-500"
+            suppressHydrationWarning
+          >
             {currentPhrase.greek}
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground transition-all duration-300">
+          <p
+            className="text-lg sm:text-xl text-muted-foreground transition-all duration-500 max-w-2xl mx-auto leading-relaxed"
+            suppressHydrationWarning
+          >
             {currentPhrase.translation}
           </p>
         </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+      <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
         <StatCard
           title="Всего слов"
           value={stats.total}
@@ -292,52 +359,88 @@ export default function Dashboard() {
       </div>
 
       {/* Today's Progress */}
-      {todayLog && (
-        <UICard className="border-2 border-primary/10 shadow-lg">
+      {mounted ? (
+        todayLog ? (
+          <UICard className="glass-effect shadow-lg">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-xl font-semibold">
+                <div className="p-2 rounded-xl gradient-purple-soft">
+                  <BarChart3 className="h-5 w-5 text-primary" />
+                </div>
+                Сегодняшний прогресс
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary">{todayLog.totalReviewed}</div>
+                  <div className="text-sm text-muted-foreground mt-1">Повторено</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-green-600 dark:text-green-400">
+                    {todayLog.accuracy}%
+                  </div>
+                  <div className="text-sm text-muted-foreground mt-1">Точность</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
+                    {todayLog.newCards}
+                  </div>
+                  <div className="text-sm text-muted-foreground mt-1">Новых</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 flex items-center justify-center gap-1">
+                    {streak} <Flame className="h-6 w-6" />
+                  </div>
+                  <div className="text-sm text-muted-foreground mt-1">Дней подряд</div>
+                </div>
+              </div>
+            </CardContent>
+          </UICard>
+        ) : (
+          <UICard className="glass-effect shadow-lg">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-xl font-semibold">
+                <div className="p-2 rounded-xl gradient-purple-soft">
+                  <BarChart3 className="h-5 w-5 text-primary" />
+                </div>
+                Сегодняшний прогресс
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center text-muted-foreground py-8">
+                <BarChart3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                <p>Сегодня еще нет активности</p>
+                <p className="text-sm mt-2">Начните изучение, чтобы увидеть статистику</p>
+              </div>
+            </CardContent>
+          </UICard>
+        )
+      ) : (
+        <UICard className="glass-effect shadow-lg">
           <CardHeader className="pb-4">
-            <CardTitle className="flex items-center gap-2 text-xl">
-              <BarChart3 className="h-5 w-5 text-primary" />
+            <CardTitle className="flex items-center gap-3 text-xl font-semibold">
+              <div className="p-2 rounded-xl gradient-purple-soft">
+                <BarChart3 className="h-5 w-5 text-primary" />
+              </div>
               Сегодняшний прогресс
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">{todayLog.totalReviewed}</div>
-                <div className="text-sm text-muted-foreground mt-1">Повторено</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-green-600 dark:text-green-400">
-                  {todayLog.accuracy}%
-                </div>
-                <div className="text-sm text-muted-foreground mt-1">Точность</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
-                  {todayLog.newCards}
-                </div>
-                <div className="text-sm text-muted-foreground mt-1">Новых</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 flex items-center justify-center gap-1">
-                  {streak} <Flame className="h-6 w-6" />
-                </div>
-                <div className="text-sm text-muted-foreground mt-1">Дней подряд</div>
-              </div>
-            </div>
+            <div className="h-32 bg-muted animate-pulse rounded"></div>
           </CardContent>
         </UICard>
       )}
 
       {/* Quick Actions */}
-      <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <Link href="/session" className="group">
-          <UICard className="h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.02] border-2 border-primary/20 hover:border-primary/40 bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20">
+          <UICard className="h-full transition-all duration-500 hover:shadow-2xl hover:scale-[1.03] glass-effect hover:gradient-purple-soft">
             <CardHeader className="text-center">
-              <div className="mx-auto mb-4 p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
-                <Play className="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+              <div className="mx-auto mb-6 p-6 rounded-2xl gradient-purple-medium group-hover:gradient-purple-strong transition-all duration-500">
+                <Play className="h-10 w-10 text-primary-foreground group-hover:scale-110 transition-transform duration-500" />
               </div>
-              <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+              <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-500">
                 Начать тренировку
               </CardTitle>
               <CardDescription className="text-muted-foreground">
@@ -362,12 +465,14 @@ export default function Dashboard() {
         </Link>
 
         <Link href="/words" className="group">
-          <UICard className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border hover:border-primary/30">
+          <UICard className="h-full transition-all duration-500 hover:shadow-2xl hover:scale-[1.03] glass-effect">
             <CardHeader className="text-center">
-              <div className="mx-auto mb-4 p-4 rounded-full bg-blue-100 dark:bg-blue-900/20 group-hover:bg-blue-200 dark:group-hover:bg-blue-900/30 transition-colors duration-300">
-                <BookOpen className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+              <div className="mx-auto mb-6 p-6 rounded-2xl gradient-purple-soft group-hover:gradient-purple-medium transition-all duration-500">
+                <BookOpen className="h-10 w-10 text-primary group-hover:scale-110 transition-transform duration-500" />
               </div>
-              <CardTitle className="text-xl font-bold text-foreground">Список слов</CardTitle>
+              <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-500">
+                Список слов
+              </CardTitle>
               <CardDescription className="text-muted-foreground">
                 Управляйте своей базой из {stats.total} слов
               </CardDescription>
@@ -381,12 +486,14 @@ export default function Dashboard() {
         </Link>
 
         <Link href="/logs" className="group">
-          <UICard className="h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border hover:border-primary/30">
+          <UICard className="h-full transition-all duration-500 hover:shadow-2xl hover:scale-[1.03] glass-effect">
             <CardHeader className="text-center">
-              <div className="mx-auto mb-4 p-4 rounded-full bg-purple-100 dark:bg-purple-900/20 group-hover:bg-purple-200 dark:group-hover:bg-purple-900/30 transition-colors duration-300">
-                <BarChart3 className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+              <div className="mx-auto mb-6 p-6 rounded-2xl gradient-purple-soft group-hover:gradient-purple-medium transition-all duration-500">
+                <BarChart3 className="h-10 w-10 text-primary group-hover:scale-110 transition-transform duration-500" />
               </div>
-              <CardTitle className="text-xl font-bold text-foreground">Статистика</CardTitle>
+              <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-500">
+                Статистика
+              </CardTitle>
               <CardDescription className="text-muted-foreground">
                 Просмотрите свой прогресс и аналитику
               </CardDescription>
@@ -404,10 +511,12 @@ export default function Dashboard() {
       <ProgressCalendar />
 
       {/* Tips */}
-      <UICard className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border-blue-200 dark:border-blue-800 shadow-md">
+      <UICard className="glass-effect shadow-lg">
         <CardHeader className="pb-4">
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <span className="text-2xl">💡</span>
+          <CardTitle className="flex items-center gap-3 text-xl font-semibold">
+            <div className="p-2 rounded-xl gradient-purple-soft">
+              <span className="text-2xl">💡</span>
+            </div>
             Совет дня
           </CardTitle>
         </CardHeader>
@@ -429,34 +538,29 @@ interface StatCardProps {
 
 const StatCard = memo(({ title, value, icon, variant, href }: StatCardProps) => {
   const variants = {
-    blue: "border-blue-200 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-700 bg-blue-50/50 dark:bg-blue-950/20 hover:bg-blue-100/50 dark:hover:bg-blue-950/30",
-    purple:
-      "border-purple-200 dark:border-purple-800 hover:border-purple-300 dark:hover:border-purple-700 bg-purple-50/50 dark:bg-purple-950/20 hover:bg-purple-100/50 dark:hover:bg-purple-950/30",
-    yellow:
-      "border-yellow-200 dark:border-yellow-800 hover:border-yellow-300 dark:hover:border-yellow-700 bg-yellow-50/50 dark:bg-yellow-950/20 hover:bg-yellow-100/50 dark:hover:bg-yellow-950/30",
-    green:
-      "border-green-200 dark:border-green-800 hover:border-green-300 dark:hover:border-green-700 bg-green-50/50 dark:bg-green-950/20 hover:bg-green-100/50 dark:hover:bg-green-950/30",
-    orange:
-      "border-orange-200 dark:border-orange-800 hover:border-orange-300 dark:hover:border-orange-700 bg-orange-50/50 dark:bg-orange-950/20 hover:bg-orange-100/50 dark:hover:bg-orange-950/30",
-    red: "border-red-200 dark:border-red-800 hover:border-red-300 dark:hover:border-red-700 bg-red-50/50 dark:bg-red-950/20 hover:bg-red-100/50 dark:hover:bg-red-950/30",
-    training:
-      "border-primary/30 hover:border-primary/50 bg-primary/5 dark:bg-primary/10 hover:bg-primary/10 dark:hover:bg-primary/20 shadow-md hover:shadow-lg",
+    blue: "glass-effect hover:gradient-purple-soft",
+    purple: "glass-effect hover:gradient-purple-soft",
+    yellow: "glass-effect hover:gradient-purple-soft",
+    green: "glass-effect hover:gradient-purple-soft",
+    orange: "glass-effect hover:gradient-purple-soft",
+    red: "glass-effect hover:gradient-purple-soft",
+    training: "gradient-purple-soft hover:gradient-purple-medium shadow-lg hover:shadow-xl",
   };
 
   return (
     <Link href={href} className="block group">
       <UICard
-        className={`transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border-2 ${variants[variant]}`}
+        className={`transition-all duration-500 hover:scale-110 hover:shadow-xl cursor-pointer ${variants[variant]}`}
       >
-        <CardContent className="p-4 text-center">
-          <div className="flex flex-col items-center gap-2">
-            <div className="p-2 rounded-full bg-background/50 group-hover:bg-background/80 transition-colors duration-300">
+        <CardContent className="p-6 text-center">
+          <div className="flex flex-col items-center gap-4">
+            <div className="p-3 rounded-2xl gradient-purple-soft group-hover:gradient-purple-medium transition-all duration-500">
               {icon}
             </div>
-            <div className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+            <div className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-500">
               {value}
             </div>
-            <div className="text-xs text-muted-foreground font-medium">{title}</div>
+            <div className="text-sm text-muted-foreground font-medium">{title}</div>
           </div>
         </CardContent>
       </UICard>
@@ -467,12 +571,13 @@ const StatCard = memo(({ title, value, icon, variant, href }: StatCardProps) => 
 StatCard.displayName = "StatCard";
 
 function calculateStreak(logs: SessionSummary[], mounted: boolean): number {
-  if (logs.length === 0) return 0;
+  if (!mounted || logs.length === 0) return 0;
 
   const sorted = [...logs].sort((a, b) => b.date.localeCompare(a.date));
   let streak = 0;
-  // Use stable date for SSR consistency
-  const checkDate = mounted ? new Date() : new Date("2024-01-01");
+
+  // Use current date only when mounted
+  const checkDate = new Date();
 
   for (let i = 0; i < sorted.length; i++) {
     const logDate = sorted[i].date.split("T")[0];

@@ -137,7 +137,7 @@ export class AutoSyncService {
       const cloudData = await this.loadFromCloud();
 
       // 2. Загружаем локальные данные
-      const localData = this.loadFromLocal();
+      const localData = await this.loadFromLocal();
 
       // 3. Объединяем данные (приоритет у облачных)
       const mergedData = this.mergeData(cloudData, localData);
@@ -170,9 +170,9 @@ export class AutoSyncService {
   /**
    * Загружает локальные данные
    */
-  private loadFromLocal() {
+  private async loadFromLocal() {
     try {
-      const cards = loadCards();
+      const cards = await loadCards();
       const logs = loadLogs();
       const config = loadConfig();
       return { cards, logs, config };
@@ -240,7 +240,7 @@ export class AutoSyncService {
    */
   public async syncCards() {
     try {
-      const cards = loadCards();
+      const cards = await loadCards();
       await syncService.syncCards(cards);
       console.log(`✅ Synced ${cards.length} cards`);
     } catch (error) {

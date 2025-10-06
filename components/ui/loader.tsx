@@ -115,20 +115,38 @@ export function WaveLoader({ size = "md", className }: LoaderProps) {
 
 export function GreekLoader({ className }: { className?: string }) {
   return (
-    <div className={cn("flex items-center justify-center space-x-2", className)}>
-      <div className="text-2xl animate-bounce [animation-delay:0ms]">
+    <div 
+      className={cn("flex items-center justify-center space-x-2", className)}
+      suppressHydrationWarning
+    >
+      <div 
+        className="text-2xl animate-bounce [animation-delay:0ms]"
+        suppressHydrationWarning
+      >
         Γ
       </div>
-      <div className="text-2xl animate-bounce [animation-delay:100ms]">
+      <div 
+        className="text-2xl animate-bounce [animation-delay:100ms]"
+        suppressHydrationWarning
+      >
         ρ
       </div>
-      <div className="text-2xl animate-bounce [animation-delay:200ms]">
+      <div 
+        className="text-2xl animate-bounce [animation-delay:200ms]"
+        suppressHydrationWarning
+      >
         ε
       </div>
-      <div className="text-2xl animate-bounce [animation-delay:300ms]">
+      <div 
+        className="text-2xl animate-bounce [animation-delay:300ms]"
+        suppressHydrationWarning
+      >
         ε
       </div>
-      <div className="text-2xl animate-bounce [animation-delay:400ms]">
+      <div 
+        className="text-2xl animate-bounce [animation-delay:400ms]"
+        suppressHydrationWarning
+      >
         κ
       </div>
     </div>

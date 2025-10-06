@@ -12,17 +12,7 @@
       "Καλημέρα κύριε! - Доброе утро, господин!"
     ],
     "pronunciation": "кали-мЭ-ра",
-    "notes": "Используется до 12:00. После полудня говорят Καλησπέρα",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.878Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Используется до 12:00. После полудня говорят Καλησπέρα"
   },
   {
     "greek": "Καλησπέρα",
@@ -37,17 +27,7 @@
       "Καλησπέρα κύριε! - Добрый вечер, господин!"
     ],
     "pronunciation": "кали-спЭ-ра",
-    "notes": "Используется после 12:00. До полудня говорят Καλημέρα",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Используется после 12:00. До полудня говорят Καλημέρα"
   },
   {
     "greek": "Ευχαριστώ",
@@ -62,17 +42,7 @@
       "Ευχαριστώ για τη βοήθεια - Спасибо за помощь"
     ],
     "pronunciation": "эф-ха-рис-тО",
-    "notes": "Можно сократить до Ευχαριστώ πολύ (большое спасибо)",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Можно сократить до Ευχαριστώ πολύ (большое спасибо)"
   },
   {
     "greek": "Παρακαλώ",
@@ -87,17 +57,7 @@
       "Παρακαλώ, μπορείτε να με βοηθήσετε; - Пожалуйста, можете помочь?"
     ],
     "pronunciation": "па-ра-ка-лО",
-    "notes": "Используется как 'пожалуйста' и 'не за что'",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Используется как 'пожалуйста' и 'не за что'"
   },
   {
     "greek": "Καληνύχτα",
@@ -112,17 +72,7 @@
       "Καληνύχτα, αγάπη μου - Спокойной ночи, любовь моя"
     ],
     "pronunciation": "кали-нИ-хта",
-    "notes": "Используется при прощании на ночь",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Используется при прощании на ночь"
   },
   {
     "greek": "γεια",
@@ -137,17 +87,7 @@
       "Γεια σας! - Привет вам! (вежливо)"
     ],
     "pronunciation": "йА",
-    "notes": "Неформальное приветствие",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Неформальное приветствие"
   },
   {
     "greek": "αντίο",
@@ -162,17 +102,7 @@
       "Αντίο, φίλε μου - До свидания, мой друг"
     ],
     "pronunciation": "ан-дИ-о",
-    "notes": "Формальное прощание",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Формальное прощание"
   },
   {
     "greek": "συγνώμη",
@@ -187,17 +117,7 @@
       "Συγνώμη για την καθυστέρηση - Извините за опоздание"
     ],
     "pronunciation": "сиг-нО-ми",
-    "notes": "Используется для извинений",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Используется для извинений"
   },
   {
     "greek": "ναι",
@@ -212,17 +132,7 @@
       "Ναι, θέλω - Да, хочу"
     ],
     "pronunciation": "нэ",
-    "notes": "Положительный ответ",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Положительный ответ"
   },
   {
     "greek": "όχι",
@@ -237,17 +147,7 @@
       "Όχι, ευχαριστώ - Нет, спасибо"
     ],
     "pronunciation": "О-хи",
-    "notes": "Отрицательный ответ",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Отрицательный ответ"
   },
   {
     "greek": "τρώω",
@@ -263,17 +163,7 @@
       "Δεν τρώω κρέας - Я не ем мясо"
     ],
     "pronunciation": "трО-о",
-    "notes": "Неправильный глагол. Спряжение: τρώω, τρως, τρώει, τρώμε, τρώτε, τρώνε",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Неправильный глагол. Спряжение: τρώω, τρως, τρώει, τρώμε, τρώτε, τρώνε"
   },
   {
     "greek": "πίνω",
@@ -289,17 +179,7 @@
       "Πίνω καφέ - Я пью кофе"
     ],
     "pronunciation": "пИ-но",
-    "notes": "Правильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Правильный глагол"
   },
   {
     "greek": "είμαι",
@@ -314,17 +194,7 @@
       "Πώς είσαι; - Как дела?"
     ],
     "pronunciation": "И-мэ",
-    "notes": "Неправильный глагол. Спряжение: είμαι, είσαι, είναι, είμαστε, είστε, είναι",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Неправильный глагол. Спряжение: είμαι, είσαι, είναι, είμαστε, είστε, είναι"
   },
   {
     "greek": "έχω",
@@ -339,17 +209,7 @@
       "Δεν έχω λεφτά - У меня нет денег"
     ],
     "pronunciation": "Э-хо",
-    "notes": "Неправильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Неправильный глагол"
   },
   {
     "greek": "θέλω",
@@ -364,17 +224,7 @@
       "Θέλω νερό - Я хочу воды"
     ],
     "pronunciation": "тЭ-ло",
-    "notes": "Правильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Правильный глагол"
   },
   {
     "greek": "αγαπώ",
@@ -389,17 +239,7 @@
       "Αγαπώ τη μουσική - Я люблю музыку"
     ],
     "pronunciation": "а-га-пО",
-    "notes": "Правильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Правильный глагол"
   },
   {
     "greek": "πηγαίνω",
@@ -415,17 +255,7 @@
       "Πηγαίνουμε στην παραλία - Мы идем на пляж"
     ],
     "pronunciation": "пи-гЭ-но",
-    "notes": "Неправильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Неправильный глагол"
   },
   {
     "greek": "έρχομαι",
@@ -441,17 +271,7 @@
       "Έρχονται αύριο - Они приходят завтра"
     ],
     "pronunciation": "Э-рхо-мэ",
-    "notes": "Неправильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Неправильный глагол"
   },
   {
     "greek": "δουλεύω",
@@ -467,17 +287,7 @@
       "Δουλεύω πολύ - Я много работаю"
     ],
     "pronunciation": "ду-лЭ-во",
-    "notes": "Правильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Правильный глагол"
   },
   {
     "greek": "μαθαίνω",
@@ -493,17 +303,7 @@
       "Μαθαίνω κάθε μέρα - Я учусь каждый день"
     ],
     "pronunciation": "ма-тЭ-но",
-    "notes": "Правильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Правильный глагол"
   },
   {
     "greek": "μιλάω",
@@ -519,17 +319,7 @@
       "Δεν μιλάω πολύ - Я не говорю много"
     ],
     "pronunciation": "ми-лА-о",
-    "notes": "Правильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Правильный глагол"
   },
   {
     "greek": "βλέπω",
@@ -545,17 +335,7 @@
       "Δεν βλέπω καλά - Я плохо вижу"
     ],
     "pronunciation": "влЭ-по",
-    "notes": "Правильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Правильный глагол"
   },
   {
     "greek": "ακούω",
@@ -571,17 +351,7 @@
       "Ακούω τη φωνή σου - Я слышу твой голос"
     ],
     "pronunciation": "а-кУ-о",
-    "notes": "Правильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Правильный глагол"
   },
   {
     "greek": "κοιμάμαι",
@@ -597,17 +367,7 @@
       "Κοιμάμαι νωρίς - Я рано ложусь спать"
     ],
     "pronunciation": "ки-мА-мэ",
-    "notes": "Неправильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Неправильный глагол"
   },
   {
     "greek": "ξυπνάω",
@@ -623,17 +383,7 @@
       "Ξυπνάω νωρίς - Я рано просыпаюсь"
     ],
     "pronunciation": "кси-пнА-о",
-    "notes": "Правильный глагол",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Правильный глагол"
   },
   {
     "greek": "νερό",
@@ -649,17 +399,7 @@
       "Πίνω νερό κάθε μέρα - Я пью воду каждый день"
     ],
     "pronunciation": "нэ-рО",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "κρασί",
@@ -675,17 +415,7 @@
       "Κόκκινο κρασί - Красное вино"
     ],
     "pronunciation": "кра-сИ",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "καφές",
@@ -701,17 +431,7 @@
       "Ο καφές είναι ζεστός - Кофе горячий"
     ],
     "pronunciation": "ка-фЭс",
-    "notes": "Мужской род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Мужской род"
   },
   {
     "greek": "τυρί",
@@ -726,17 +446,7 @@
       "Φέτα τυρί - Сыр фета"
     ],
     "pronunciation": "ти-рИ",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "ψωμί",
@@ -751,17 +461,7 @@
       "Λευκό ψωμί - Белый хлеб"
     ],
     "pronunciation": "псо-мИ",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "κρέας",
@@ -776,17 +476,7 @@
       "Κοτόπουλο κρέας - Куриное мясо"
     ],
     "pronunciation": "крЭ-ас",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "ψάρι",
@@ -801,17 +491,7 @@
       "Ψητό ψάρι - Жареная рыба"
     ],
     "pronunciation": "псА-ри",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "φρούτα",
@@ -826,17 +506,7 @@
       "Φρέσκα φρούτα - Свежие фрукты"
     ],
     "pronunciation": "фрУ-та",
-    "notes": "Средний род, множественное число",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род, множественное число"
   },
   {
     "greek": "λαχανικά",
@@ -851,17 +521,7 @@
       "Φρέσκα λαχανικά - Свежие овощи"
     ],
     "pronunciation": "ла-ха-ни-кА",
-    "notes": "Средний род, множественное число",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род, множественное число"
   },
   {
     "greek": "γλυκό",
@@ -876,17 +536,7 @@
       "Ελληνικό γλυκό - Греческие сладости"
     ],
     "pronunciation": "гли-кО",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "αλάτι",
@@ -902,17 +552,7 @@
       "Λίγο αλάτι - Немного соли"
     ],
     "pronunciation": "а-лА-ти",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "πιπέρι",
@@ -928,17 +568,7 @@
       "Μαύρο πιπέρι - Черный перец"
     ],
     "pronunciation": "пи-пЭ-ри",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "οικογένεια",
@@ -954,17 +584,7 @@
       "Μεγάλη οικογένεια - Большая семья"
     ],
     "pronunciation": "и-ко-гЭ-ни-а",
-    "notes": "Женский род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Женский род"
   },
   {
     "greek": "φίλος",
@@ -980,17 +600,7 @@
       "Καλός φίλος - Хороший друг"
     ],
     "pronunciation": "фИ-лос",
-    "notes": "Мужской род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Мужской род"
   },
   {
     "greek": "φίλη",
@@ -1006,17 +616,7 @@
       "Η καλύτερη φίλη - Лучшая подруга"
     ],
     "pronunciation": "фИ-ли",
-    "notes": "Женский род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Женский род"
   },
   {
     "greek": "πατέρας",
@@ -1032,17 +632,7 @@
       "Αγαπώ τον πατέρα μου - Я люблю своего отца"
     ],
     "pronunciation": "па-тЭ-рас",
-    "notes": "Мужской род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Мужской род"
   },
   {
     "greek": "μητέρα",
@@ -1058,17 +648,7 @@
       "Αγαπώ τη μητέρα μου - Я люблю свою мать"
     ],
     "pronunciation": "ми-тЭ-ра",
-    "notes": "Женский род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Женский род"
   },
   {
     "greek": "αδελφός",
@@ -1084,17 +664,7 @@
       "Ο μεγάλος αδελφός - Старший брат"
     ],
     "pronunciation": "а-дел-фОс",
-    "notes": "Мужской род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Мужской род"
   },
   {
     "greek": "αδελφή",
@@ -1110,17 +680,7 @@
       "Η μικρή αδελφή - Младшая сестра"
     ],
     "pronunciation": "а-дел-фИ",
-    "notes": "Женский род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Женский род"
   },
   {
     "greek": "παιδί",
@@ -1136,17 +696,7 @@
       "Μικρό παιδί - Маленький ребенок"
     ],
     "pronunciation": "пэ-дИ",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "σπίτι",
@@ -1162,17 +712,7 @@
       "Μεγάλο σπίτι - Большой дом"
     ],
     "pronunciation": "спИ-ти",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "δωμάτιο",
@@ -1188,17 +728,7 @@
       "Καθαρό δωμάτιο - Чистая комната"
     ],
     "pronunciation": "до-мА-ти-о",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "κρεβάτι",
@@ -1214,17 +744,7 @@
       "Μεγάλο κρεβάτι - Большая кровать"
     ],
     "pronunciation": "крэ-вА-ти",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "τραπέζι",
@@ -1240,17 +760,7 @@
       "Μεγάλο τραπέζι - Большой стол"
     ],
     "pronunciation": "тра-пЭ-зи",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "καρέκλα",
@@ -1266,17 +776,7 @@
       "Άνετη καρέκλα - Удобный стул"
     ],
     "pronunciation": "ка-рЭ-кла",
-    "notes": "Женский род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Женский род"
   },
   {
     "greek": "βιβλίο",
@@ -1292,17 +792,7 @@
       "Ενδιαφέρον βιβλίο - Интересная книга"
     ],
     "pronunciation": "ви-влИ-о",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "χαρτί",
@@ -1318,17 +808,7 @@
       "Λευκό χαρτί - Белая бумага"
     ],
     "pronunciation": "хар-тИ",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "στυλό",
@@ -1344,17 +824,7 @@
       "Μπλε στυλό - Синяя ручка"
     ],
     "pronunciation": "сти-лО",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "τηλέφωνο",
@@ -1370,17 +840,7 @@
       "Κινητό τηλέφωνο - Мобильный телефон"
     ],
     "pronunciation": "ти-лЭ-фо-но",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "αυτοκίνητο",
@@ -1396,17 +856,7 @@
       "Κόκκινο αυτοκίνητο - Красная машина"
     ],
     "pronunciation": "аф-то-кИ-ни-то",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "θάλασσα",
@@ -1422,17 +872,7 @@
       "Η θάλασσα είναι μπλε - Море синее"
     ],
     "pronunciation": "тА-ла-са",
-    "notes": "Женский род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Женский род"
   },
   {
     "greek": "βουνό",
@@ -1448,17 +888,7 @@
       "Υψηλό βουνό - Высокая гора"
     ],
     "pronunciation": "ву-нО",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "δάσος",
@@ -1474,17 +904,7 @@
       "Πυκνό δάσος - Густой лес"
     ],
     "pronunciation": "дА-сос",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "ποτάμι",
@@ -1500,17 +920,7 @@
       "Μεγάλο ποτάμι - Большая река"
     ],
     "pronunciation": "по-тА-ми",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "ήλιος",
@@ -1526,17 +936,7 @@
       "Καυτός ήλιος - Жаркое солнце"
     ],
     "pronunciation": "И-ли-ос",
-    "notes": "Мужской род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Мужской род"
   },
   {
     "greek": "φεγγάρι",
@@ -1552,17 +952,7 @@
       "Πανσέληνος - Полная луна"
     ],
     "pronunciation": "фэ-гА-ри",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "αστέρι",
@@ -1578,17 +968,7 @@
       "Φωτεινό αστέρι - Яркая звезда"
     ],
     "pronunciation": "а-стЭ-ри",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "άνθρωπος",
@@ -1604,17 +984,7 @@
       "Όλοι οι άνθρωποι - Все люди"
     ],
     "pronunciation": "Ан-тро-пос",
-    "notes": "Мужской род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Мужской род"
   },
   {
     "greek": "χρόνος",
@@ -1630,17 +1000,7 @@
       "Πολύς χρόνος - Много времени"
     ],
     "pronunciation": "хрО-нос",
-    "notes": "Мужской род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Мужской род"
   },
   {
     "greek": "μέρα",
@@ -1656,17 +1016,7 @@
       "Ολόκληρη μέρα - Целый день"
     ],
     "pronunciation": "мЭ-ра",
-    "notes": "Женский род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Женский род"
   },
   {
     "greek": "νύχτα",
@@ -1682,17 +1032,7 @@
       "Σκοτεινή νύχτα - Темная ночь"
     ],
     "pronunciation": "нИ-хта",
-    "notes": "Женский род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Женский род"
   },
   {
     "greek": "χρήματα",
@@ -1708,17 +1048,7 @@
       "Πολλά χρήματα - Много денег"
     ],
     "pronunciation": "хрИ-ма-та",
-    "notes": "Средний род, множественное число",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род, множественное число"
   },
   {
     "greek": "ρούχα",
@@ -1734,17 +1064,7 @@
       "Καθαρά ρούχα - Чистая одежда"
     ],
     "pronunciation": "рУ-ха",
-    "notes": "Средний род, множественное число",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род, множественное число"
   },
   {
     "greek": "ποδήλατο",
@@ -1760,17 +1080,7 @@
       "Κόκκινο ποδήλατο - Красный велосипед"
     ],
     "pronunciation": "по-дИ-ла-то",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "αεροπλάνο",
@@ -1786,17 +1096,7 @@
       "Μεγάλο αεροπλάνο - Большой самолет"
     ],
     "pronunciation": "а-э-ро-плА-но",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "αγόρι",
@@ -1812,17 +1112,7 @@
       "Το αγόρι παίζει - Мальчик играет"
     ],
     "pronunciation": "а-гО-ри",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "κορίτσι",
@@ -1838,17 +1128,7 @@
       "Το κορίτσι διαβάζει - Девочка читает"
     ],
     "pronunciation": "ко-рИ-ци",
-    "notes": "Средний род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Средний род"
   },
   {
     "greek": "γάτα",
@@ -1864,17 +1144,7 @@
       "Μικρή γάτα - Маленькая кошка"
     ],
     "pronunciation": "гА-та",
-    "notes": "Женский род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Женский род"
   },
   {
     "greek": "σκύλος",
@@ -1890,17 +1160,7 @@
       "Μεγάλος σκύλος - Большая собака"
     ],
     "pronunciation": "скИ-лос",
-    "notes": "Мужской род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Мужской род"
   },
   {
     "greek": "μουσική",
@@ -1916,17 +1176,7 @@
       "Καλή μουσική - Хорошая музыка"
     ],
     "pronunciation": "му-си-кИ",
-    "notes": "Женский род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Женский род"
   },
   {
     "greek": "ταινία",
@@ -1942,16 +1192,6 @@
       "Καλή ταινία - Хороший фильм"
     ],
     "pronunciation": "тэ-нИ-а",
-    "notes": "Женский род",
-    "reps": 0,
-    "correct": 0,
-    "incorrect": 0,
-    "lapses": 0,
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "due": "2025-10-06T18:39:25.879Z",
-    "currentStep": 0,
-    "isLeech": false
+    "notes": "Женский род"
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    "id": "aleksandra-1",
+    "id": "pavel-1",
     "greek": "Καλημέρα",
     "translation": "Доброе утро",
     "tags": [
@@ -12,7 +12,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.034Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -24,15 +24,11 @@
     "pronunciation": "кали-мЭ-ра",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-2",
+    "id": "pavel-2",
     "greek": "Καλησπέρα",
     "translation": "Добрый вечер",
     "tags": [
@@ -44,7 +40,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -56,15 +52,11 @@
     "pronunciation": "кали-спЭ-ра",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-3",
+    "id": "pavel-3",
     "greek": "Ευχαριστώ",
     "translation": "Спасибо",
     "tags": [
@@ -76,7 +68,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -88,15 +80,11 @@
     "pronunciation": "эф-ха-рис-тО",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-4",
+    "id": "pavel-4",
     "greek": "Παρακαλώ",
     "translation": "Пожалуйста",
     "tags": [
@@ -108,7 +96,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -120,15 +108,11 @@
     "pronunciation": "па-ра-ка-лО",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-5",
+    "id": "pavel-5",
     "greek": "Καληνύχτα",
     "translation": "Спокойной ночи",
     "tags": [
@@ -140,7 +124,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -152,15 +136,11 @@
     "pronunciation": "кали-нИ-хта",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-6",
+    "id": "pavel-6",
     "greek": "γεια",
     "translation": "привет",
     "tags": [
@@ -172,7 +152,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -184,15 +164,11 @@
     "pronunciation": "йА",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-7",
+    "id": "pavel-7",
     "greek": "αντίο",
     "translation": "до свидания",
     "tags": [
@@ -204,7 +180,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -216,15 +192,11 @@
     "pronunciation": "ан-дИ-о",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-8",
+    "id": "pavel-8",
     "greek": "συγνώμη",
     "translation": "извините",
     "tags": [
@@ -236,7 +208,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -248,15 +220,11 @@
     "pronunciation": "сиг-нО-ми",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-9",
+    "id": "pavel-9",
     "greek": "ναι",
     "translation": "да",
     "tags": [
@@ -268,7 +236,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -280,15 +248,11 @@
     "pronunciation": "нэ",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-10",
+    "id": "pavel-10",
     "greek": "όχι",
     "translation": "нет",
     "tags": [
@@ -300,7 +264,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -312,15 +276,11 @@
     "pronunciation": "О-хи",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-11",
+    "id": "pavel-11",
     "greek": "τρώω",
     "translation": "есть (кушать)",
     "tags": [
@@ -332,7 +292,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -345,15 +305,11 @@
     "pronunciation": "трО-о",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-12",
+    "id": "pavel-12",
     "greek": "πίνω",
     "translation": "пить",
     "tags": [
@@ -365,7 +321,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -378,15 +334,11 @@
     "pronunciation": "пИ-но",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-13",
+    "id": "pavel-13",
     "greek": "είμαι",
     "translation": "быть (я есть)",
     "tags": [
@@ -397,7 +349,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -410,15 +362,11 @@
     "pronunciation": "И-мэ",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-14",
+    "id": "pavel-14",
     "greek": "έχω",
     "translation": "иметь (я имею)",
     "tags": [
@@ -429,7 +377,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -442,15 +390,11 @@
     "pronunciation": "Э-хо",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-15",
+    "id": "pavel-15",
     "greek": "θέλω",
     "translation": "хотеть (я хочу)",
     "tags": [
@@ -461,7 +405,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -474,15 +418,11 @@
     "pronunciation": "тЭ-ло",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-16",
+    "id": "pavel-16",
     "greek": "αγαπώ",
     "translation": "любить",
     "tags": [
@@ -493,7 +433,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -506,15 +446,11 @@
     "pronunciation": "а-га-пО",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-17",
+    "id": "pavel-17",
     "greek": "πηγαίνω",
     "translation": "идти",
     "tags": [
@@ -526,7 +462,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -539,15 +475,11 @@
     "pronunciation": "пи-гЭ-но",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-18",
+    "id": "pavel-18",
     "greek": "έρχομαι",
     "translation": "приходить",
     "tags": [
@@ -559,7 +491,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -572,15 +504,11 @@
     "pronunciation": "Э-рхо-мэ",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-19",
+    "id": "pavel-19",
     "greek": "δουλεύω",
     "translation": "работать",
     "tags": [
@@ -592,7 +520,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -605,15 +533,11 @@
     "pronunciation": "ду-лЭ-во",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-20",
+    "id": "pavel-20",
     "greek": "μαθαίνω",
     "translation": "учиться",
     "tags": [
@@ -625,7 +549,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -638,15 +562,11 @@
     "pronunciation": "ма-тЭ-но",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-21",
+    "id": "pavel-21",
     "greek": "μιλάω",
     "translation": "говорить",
     "tags": [
@@ -658,7 +578,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -671,15 +591,11 @@
     "pronunciation": "ми-лА-о",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-22",
+    "id": "pavel-22",
     "greek": "βλέπω",
     "translation": "видеть",
     "tags": [
@@ -691,7 +607,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -704,15 +620,11 @@
     "pronunciation": "влЭ-по",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-23",
+    "id": "pavel-23",
     "greek": "ακούω",
     "translation": "слышать",
     "tags": [
@@ -724,7 +636,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -737,15 +649,11 @@
     "pronunciation": "а-кУ-о",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-24",
+    "id": "pavel-24",
     "greek": "κοιμάμαι",
     "translation": "спать",
     "tags": [
@@ -757,7 +665,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -770,15 +678,11 @@
     "pronunciation": "ки-мА-мэ",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-25",
+    "id": "pavel-25",
     "greek": "ξυπνάω",
     "translation": "просыпаться",
     "tags": [
@@ -790,7 +694,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -803,15 +707,11 @@
     "pronunciation": "кси-пнА-о",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-26",
+    "id": "pavel-26",
     "greek": "νερό",
     "translation": "вода",
     "tags": [
@@ -823,7 +723,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -836,15 +736,11 @@
     "pronunciation": "нэ-рО",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-27",
+    "id": "pavel-27",
     "greek": "κρασί",
     "translation": "вино",
     "tags": [
@@ -856,7 +752,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -869,15 +765,11 @@
     "pronunciation": "кра-сИ",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-28",
+    "id": "pavel-28",
     "greek": "καφές",
     "translation": "кофе",
     "tags": [
@@ -889,7 +781,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -902,15 +794,11 @@
     "pronunciation": "ка-фЭс",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-29",
+    "id": "pavel-29",
     "greek": "τυρί",
     "translation": "сыр",
     "tags": [
@@ -921,7 +809,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -934,15 +822,11 @@
     "pronunciation": "ти-рИ",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-30",
+    "id": "pavel-30",
     "greek": "ψωμί",
     "translation": "хлеб",
     "tags": [
@@ -953,7 +837,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -966,15 +850,11 @@
     "pronunciation": "псо-мИ",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-31",
+    "id": "pavel-31",
     "greek": "κρέας",
     "translation": "мясо",
     "tags": [
@@ -985,7 +865,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -998,15 +878,11 @@
     "pronunciation": "крЭ-ас",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-32",
+    "id": "pavel-32",
     "greek": "ψάρι",
     "translation": "рыба",
     "tags": [
@@ -1017,7 +893,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -1030,15 +906,11 @@
     "pronunciation": "псА-ри",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-33",
+    "id": "pavel-33",
     "greek": "φρούτα",
     "translation": "фрукты",
     "tags": [
@@ -1049,7 +921,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -1062,15 +934,11 @@
     "pronunciation": "фрУ-та",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-34",
+    "id": "pavel-34",
     "greek": "λαχανικά",
     "translation": "овощи",
     "tags": [
@@ -1081,7 +949,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -1094,15 +962,11 @@
     "pronunciation": "ла-ха-ни-кА",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-35",
+    "id": "pavel-35",
     "greek": "γλυκό",
     "translation": "сладкое",
     "tags": [
@@ -1113,7 +977,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -1126,15 +990,11 @@
     "pronunciation": "гли-кО",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-36",
+    "id": "pavel-36",
     "greek": "αλάτι",
     "translation": "соль",
     "tags": [
@@ -1146,7 +1006,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -1159,15 +1019,11 @@
     "pronunciation": "а-лА-ти",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-37",
+    "id": "pavel-37",
     "greek": "πιπέρι",
     "translation": "перец",
     "tags": [
@@ -1179,7 +1035,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -1192,15 +1048,11 @@
     "pronunciation": "пи-пЭ-ри",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-38",
+    "id": "pavel-38",
     "greek": "οικογένεια",
     "translation": "семья",
     "tags": [
@@ -1212,7 +1064,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -1225,15 +1077,11 @@
     "pronunciation": "и-ко-гЭ-ни-а",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-39",
+    "id": "pavel-39",
     "greek": "φίλος",
     "translation": "друг",
     "tags": [
@@ -1245,7 +1093,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -1258,15 +1106,11 @@
     "pronunciation": "фИ-лос",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-40",
+    "id": "pavel-40",
     "greek": "φίλη",
     "translation": "подруга",
     "tags": [
@@ -1278,7 +1122,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -1291,15 +1135,11 @@
     "pronunciation": "фИ-ли",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.036Z"
   },
   {
-    "id": "aleksandra-41",
+    "id": "pavel-41",
     "greek": "πατέρας",
     "translation": "отец",
     "tags": [
@@ -1311,7 +1151,7 @@
     "lapses": 0,
     "ease": 2.5,
     "interval": 0,
-    "due": "2025-10-06T18:03:16.037Z",
+    "due": "2025-10-06T18:03:16.036Z",
     "correct": 0,
     "incorrect": 0,
     "isLeech": false,
@@ -1324,15 +1164,11 @@
     "pronunciation": "па-тЭ-рас",
     "audioUrl": "",
     "imageUrl": "",
-    "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "createdAt": "2025-10-06T18:03:16.036Z",
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-42",
+    "id": "pavel-42",
     "greek": "μητέρα",
     "translation": "мать",
     "tags": [
@@ -1358,14 +1194,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-43",
+    "id": "pavel-43",
     "greek": "αδελφός",
     "translation": "брат",
     "tags": [
@@ -1391,14 +1223,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-44",
+    "id": "pavel-44",
     "greek": "αδελφή",
     "translation": "сестра",
     "tags": [
@@ -1424,14 +1252,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-45",
+    "id": "pavel-45",
     "greek": "παιδί",
     "translation": "ребенок",
     "tags": [
@@ -1457,14 +1281,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-46",
+    "id": "pavel-46",
     "greek": "σπίτι",
     "translation": "дом",
     "tags": [
@@ -1490,14 +1310,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-47",
+    "id": "pavel-47",
     "greek": "δωμάτιο",
     "translation": "комната",
     "tags": [
@@ -1523,14 +1339,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-48",
+    "id": "pavel-48",
     "greek": "κρεβάτι",
     "translation": "кровать",
     "tags": [
@@ -1556,14 +1368,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-49",
+    "id": "pavel-49",
     "greek": "τραπέζι",
     "translation": "стол",
     "tags": [
@@ -1589,14 +1397,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-50",
+    "id": "pavel-50",
     "greek": "καρέκλα",
     "translation": "стул",
     "tags": [
@@ -1622,14 +1426,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-51",
+    "id": "pavel-51",
     "greek": "βιβλίο",
     "translation": "книга",
     "tags": [
@@ -1655,14 +1455,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-52",
+    "id": "pavel-52",
     "greek": "χαρτί",
     "translation": "бумага",
     "tags": [
@@ -1688,14 +1484,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-53",
+    "id": "pavel-53",
     "greek": "στυλό",
     "translation": "ручка",
     "tags": [
@@ -1721,14 +1513,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-54",
+    "id": "pavel-54",
     "greek": "τηλέφωνο",
     "translation": "телефон",
     "tags": [
@@ -1754,14 +1542,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-55",
+    "id": "pavel-55",
     "greek": "αυτοκίνητο",
     "translation": "машина",
     "tags": [
@@ -1787,14 +1571,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-56",
+    "id": "pavel-56",
     "greek": "θάλασσα",
     "translation": "море",
     "tags": [
@@ -1820,14 +1600,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-57",
+    "id": "pavel-57",
     "greek": "βουνό",
     "translation": "гора",
     "tags": [
@@ -1853,14 +1629,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-58",
+    "id": "pavel-58",
     "greek": "δάσος",
     "translation": "лес",
     "tags": [
@@ -1886,14 +1658,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-59",
+    "id": "pavel-59",
     "greek": "ποτάμι",
     "translation": "река",
     "tags": [
@@ -1919,14 +1687,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-60",
+    "id": "pavel-60",
     "greek": "ήλιος",
     "translation": "солнце",
     "tags": [
@@ -1952,14 +1716,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-61",
+    "id": "pavel-61",
     "greek": "φεγγάρι",
     "translation": "луна",
     "tags": [
@@ -1985,14 +1745,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-62",
+    "id": "pavel-62",
     "greek": "αστέρι",
     "translation": "звезда",
     "tags": [
@@ -2018,14 +1774,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-63",
+    "id": "pavel-63",
     "greek": "άνθρωπος",
     "translation": "человек",
     "tags": [
@@ -2051,14 +1803,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-64",
+    "id": "pavel-64",
     "greek": "χρόνος",
     "translation": "время",
     "tags": [
@@ -2084,14 +1832,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-65",
+    "id": "pavel-65",
     "greek": "μέρα",
     "translation": "день",
     "tags": [
@@ -2117,14 +1861,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-66",
+    "id": "pavel-66",
     "greek": "νύχτα",
     "translation": "ночь",
     "tags": [
@@ -2150,14 +1890,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-67",
+    "id": "pavel-67",
     "greek": "χρήματα",
     "translation": "деньги",
     "tags": [
@@ -2183,14 +1919,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-68",
+    "id": "pavel-68",
     "greek": "ρούχα",
     "translation": "одежда",
     "tags": [
@@ -2216,14 +1948,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-69",
+    "id": "pavel-69",
     "greek": "ποδήλατο",
     "translation": "велосипед",
     "tags": [
@@ -2249,14 +1977,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-70",
+    "id": "pavel-70",
     "greek": "αεροπλάνο",
     "translation": "самолет",
     "tags": [
@@ -2282,14 +2006,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-71",
+    "id": "pavel-71",
     "greek": "αγόρι",
     "translation": "мальчик",
     "tags": [
@@ -2315,14 +2035,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-72",
+    "id": "pavel-72",
     "greek": "κορίτσι",
     "translation": "девочка",
     "tags": [
@@ -2348,14 +2064,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-73",
+    "id": "pavel-73",
     "greek": "γάτα",
     "translation": "кошка",
     "tags": [
@@ -2381,14 +2093,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-74",
+    "id": "pavel-74",
     "greek": "σκύλος",
     "translation": "собака",
     "tags": [
@@ -2414,14 +2122,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-75",
+    "id": "pavel-75",
     "greek": "μουσική",
     "translation": "музыка",
     "tags": [
@@ -2447,14 +2151,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   },
   {
-    "id": "aleksandra-76",
+    "id": "pavel-76",
     "greek": "ταινία",
     "translation": "фильм",
     "tags": [
@@ -2480,10 +2180,6 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z",
-    "difficulty": 0.5,
-    "stability": 1,
-    "lastReview": null,
-    "currentStep": 0
+    "updatedAt": "2025-10-06T18:03:16.037Z"
   }
 ]

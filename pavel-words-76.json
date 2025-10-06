@@ -25,7 +25,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-2",
@@ -53,7 +57,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-3",
@@ -81,7 +89,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-4",
@@ -109,7 +121,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-5",
@@ -137,7 +153,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-6",
@@ -165,7 +185,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-7",
@@ -193,7 +217,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-8",
@@ -221,7 +249,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-9",
@@ -249,7 +281,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-10",
@@ -277,7 +313,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-11",
@@ -306,7 +346,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-12",
@@ -335,7 +379,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-13",
@@ -363,7 +411,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-14",
@@ -391,7 +443,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-15",
@@ -419,7 +475,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-16",
@@ -447,7 +507,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-17",
@@ -476,7 +540,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-18",
@@ -505,7 +573,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-19",
@@ -534,7 +606,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-20",
@@ -563,7 +639,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-21",
@@ -592,7 +672,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-22",
@@ -621,7 +705,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-23",
@@ -650,7 +738,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-24",
@@ -679,7 +771,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-25",
@@ -708,7 +804,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-26",
@@ -737,7 +837,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-27",
@@ -766,7 +870,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-28",
@@ -795,7 +903,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-29",
@@ -823,7 +935,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-30",
@@ -851,7 +967,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-31",
@@ -879,7 +999,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-32",
@@ -907,7 +1031,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-33",
@@ -935,7 +1063,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-34",
@@ -963,7 +1095,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-35",
@@ -991,7 +1127,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-36",
@@ -1020,7 +1160,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-37",
@@ -1049,7 +1193,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-38",
@@ -1078,7 +1226,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-39",
@@ -1107,7 +1259,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-40",
@@ -1136,7 +1292,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.036Z"
+    "updatedAt": "2025-10-06T18:03:16.036Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-41",
@@ -1165,7 +1325,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.036Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-42",
@@ -1194,7 +1358,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-43",
@@ -1223,7 +1391,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-44",
@@ -1252,7 +1424,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-45",
@@ -1281,7 +1457,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-46",
@@ -1310,7 +1490,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-47",
@@ -1339,7 +1523,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-48",
@@ -1368,7 +1556,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-49",
@@ -1397,7 +1589,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-50",
@@ -1426,7 +1622,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-51",
@@ -1455,7 +1655,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-52",
@@ -1484,7 +1688,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-53",
@@ -1513,7 +1721,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-54",
@@ -1542,7 +1754,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-55",
@@ -1571,7 +1787,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-56",
@@ -1600,7 +1820,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-57",
@@ -1629,7 +1853,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-58",
@@ -1658,7 +1886,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-59",
@@ -1687,7 +1919,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-60",
@@ -1716,7 +1952,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-61",
@@ -1745,7 +1985,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-62",
@@ -1774,7 +2018,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-63",
@@ -1803,7 +2051,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-64",
@@ -1832,7 +2084,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-65",
@@ -1861,7 +2117,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-66",
@@ -1890,7 +2150,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-67",
@@ -1919,7 +2183,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-68",
@@ -1948,7 +2216,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-69",
@@ -1977,7 +2249,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-70",
@@ -2006,7 +2282,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-71",
@@ -2035,7 +2315,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-72",
@@ -2064,7 +2348,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-73",
@@ -2093,7 +2381,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-74",
@@ -2122,7 +2414,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-75",
@@ -2151,7 +2447,11 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   },
   {
     "id": "pavel-76",
@@ -2180,6 +2480,10 @@
     "audioUrl": "",
     "imageUrl": "",
     "createdAt": "2025-10-06T18:03:16.037Z",
-    "updatedAt": "2025-10-06T18:03:16.037Z"
+    "updatedAt": "2025-10-06T18:03:16.037Z",
+    "difficulty": 0.5,
+    "stability": 1,
+    "lastReview": null,
+    "currentStep": 0
   }
 ]

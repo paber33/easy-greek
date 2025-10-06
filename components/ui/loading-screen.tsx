@@ -13,11 +13,14 @@ export function LoadingScreen({
   className 
 }: LoadingScreenProps) {
   return (
-    <div className={cn(
-      "flex items-center justify-center min-h-[400px]",
-      className
-    )}>
-      <div className="flex flex-col items-center space-y-4">
+    <div 
+      className={cn(
+        "flex items-center justify-center min-h-[400px]",
+        className
+      )}
+      suppressHydrationWarning
+    >
+      <div className="flex flex-col items-center space-y-4" suppressHydrationWarning>
         {variant === "greek" ? (
           <GreekLoader className="text-primary" />
         ) : variant === "minimal" ? (
@@ -31,7 +34,7 @@ export function LoadingScreen({
           </div>
         )}
         
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-2" suppressHydrationWarning>
           <p className="text-lg font-medium text-foreground">{message}</p>
           {variant === "greek" && (
             <p className="text-sm text-muted-foreground">
