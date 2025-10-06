@@ -39,11 +39,14 @@ export function importFromCSV(csv: string): Card[] {
           status: "new",
           reps: 0,
           lapses: 0,
-          difficulty: INITIAL_DIFFICULTY,
-          stability: 0,
+          ease: 2.5, // SM-2 initial ease factor
+          interval: 0, // SM-2 initial interval
           due: new Date().toISOString(),
           correct: 0,
           incorrect: 0,
+          // Legacy fields for backward compatibility
+          difficulty: INITIAL_DIFFICULTY,
+          stability: 0,
         });
       }
     }

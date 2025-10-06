@@ -322,14 +322,24 @@ export class SyncService {
         status: row.status as CardStatus,
         reps: row.reps,
         lapses: row.lapses,
-        difficulty: row.difficulty,
-        stability: row.stability,
+        ease: row.ease || 2.5, // SM-2 ease factor
+        interval: row.interval_days || 0, // SM-2 interval
         lastReview: row.last_review || undefined,
         due: row.due,
         correct: row.correct,
         incorrect: row.incorrect,
-        currentStep: row.current_step || undefined,
+        learningStepIndex: row.learning_step_index || undefined,
         isLeech: row.is_leech,
+        // Additional content fields
+        examples: row.examples || undefined,
+        notes: row.notes || undefined,
+        pronunciation: row.pronunciation || undefined,
+        audioUrl: row.audio_url || undefined,
+        imageUrl: row.image_url || undefined,
+        // Legacy fields for backward compatibility
+        difficulty: row.difficulty,
+        stability: row.stability,
+        currentStep: row.current_step || undefined,
       })) || []
 
       const logs: SessionSummary[] = logsData?.map((row: any) => ({

@@ -335,9 +335,13 @@ export default function SessionPage() {
 
               {currentCard.reps > 0 && (
                 <p className="text-sm text-muted-foreground">
-                  Повторено {currentCard.reps} раз • Сложность:{" "}
-                  {currentCard.difficulty.toFixed(1)} • Стабильность:{" "}
-                  {currentCard.stability.toFixed(1)} дней
+                  Повторено {currentCard.reps} раз
+                  {currentCard.difficulty !== undefined && (
+                    <> • Сложность: {currentCard.difficulty.toFixed(1)}</>
+                  )}
+                  {currentCard.stability !== undefined && (
+                    <> • Стабильность: {currentCard.stability.toFixed(1)} дней</>
+                  )}
                   {currentCard.lapses > 0 && (
                     <span className="text-orange-600 ml-2">
                       • Ошибок: {currentCard.lapses}
