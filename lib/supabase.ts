@@ -18,7 +18,11 @@ export const supabase = createClient<Database>(
       autoRefreshToken: true,
       persistSession: true,
       detectSessionInUrl: true,
-      flowType: 'pkce'
+      flowType: 'pkce',
+      // Добавляем настройки для стабильной работы с refresh token
+      storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+      storageKey: 'supabase.auth.token',
+      debug: process.env.NODE_ENV === 'development'
     },
     global: {
       headers: {

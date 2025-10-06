@@ -13,6 +13,7 @@ import { AuthComponent } from "@/components/auth";
 import { UserSwitcher } from "@/components/user-switcher";
 import { LoginScreen } from "@/components/login-screen";
 import { ProgressCalendar } from "@/components/progress-calendar";
+import { supabase } from "@/lib/supabase";
 
 // Мотивирующие фразы на греческом языке
 const motivationalPhrases = [
@@ -56,6 +57,7 @@ export default function Dashboard() {
   const [cards, setCards] = useState<Card[]>([]);
   const [mounted, setMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [currentPhrase, setCurrentPhrase] = useState(motivationalPhrases[0]);
   const [currentTip, setCurrentTip] = useState(learningTips[0]);
 
@@ -66,6 +68,30 @@ export default function Dashboard() {
     // Инициализируем случайную фразу и совет только на клиенте
     setCurrentPhrase(motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)]);
     setCurrentTip(learningTips[Math.floor(Math.random() * learningTips.length)]);
+  }, []);
+
+  // Проверяем состояние аутентификации при загрузке
+  useEffect(() => {
+    const checkAuthState = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setIsLoggedIn(!!session);
+      } catch (error) {
+        console.error('Error checking auth state:', error);
+        setIsLoggedIn(false);
+      } finally {
+        setIsCheckingAuth(false);
+      }
+    };
+
+    checkAuthState();
+
+    // Слушаем изменения состояния аутентификации
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsLoggedIn(!!session);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   // Смена мотивирующей фразы каждые 30 секунд
@@ -90,7 +116,7 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, [mounted]);
 
-  if (!mounted) {
+  if (!mounted || isCheckingAuth) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-xl">Загрузка...</div>

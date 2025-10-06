@@ -8,6 +8,44 @@ const LOGS_KEY = "easy-greek-logs";
 const CONFIG_KEY = "easy-greek-config";
 const VERSION_KEY = "easy-greek-version";
 
+// Функция для получения ключей с привязкой к пользователю
+function getUserStorageKeys(userId?: string) {
+  if (!userId) {
+    // Если пользователь не указан, используем общие ключи (для обратной совместимости)
+    return {
+      cards: CARDS_KEY,
+      logs: LOGS_KEY,
+      config: CONFIG_KEY,
+      version: VERSION_KEY
+    };
+  }
+  
+  return {
+    cards: `${CARDS_KEY}-${userId}`,
+    logs: `${LOGS_KEY}-${userId}`,
+    config: `${CONFIG_KEY}-${userId}`,
+    version: `${VERSION_KEY}-${userId}`
+  };
+}
+
+// Функция для получения текущего пользователя из Supabase
+function getCurrentUserId(): string | null {
+  if (typeof window === "undefined") return null;
+  
+  try {
+    // Получаем токен из localStorage
+    const authToken = localStorage.getItem('supabase.auth.token');
+    if (!authToken) return null;
+    
+    // Парсим токен для получения user_id
+    const tokenData = JSON.parse(authToken);
+    return tokenData?.currentSession?.user?.id || null;
+  } catch (error) {
+    console.error('Failed to get current user ID:', error);
+    return null;
+  }
+}
+
 /**
  * Seed data with Greek words
  */
@@ -337,8 +375,11 @@ export function loadCards(): Card[] {
   if (typeof window === "undefined") return [];
 
   try {
-    const version = localStorage.getItem(VERSION_KEY);
-    const data = localStorage.getItem(CARDS_KEY);
+    const userId = getCurrentUserId();
+    const keys = getUserStorageKeys(userId);
+    
+    const version = localStorage.getItem(keys.version);
+    const data = localStorage.getItem(keys.cards);
 
     if (!data) {
       // First launch - return seed data
@@ -379,7 +420,7 @@ export function loadCards(): Card[] {
 
       // Save migrated cards
       saveCards(cards);
-      localStorage.setItem(VERSION_KEY, STORAGE_VERSION);
+      localStorage.setItem(keys.version, STORAGE_VERSION);
     }
 
     return cards;

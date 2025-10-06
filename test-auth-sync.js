@@ -10,7 +10,7 @@ async function testAuthSync() {
   
   try {
     // Переходим на локальный сайт
-    await page.goto('http://localhost:3000/');
+    await page.goto('http://localhost:3001/');
     await page.waitForLoadState('networkidle');
     
     // Проверяем конфигурацию Supabase через проверку ошибок

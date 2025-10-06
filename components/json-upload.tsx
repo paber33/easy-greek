@@ -15,9 +15,10 @@ import { toast } from 'sonner'
 
 interface JsonUploadProps {
   onCardsAdded?: (cards: CardType[]) => void
+  hideHeader?: boolean
 }
 
-export function JsonUpload({ onCardsAdded }: JsonUploadProps) {
+export function JsonUpload({ onCardsAdded, hideHeader = false }: JsonUploadProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [uploadStatus, setUploadStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
@@ -241,18 +242,7 @@ export function JsonUpload({ onCardsAdded }: JsonUploadProps) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Upload className="h-5 w-5" />
-          Загрузка слов из JSON
-        </CardTitle>
-        <CardDescription>
-          Загрузите JSON файл с греческими словами для массового добавления. 
-          Поддерживаются примеры использования, произношение и заметки.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
+    <div className="space-y-4">
         {/* Drag & Drop зона */}
         <div className="space-y-2">
           <Label htmlFor="json-file">Выберите JSON файл или перетащите его сюда</Label>
@@ -373,7 +363,6 @@ export function JsonUpload({ onCardsAdded }: JsonUploadProps) {
           <p><strong>Опциональные поля:</strong> tags, examples, pronunciation, notes, audioUrl, imageUrl</p>
           <p><strong>SRS поля (автоматически):</strong> ease, interval, reps, lapses, correct, incorrect</p>
         </div>
-      </CardContent>
-    </Card>
+    </div>
   )
 }

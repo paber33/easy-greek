@@ -12,7 +12,8 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { CheckCircle2, XCircle, Home, BarChart3 } from "lucide-react";
+import { CheckCircle2, XCircle, Home, BarChart3, Play } from "lucide-react";
+import confetti from "canvas-confetti";
 
 export default function SessionPage() {
   const router = useRouter();
@@ -33,6 +34,30 @@ export default function SessionPage() {
   const [reviewedCards, setReviewedCards] = useState<
     Array<{ card: CardType; rating: Rating }>
   >([]);
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  // Функция для запуска конфетти
+  const triggerConfetti = () => {
+    setShowConfetti(true);
+    
+    // Запускаем конфетти
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff']
+    });
+
+    // Дополнительный взрыв конфетти через 500мс
+    setTimeout(() => {
+      confetti({
+        particleCount: 50,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff']
+      });
+    }, 500);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -124,6 +149,8 @@ export default function SessionPage() {
       toast.success("Тренировка завершена!", {
         description: `Повторено ${newStats.reviewed} карточек с точностью ${summary.accuracy}%`,
       });
+      // Запускаем конфетти при завершении тренировки
+      triggerConfetti();
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -195,6 +222,17 @@ export default function SessionPage() {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Button 
+                onClick={() => {
+                  // Перезагружаем страницу для новой тренировки
+                  window.location.reload();
+                }} 
+                size="lg" 
+                className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-violet-500 hover:from-purple-600 hover:to-violet-600"
+              >
+                <Play className="mr-2 h-4 w-4" />
+                Продолжить тренировку
+              </Button>
               <Button onClick={() => router.push("/")} size="lg" className="w-full sm:w-auto">
                 <Home className="mr-2 h-4 w-4" />
                 На главную

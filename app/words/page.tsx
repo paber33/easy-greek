@@ -32,6 +32,7 @@ function WordsPageContent() {
   const [leechFilter, setLeechFilter] = useState<boolean>(false);
 
   const [showAddDialog, setShowAddDialog] = useState(false);
+  const [showJsonUploadDialog, setShowJsonUploadDialog] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     greek: "",
@@ -229,6 +230,8 @@ function WordsPageContent() {
     const updatedCards = loadCards();
     setCards(updatedCards);
     setFilteredCards(updatedCards);
+    // Закрываем попап после успешной загрузки
+    setShowJsonUploadDialog(false);
   };
 
   const allTags = Array.from(
@@ -327,6 +330,23 @@ function WordsPageContent() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+          <Dialog open={showJsonUploadDialog} onOpenChange={setShowJsonUploadDialog}>
+            <DialogTrigger asChild>
+              <Button variant="outline">
+                <FileUp className="mr-2 h-4 w-4" />
+                Загрузить JSON
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Загрузка слов из JSON</DialogTitle>
+                <DialogDescription>
+                  Загрузите JSON файл с греческими словами для массового добавления
+                </DialogDescription>
+              </DialogHeader>
+              <JsonUpload onCardsAdded={handleJsonCardsAdded} hideHeader={true} />
+            </DialogContent>
+          </Dialog>
           <Button
             onClick={() => router.push("/session")}
             disabled={dueCount === 0}
@@ -338,8 +358,6 @@ function WordsPageContent() {
         </div>
       </div>
 
-      {/* JSON Upload */}
-      <JsonUpload onCardsAdded={handleJsonCardsAdded} />
 
       {/* Filters */}
       <Card>
