@@ -47,10 +47,8 @@ export function ProfileSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" disabled={isLoading}>
-          <User className="h-4 w-4 mr-2" />
-          {currentProfile?.avatar} {currentProfile?.name}
-          <ChevronDown className="h-4 w-4 ml-2" />
+        <Button variant="outline" size="sm" disabled={isLoading} className="p-2">
+          <User className="h-4 w-4 opacity-60" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">

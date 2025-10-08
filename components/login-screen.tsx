@@ -218,7 +218,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
               onClick={handleTestConnection}
               disabled={isTesting}
               variant="secondary"
-              className="w-full shadow-lg hover:shadow-xl transition-all duration-500"
+              className="w-full shadow-medium hover:shadow-strong transition-all duration-300 ease-out"
             >
               {isTesting ? "Тестирование..." : "🔍 Тест подключения к БД"}
             </Button>
@@ -232,11 +232,11 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6 sm:space-y-8">
         {/* Заголовок */}
-        <div className="text-center space-y-4 sm:space-y-6">
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
+        <div className="text-center space-y-6 sm:space-y-8">
+          <h1 className="text-5xl sm:text-6xl font-light tracking-tight bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#6D28D9] bg-clip-text text-transparent">
             Greekly
           </h1>
-          <p className="text-muted-foreground text-lg sm:text-xl font-medium">
+          <p className="text-muted-foreground text-xl sm:text-2xl font-light">
             Умное изучение греческого языка
           </p>
         </div>
@@ -252,26 +252,26 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3 sm:space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <Button
                 onClick={() => handleUserLogin("pavel")}
                 disabled={isAutoLogin}
                 variant="secondary"
                 size="lg"
-                className="h-20 flex flex-col gap-2 shadow-lg hover:shadow-xl transition-all duration-500"
+                className="h-24 flex flex-col gap-3 shadow-medium hover:shadow-strong transition-all duration-300 ease-out"
               >
-                <span className="text-3xl">👨‍💻</span>
-                <span className="font-semibold text-lg">Pavel</span>
+                <span className="text-4xl">👨‍💻</span>
+                <span className="font-light text-xl">Pavel</span>
               </Button>
               <Button
                 onClick={() => handleUserLogin("aleksandra")}
                 disabled={isAutoLogin}
                 variant="secondary"
                 size="lg"
-                className="h-20 flex flex-col gap-2 shadow-lg hover:shadow-xl transition-all duration-500"
+                className="h-24 flex flex-col gap-3 shadow-medium hover:shadow-strong transition-all duration-300 ease-out"
               >
-                <span className="text-3xl">👩‍💻</span>
-                <span className="font-semibold text-lg">Aleksandra</span>
+                <span className="text-4xl">👩‍💻</span>
+                <span className="font-light text-xl">Aleksandra</span>
               </Button>
             </div>
 
@@ -318,7 +318,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
                 <Button
                   onClick={handleSignIn}
                   disabled={isLoading || !email || !password}
-                  className="w-full h-12 shadow-lg hover:shadow-xl transition-all duration-500"
+                  className="w-full h-12 shadow-medium hover:shadow-strong transition-all duration-300 ease-out"
                 >
                   {isLoading ? "Вход..." : "Войти"}
                 </Button>
@@ -344,7 +344,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
                 <Button
                   onClick={handleSignUp}
                   disabled={isLoading || !email || !password || password.length < 6}
-                  className="w-full h-12 shadow-lg hover:shadow-xl transition-all duration-500"
+                  className="w-full h-12 shadow-medium hover:shadow-strong transition-all duration-300 ease-out"
                 >
                   {isLoading ? "Регистрация..." : "Зарегистрироваться"}
                 </Button>

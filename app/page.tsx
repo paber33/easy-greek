@@ -90,7 +90,7 @@ export default function Dashboard() {
 
   // Memoized function to load cards
   const loadCardsForProfile = useCallback(async () => {
-    if (!currentProfileId) return;
+    if (!currentProfileId || !isLoggedIn) return;
 
     try {
       const cards = await LocalCardsRepository.list(currentProfileId);
@@ -99,11 +99,11 @@ export default function Dashboard() {
       console.error("Failed to load cards:", error);
       setCards([]);
     }
-  }, [currentProfileId]);
+  }, [currentProfileId, isLoggedIn]);
 
   // Memoized function to load logs
   const loadLogsForProfile = useCallback(async () => {
-    if (!currentProfileId) return;
+    if (!currentProfileId || !isLoggedIn) return;
 
     try {
       const profileLogs = await LocalLogsRepository.list(currentProfileId);
@@ -130,7 +130,7 @@ export default function Dashboard() {
       console.error("Failed to load logs:", error);
       setLogs([]);
     }
-  }, [currentProfileId]);
+  }, [currentProfileId, isLoggedIn]);
 
   // Memoized stats calculation - use a stable date to prevent hydration mismatches
   const stats = useMemo(() => {
@@ -210,17 +210,17 @@ export default function Dashboard() {
 
   // Load cards for current profile
   useEffect(() => {
-    if (mounted && currentProfileId && !profileLoading) {
+    if (mounted && currentProfileId && !profileLoading && isLoggedIn) {
       loadCardsForProfile();
     }
-  }, [mounted, currentProfileId, profileLoading, loadCardsForProfile]);
+  }, [mounted, currentProfileId, profileLoading, isLoggedIn, loadCardsForProfile]);
 
   // Load logs for current profile
   useEffect(() => {
-    if (mounted && currentProfileId && !profileLoading) {
+    if (mounted && currentProfileId && !profileLoading && isLoggedIn) {
       loadLogsForProfile();
     }
-  }, [mounted, currentProfileId, profileLoading, loadLogsForProfile]);
+  }, [mounted, currentProfileId, profileLoading, isLoggedIn, loadLogsForProfile]);
 
   // Проверяем состояние аутентификации при загрузке
   useEffect(() => {
@@ -293,18 +293,18 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="space-y-8 sm:space-y-10 lg:space-y-12" suppressHydrationWarning>
+    <div className="space-y-12 sm:space-y-16 lg:space-y-20" suppressHydrationWarning>
       {/* Header with motivational phrase */}
-      <div className="text-center space-y-6" suppressHydrationWarning>
-        <div className="space-y-4" suppressHydrationWarning>
+      <div className="text-center space-y-8" suppressHydrationWarning>
+        <div className="space-y-6" suppressHydrationWarning>
           <h1
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent transition-all duration-500"
+            className="text-4xl sm:text-5xl lg:text-6xl font-light bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#6D28D9] bg-clip-text text-transparent transition-all duration-500 leading-tight"
             suppressHydrationWarning
           >
             {currentPhrase.greek}
           </h1>
           <p
-            className="text-lg sm:text-xl text-muted-foreground transition-all duration-500 max-w-2xl mx-auto leading-relaxed"
+            className="text-xl sm:text-2xl text-muted-foreground transition-all duration-500 max-w-3xl mx-auto leading-relaxed font-light"
             suppressHydrationWarning
           >
             {currentPhrase.translation}
@@ -312,8 +312,83 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Quick Actions */}
+      <div className="grid gap-6 sm:gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <Link href="/session" className="group">
+          <UICard className="h-full transition-all duration-500 ease-out hover:shadow-strong hover:scale-[1.02] glass-effect">
+            <CardHeader className="text-center">
+              <div className="mx-auto mb-6 p-6 rounded-3xl gradient-purple-medium group-hover:gradient-purple-strong transition-all duration-500 ease-out">
+                <Play className="h-8 w-8 text-white/80 group-hover:scale-110 transition-transform duration-500 ease-out" />
+              </div>
+              <CardTitle className="text-2xl font-light text-foreground group-hover:text-purple-600 transition-colors duration-500 ease-out">
+                Начать тренировку
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
+                {stats.due > 0 ? (
+                  <>
+                    <Badge variant="default" className="mr-2 bg-primary text-white/80">
+                      {stats.due}
+                    </Badge>
+                    карточек готовы к повторению
+                  </>
+                ) : (
+                  "Нет карточек к повторению"
+                )}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <p className="text-sm text-muted-foreground group-hover:text-purple-600 transition-colors duration-500 ease-out font-medium">
+                Нажмите, чтобы начать →
+              </p>
+            </CardContent>
+          </UICard>
+        </Link>
+
+        <Link href="/words" className="group">
+          <UICard className="h-full transition-all duration-500 ease-out hover:shadow-strong hover:scale-[1.02] glass-effect">
+            <CardHeader className="text-center">
+              <div className="mx-auto mb-6 p-6 rounded-3xl gradient-purple-soft group-hover:gradient-purple-medium transition-all duration-500 ease-out">
+                <BookOpen className="h-8 w-8 text-purple-600 group-hover:scale-110 transition-transform duration-500 ease-out" />
+              </div>
+              <CardTitle className="text-2xl font-light text-foreground group-hover:text-purple-600 transition-colors duration-500 ease-out">
+                Список слов
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Управляйте своей базой из {stats.total} слов
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">
+                Добавить, редактировать →
+              </p>
+            </CardContent>
+          </UICard>
+        </Link>
+
+        <Link href="/logs" className="group">
+          <UICard className="h-full transition-all duration-500 ease-out hover:shadow-strong hover:scale-[1.02] glass-effect">
+            <CardHeader className="text-center">
+              <div className="mx-auto mb-6 p-6 rounded-3xl gradient-purple-soft group-hover:gradient-purple-medium transition-all duration-500 ease-out">
+                <BarChart3 className="h-8 w-8 text-purple-600 group-hover:scale-110 transition-transform duration-500 ease-out" />
+              </div>
+              <CardTitle className="text-2xl font-light text-foreground group-hover:text-purple-600 transition-colors duration-500 ease-out">
+                Статистика
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Просмотрите свой прогресс и аналитику
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">
+                Открыть журнал →
+              </p>
+            </CardContent>
+          </UICard>
+        </Link>
+      </div>
+
       {/* Stats Grid */}
-      <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+      <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
         <StatCard
           title="Всего слов"
           value={stats.total}
@@ -363,17 +438,12 @@ export default function Dashboard() {
         todayLog ? (
           <UICard className="glass-effect shadow-lg">
             <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-3 text-xl font-semibold">
-                <div className="p-2 rounded-xl gradient-purple-soft">
-                  <BarChart3 className="h-5 w-5 text-primary" />
-                </div>
-                Сегодняшний прогресс
-              </CardTitle>
+              <CardTitle className="text-xl font-semibold">Сегодняшний прогресс</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-primary">{todayLog.totalReviewed}</div>
+                  <div className="text-3xl font-bold text-purple-600">{todayLog.totalReviewed}</div>
                   <div className="text-sm text-muted-foreground mt-1">Повторено</div>
                 </div>
                 <div className="text-center">
@@ -400,16 +470,10 @@ export default function Dashboard() {
         ) : (
           <UICard className="glass-effect shadow-lg">
             <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-3 text-xl font-semibold">
-                <div className="p-2 rounded-xl gradient-purple-soft">
-                  <BarChart3 className="h-5 w-5 text-primary" />
-                </div>
-                Сегодняшний прогресс
-              </CardTitle>
+              <CardTitle className="text-xl font-semibold">Сегодняшний прогресс</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-center text-muted-foreground py-8">
-                <BarChart3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
                 <p>Сегодня еще нет активности</p>
                 <p className="text-sm mt-2">Начните изучение, чтобы увидеть статистику</p>
               </div>
@@ -419,12 +483,7 @@ export default function Dashboard() {
       ) : (
         <UICard className="glass-effect shadow-lg">
           <CardHeader className="pb-4">
-            <CardTitle className="flex items-center gap-3 text-xl font-semibold">
-              <div className="p-2 rounded-xl gradient-purple-soft">
-                <BarChart3 className="h-5 w-5 text-primary" />
-              </div>
-              Сегодняшний прогресс
-            </CardTitle>
+            <CardTitle className="text-xl font-semibold">Сегодняшний прогресс</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-32 bg-muted animate-pulse rounded"></div>
@@ -432,87 +491,12 @@ export default function Dashboard() {
         </UICard>
       )}
 
-      {/* Quick Actions */}
-      <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        <Link href="/session" className="group">
-          <UICard className="h-full transition-all duration-500 hover:shadow-2xl hover:scale-[1.03] glass-effect hover:gradient-purple-soft">
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-6 p-6 rounded-2xl gradient-purple-medium group-hover:gradient-purple-strong transition-all duration-500">
-                <Play className="h-10 w-10 text-primary-foreground group-hover:scale-110 transition-transform duration-500" />
-              </div>
-              <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-500">
-                Начать тренировку
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
-                {stats.due > 0 ? (
-                  <>
-                    <Badge variant="default" className="mr-2 bg-primary text-primary-foreground">
-                      {stats.due}
-                    </Badge>
-                    карточек готовы к повторению
-                  </>
-                ) : (
-                  "Нет карточек к повторению"
-                )}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-center">
-              <p className="text-sm text-muted-foreground group-hover:text-primary transition-colors duration-300 font-medium">
-                Нажмите, чтобы начать →
-              </p>
-            </CardContent>
-          </UICard>
-        </Link>
-
-        <Link href="/words" className="group">
-          <UICard className="h-full transition-all duration-500 hover:shadow-2xl hover:scale-[1.03] glass-effect">
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-6 p-6 rounded-2xl gradient-purple-soft group-hover:gradient-purple-medium transition-all duration-500">
-                <BookOpen className="h-10 w-10 text-primary group-hover:scale-110 transition-transform duration-500" />
-              </div>
-              <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-500">
-                Список слов
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
-                Управляйте своей базой из {stats.total} слов
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-center">
-              <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
-                Добавить, редактировать →
-              </p>
-            </CardContent>
-          </UICard>
-        </Link>
-
-        <Link href="/logs" className="group">
-          <UICard className="h-full transition-all duration-500 hover:shadow-2xl hover:scale-[1.03] glass-effect">
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-6 p-6 rounded-2xl gradient-purple-soft group-hover:gradient-purple-medium transition-all duration-500">
-                <BarChart3 className="h-10 w-10 text-primary group-hover:scale-110 transition-transform duration-500" />
-              </div>
-              <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-500">
-                Статистика
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
-                Просмотрите свой прогресс и аналитику
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-center">
-              <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
-                Открыть журнал →
-              </p>
-            </CardContent>
-          </UICard>
-        </Link>
-      </div>
-
       {/* Progress Calendar */}
       <ProgressCalendar />
 
       {/* Tips */}
       <UICard className="glass-effect shadow-lg">
-        <CardHeader className="pb-4">
+        <CardHeader className="pb-1">
           <CardTitle className="flex items-center gap-3 text-xl font-semibold">
             <div className="p-2 rounded-xl gradient-purple-soft">
               <span className="text-2xl">💡</span>
@@ -520,7 +504,7 @@ export default function Dashboard() {
             Совет дня
           </CardTitle>
         </CardHeader>
-        <CardContent className="pt-0">
+        <CardContent className="pt-1">
           <p className="text-base text-foreground leading-relaxed">{currentTip}</p>
         </CardContent>
       </UICard>
@@ -538,26 +522,26 @@ interface StatCardProps {
 
 const StatCard = memo(({ title, value, icon, variant, href }: StatCardProps) => {
   const variants = {
-    blue: "glass-effect hover:gradient-purple-soft",
-    purple: "glass-effect hover:gradient-purple-soft",
-    yellow: "glass-effect hover:gradient-purple-soft",
-    green: "glass-effect hover:gradient-purple-soft",
-    orange: "glass-effect hover:gradient-purple-soft",
-    red: "glass-effect hover:gradient-purple-soft",
-    training: "gradient-purple-soft hover:gradient-purple-medium shadow-lg hover:shadow-xl",
+    blue: "glass-effect hover:shadow-medium",
+    purple: "glass-effect hover:shadow-medium",
+    yellow: "glass-effect hover:shadow-medium",
+    green: "glass-effect hover:shadow-medium",
+    orange: "glass-effect hover:shadow-medium",
+    red: "glass-effect hover:shadow-medium",
+    training: "gradient-purple-soft hover:gradient-purple-glow shadow-medium hover:shadow-strong",
   };
 
   return (
     <Link href={href} className="block group">
       <UICard
-        className={`transition-all duration-500 hover:scale-110 hover:shadow-xl cursor-pointer ${variants[variant]}`}
+        className={`transition-all duration-500 ease-out hover:scale-[1.02] cursor-pointer ${variants[variant]}`}
       >
         <CardContent className="p-6 text-center">
           <div className="flex flex-col items-center gap-4">
-            <div className="p-3 rounded-2xl gradient-purple-soft group-hover:gradient-purple-medium transition-all duration-500">
+            <div className="p-3 rounded-3xl gradient-purple-soft group-hover:gradient-purple-glow transition-all duration-500 ease-out">
               {icon}
             </div>
-            <div className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-500">
+            <div className="text-3xl font-light text-foreground group-hover:text-purple-700 transition-colors duration-500 ease-out">
               {value}
             </div>
             <div className="text-sm text-muted-foreground font-medium">{title}</div>

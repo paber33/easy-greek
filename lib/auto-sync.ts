@@ -22,48 +22,64 @@ export class AutoSyncService {
   private readonly SYNC_INTERVAL = 30000; // 30 секунд
   private readonly MIN_SYNC_INTERVAL = 5000; // Минимум 5 секунд между синхронизациями
 
+  // Сохраняем ссылки на event listeners для правильной очистки
+  private onlineHandler = () => {
+    this.isOnline = true;
+    console.log("🌐 Online - starting sync");
+    this.forceSync();
+  };
+
+  private offlineHandler = () => {
+    this.isOnline = false;
+    console.log("📴 Offline - stopping sync");
+    this.stopAutoSync();
+  };
+
+  private storageHandler = (e: StorageEvent) => {
+    if (e.key && e.key.includes("cards") && e.newValue) {
+      console.log("🔄 Storage changed - triggering sync");
+      this.scheduleSync();
+    }
+  };
+
+  private visibilityHandler = () => {
+    if (!document.hidden && this.isOnline) {
+      console.log("👁️ Page visible - checking for sync");
+      this.scheduleSync();
+    }
+  };
+
+  private focusHandler = () => {
+    if (this.isOnline) {
+      console.log("🎯 Window focused - checking for sync");
+      this.scheduleSync();
+    }
+  };
+
   constructor() {
+    // Дополнительная проверка на случай, если конструктор вызван на сервере
+    if (typeof window === "undefined") {
+      console.warn("AutoSyncService: Constructor called on server - skipping initialization");
+      return;
+    }
+
     this.setupEventListeners();
     this.startAutoSync();
   }
 
   private setupEventListeners() {
     // Слушаем изменения онлайн статуса
-    window.addEventListener("online", () => {
-      this.isOnline = true;
-      console.log("🌐 Online - starting sync");
-      this.forceSync();
-    });
-
-    window.addEventListener("offline", () => {
-      this.isOnline = false;
-      console.log("📴 Offline - stopping sync");
-      this.stopAutoSync();
-    });
+    window.addEventListener("online", this.onlineHandler);
+    window.addEventListener("offline", this.offlineHandler);
 
     // Слушаем изменения в localStorage (другие вкладки)
-    window.addEventListener("storage", e => {
-      if (e.key && e.key.includes("cards") && e.newValue) {
-        console.log("🔄 Storage changed - triggering sync");
-        this.scheduleSync();
-      }
-    });
+    window.addEventListener("storage", this.storageHandler);
 
     // Слушаем изменения видимости страницы
-    document.addEventListener("visibilitychange", () => {
-      if (!document.hidden && this.isOnline) {
-        console.log("👁️ Page visible - checking for sync");
-        this.scheduleSync();
-      }
-    });
+    document.addEventListener("visibilitychange", this.visibilityHandler);
 
     // Слушаем фокус окна
-    window.addEventListener("focus", () => {
-      if (this.isOnline) {
-        console.log("🎯 Window focused - checking for sync");
-        this.scheduleSync();
-      }
-    });
+    window.addEventListener("focus", this.focusHandler);
   }
 
   /**
@@ -130,7 +146,14 @@ export class AutoSyncService {
     }
 
     try {
-      this.lastSyncTime = Date.now();
+      // Check if user is authenticated before syncing
+      const { supabaseRepository } = await import("./repositories/supabase/supabase-repository");
+      const isAuth = await supabaseRepository.isAuthenticated();
+      if (!isAuth) {
+        console.log("🔐 Skipping sync - user not authenticated");
+        return;
+      }
+
       console.log("🔄 Starting full sync...");
 
       // 1. Загружаем данные из Supabase
@@ -148,9 +171,12 @@ export class AutoSyncService {
       // 5. Отправляем объединенные данные в облако
       await this.saveToCloud(mergedData);
 
+      // Обновляем время последней синхронизации только после успешного завершения
+      this.lastSyncTime = Date.now();
       console.log("✅ Full sync completed successfully");
     } catch (error) {
       console.error("❌ Sync failed:", error);
+      // Не обновляем lastSyncTime при ошибке, чтобы можно было повторить попытку
     }
   }
 
@@ -174,7 +200,7 @@ export class AutoSyncService {
     try {
       const cards = await loadCards();
       const logs = loadLogs();
-      const config = loadConfig();
+      const config = await loadConfig();
       return { cards, logs, config };
     } catch (error) {
       console.log("Failed to load from local:", error);
@@ -266,7 +292,7 @@ export class AutoSyncService {
    */
   public async syncConfig() {
     try {
-      const config = loadConfig();
+      const config = await loadConfig();
       await syncService.syncConfig(config);
       console.log("✅ Synced config");
     } catch (error) {
@@ -291,6 +317,14 @@ export class AutoSyncService {
    */
   public destroy() {
     this.stopAutoSync();
+
+    // Удаляем все event listeners
+    window.removeEventListener("online", this.onlineHandler);
+    window.removeEventListener("offline", this.offlineHandler);
+    window.removeEventListener("storage", this.storageHandler);
+    document.removeEventListener("visibilitychange", this.visibilityHandler);
+    window.removeEventListener("focus", this.focusHandler);
+
     console.log("🧹 Auto-sync service destroyed");
   }
 }
@@ -302,20 +336,36 @@ export const getAutoSyncService = (): AutoSyncService => {
   if (typeof window === "undefined") {
     // Возвращаем заглушку для серверного рендеринга
     return {
-      startAutoSync: () => {},
-      stopAutoSync: () => {},
-      scheduleSync: () => {},
-      forceSync: async () => {},
-      syncCards: async () => {},
-      syncLogs: async () => {},
-      syncConfig: async () => {},
+      startAutoSync: () => {
+        console.log("AutoSync: startAutoSync called on server - no-op");
+      },
+      stopAutoSync: () => {
+        console.log("AutoSync: stopAutoSync called on server - no-op");
+      },
+      scheduleSync: () => {
+        console.log("AutoSync: scheduleSync called on server - no-op");
+      },
+      forceSync: async () => {
+        console.log("AutoSync: forceSync called on server - no-op");
+      },
+      syncCards: async () => {
+        console.log("AutoSync: syncCards called on server - no-op");
+      },
+      syncLogs: async () => {
+        console.log("AutoSync: syncLogs called on server - no-op");
+      },
+      syncConfig: async () => {
+        console.log("AutoSync: syncConfig called on server - no-op");
+      },
       getSyncStatus: () => ({
         isOnline: false,
         lastSyncTime: 0,
         isAutoSyncActive: false,
         timeSinceLastSync: 0,
       }),
-      destroy: () => {},
+      destroy: () => {
+        console.log("AutoSync: destroy called on server - no-op");
+      },
     } as AutoSyncService;
   }
 

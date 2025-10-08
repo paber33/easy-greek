@@ -16,6 +16,12 @@ export function AutoSyncProvider({ children }: AutoSyncProviderProps) {
     isAutoSyncActive: false,
     timeSinceLastSync: 0,
   });
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // Устанавливаем флаг клиента
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     // Инициализируем автоматическую синхронизацию
@@ -26,7 +32,10 @@ export function AutoSyncProvider({ children }: AutoSyncProviderProps) {
       const autoSyncService = getAutoSyncService();
       autoSyncService.forceSync();
     }
+  }, [currentProfileId, isLoading]);
 
+  // Отдельный useEffect для статуса синхронизации
+  useEffect(() => {
     // Обновляем статус синхронизации каждые 5 секунд
     const statusInterval = setInterval(() => {
       const autoSyncService = getAutoSyncService();
@@ -37,7 +46,7 @@ export function AutoSyncProvider({ children }: AutoSyncProviderProps) {
     return () => {
       clearInterval(statusInterval);
     };
-  }, [currentProfileId, isLoading]);
+  }, []); // Пустой массив зависимостей - интервал создается только один раз
 
   // Показываем статус синхронизации в консоли для отладки
   useEffect(() => {
@@ -53,7 +62,7 @@ export function AutoSyncProvider({ children }: AutoSyncProviderProps) {
     <>
       {children}
       {/* Можно добавить индикатор синхронизации в UI */}
-      {process.env.NODE_ENV === "development" && (
+      {process.env.NODE_ENV === "development" && isClient && (
         <div className="fixed bottom-4 right-4 bg-black/80 text-white text-xs p-2 rounded opacity-50">
           <div>Online: {syncStatus.isOnline ? "✅" : "❌"}</div>
           <div>Auto-sync: {syncStatus.isAutoSyncActive ? "🔄" : "⏹️"}</div>

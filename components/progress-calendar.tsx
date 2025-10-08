@@ -133,7 +133,11 @@ export function ProgressCalendar({ className }: ProgressCalendarProps) {
               </div>
               <div className="text-center">
                 <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
-                  {logs.reduce((sum, log) => sum + log.totalReviewed, 0)}
+                  {logs.reduce((sum, log) => {
+                    // Фильтруем некорректные значения (больше 1000 повторений в день)
+                    const validReviewed = log.totalReviewed > 1000 ? 0 : log.totalReviewed;
+                    return sum + validReviewed;
+                  }, 0)}
                 </div>
                 <div className="text-xs text-muted-foreground">Повторений</div>
               </div>
@@ -174,7 +178,8 @@ function generateCalendarData(logs: SessionSummary[]): DayData[] {
     const dateStr = date.toISOString().split("T")[0];
 
     const log = logsMap.get(dateStr);
-    const count = log ? log.totalReviewed : 0;
+    // Фильтруем некорректные значения (больше 1000 повторений в день)
+    const count = log && log.totalReviewed <= 1000 ? log.totalReviewed : 0;
 
     // Определяем уровень интенсивности (0-4)
     let level: 0 | 1 | 2 | 3 | 4 = 0;

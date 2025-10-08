@@ -38,26 +38,34 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
 
   // Показываем загрузку пока проверяем аутентификацию
   if (isLoading) {
-    return <div className="min-h-screen bg-background" suppressHydrationWarning>{children}</div>;
+    return (
+      <div className="min-h-screen bg-background" suppressHydrationWarning>
+        {children}
+      </div>
+    );
   }
 
   // Если пользователь не авторизован, показываем только контент без навигации
   if (!isAuthenticated) {
-    return <div className="min-h-screen bg-background" suppressHydrationWarning>{children}</div>;
+    return (
+      <div className="min-h-screen bg-background" suppressHydrationWarning>
+        {children}
+      </div>
+    );
   }
 
   // Если авторизован, показываем полный интерфейс с навигацией
   return (
     <div className="min-h-screen bg-background" suppressHydrationWarning>
       {/* Navigation */}
-      <header 
-        className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      <header
+        className="sticky top-0 z-50 w-full border-b border-white/20 bg-white/40 backdrop-blur-md supports-[backdrop-filter]:bg-white/30"
         suppressHydrationWarning
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8" suppressHydrationWarning>
           <div className="flex h-14 items-center" suppressHydrationWarning>
             <Link href="/" className="mr-3 sm:mr-6 flex items-center">
-              <span className="font-bold text-lg sm:text-xl bg-gradient-to-r from-slate-600 to-slate-800 dark:from-slate-300 dark:to-slate-100 bg-clip-text text-transparent">
+              <span className="font-light text-lg sm:text-xl bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#6D28D9] bg-clip-text text-transparent">
                 Greekly
               </span>
             </Link>
@@ -105,7 +113,7 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
       </header>
 
       {/* Main Content */}
-      <main 
+      <main
         className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8"
         suppressHydrationWarning
       >
@@ -113,12 +121,9 @@ export function NavigationWrapper({ children }: NavigationWrapperProps) {
       </main>
 
       {/* Footer */}
-      <footer 
-        className="border-t py-6 md:py-0"
-        suppressHydrationWarning
-      >
+      <footer className="border-t py-6 md:py-0" suppressHydrationWarning>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" suppressHydrationWarning>
-          <div 
+          <div
             className="flex h-14 items-center justify-center text-sm text-muted-foreground"
             suppressHydrationWarning
           >
@@ -142,7 +147,7 @@ function NavLink({
   return (
     <Link
       href={href}
-      className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+      className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-300 ease-out hover:bg-white/20 hover:text-primary"
     >
       {icon}
       {children}
@@ -162,7 +167,7 @@ function MobileNavLink({
   return (
     <Link
       href={href}
-      className="inline-flex items-center justify-center rounded-lg p-3 text-sm font-medium transition-all duration-200 hover:bg-accent hover:text-accent-foreground active:scale-95 touch-manipulation"
+      className="inline-flex items-center justify-center rounded-xl p-3 text-sm font-medium transition-all duration-300 ease-out hover:bg-white/20 hover:text-primary active:scale-95 touch-manipulation"
     >
       {icon}
     </Link>

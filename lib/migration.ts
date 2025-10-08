@@ -106,6 +106,14 @@ const cleanupLegacyKeys = (): void => {
  */
 const initializeProfileData = async (profileId: ProfileId): Promise<void> => {
   try {
+    // Check if user is authenticated before trying to access Supabase
+    const { supabaseRepository } = await import("./repositories/supabase/supabase-repository");
+    const isAuth = await supabaseRepository.isAuthenticated();
+    if (!isAuth) {
+      console.log("User not authenticated, skipping profile data initialization");
+      return;
+    }
+
     const cards = await localRepository.cards.list(profileId);
 
     // Если у профиля нет карточек, добавляем тестовые данные
