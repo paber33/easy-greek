@@ -62,7 +62,32 @@ export class SupabaseStorageService {
       }
 
       const userId = await this.getCurrentUserId();
-      return await supabaseRepository.cards.list(userId);
+      const cards = await supabaseRepository.cards.list(userId);
+
+      // Если карточки пустые, возможно пользователь еще не инициализирован
+      if (cards.length === 0) {
+        console.log("No cards found, checking if user needs initialization...");
+
+        // Проверяем, есть ли пользователь в базе данных
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (user) {
+          // Пытаемся инициализировать пользователя
+          try {
+            const { syncService } = await import("../sync");
+            const userData = await syncService.loadUserData();
+            if (userData && userData.cards.length > 0) {
+              console.log(`Initialized user with ${userData.cards.length} cards`);
+              return userData.cards;
+            }
+          } catch (initError) {
+            console.log("Failed to initialize user:", initError);
+          }
+        }
+      }
+
+      return cards;
     } catch (error) {
       console.error("Failed to load cards:", error);
       // Return empty array instead of throwing to prevent app crashes

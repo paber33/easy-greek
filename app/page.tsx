@@ -28,6 +28,7 @@ import {
 import { LoginScreen } from "@/components/login-screen";
 import { ProgressCalendar } from "@/components/progress-calendar";
 import { LoadingScreen } from "@/components/ui/loading-screen";
+import { DataSyncStatus } from "@/components/data-sync-status";
 import { supabase } from "@/lib/supabase";
 import { cleanupLocalStorage } from "@/lib/data-cleanup";
 
@@ -84,6 +85,8 @@ export default function Dashboard() {
   const [mounted, setMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const [isLoadingCards, setIsLoadingCards] = useState(false);
+  const [showSyncStatus, setShowSyncStatus] = useState(false);
   const [currentPhrase, setCurrentPhrase] = useState<(typeof motivationalPhrases)[0] | null>(null);
   const [currentTip, setCurrentTip] = useState<string | null>(null);
   const [logs, setLogs] = useState<SessionSummary[]>([]);
@@ -92,14 +95,36 @@ export default function Dashboard() {
   const loadCardsForProfile = useCallback(async () => {
     if (!currentProfileId || !isLoggedIn) return;
 
+    setIsLoadingCards(true);
     try {
+      console.log("🔄 Loading cards for profile:", currentProfileId);
       const cards = await LocalCardsRepository.list(currentProfileId);
+      console.log(`✅ Loaded ${cards.length} cards for profile ${currentProfileId}`);
       setCards(cards);
+
+      // Показываем статус синхронизации если карточек мало или нет
+      setShowSyncStatus(cards.length < 10);
+
+      // Автоматически скрываем статус через 5 секунд если карточек достаточно
+      if (cards.length >= 10) {
+        setTimeout(() => {
+          setShowSyncStatus(false);
+        }, 5000);
+      }
     } catch (error) {
-      console.error("Failed to load cards:", error);
+      console.error("❌ Failed to load cards:", error);
       setCards([]);
+      setShowSyncStatus(true); // Показываем статус при ошибке
+    } finally {
+      setIsLoadingCards(false);
     }
   }, [currentProfileId, isLoggedIn]);
+
+  // Function to handle data reload
+  const handleDataReloaded = useCallback(() => {
+    console.log("🔄 Data reloaded, refreshing cards...");
+    loadCardsForProfile();
+  }, [loadCardsForProfile]);
 
   // Memoized function to load logs
   const loadLogsForProfile = useCallback(async () => {
@@ -282,7 +307,8 @@ export default function Dashboard() {
     profileLoading ||
     !currentProfileId ||
     !currentPhrase ||
-    !currentTip
+    !currentTip ||
+    (isLoggedIn && isLoadingCards)
   ) {
     return <LoadingScreen message="Загружаем ваши данные..." variant="greek" />;
   }
@@ -493,6 +519,13 @@ export default function Dashboard() {
 
       {/* Progress Calendar */}
       <ProgressCalendar />
+
+      {/* Data Sync Status - показываем только при проблемах */}
+      {showSyncStatus && (
+        <div className="flex justify-center">
+          <DataSyncStatus onDataReloaded={handleDataReloaded} />
+        </div>
+      )}
 
       {/* Tips */}
       <UICard className="glass-effect shadow-lg">

@@ -125,7 +125,12 @@ export class AutoSyncService {
    */
   public async forceSync() {
     console.log("🚀 Force sync triggered");
-    await this.performSync();
+    try {
+      await this.performSync();
+    } catch (error) {
+      console.error("❌ Force sync failed:", error);
+      // Не выбрасываем ошибку, чтобы не сломать приложение
+    }
   }
 
   /**

@@ -41,15 +41,38 @@ const save = (key: string, value: unknown): void => {
  */
 export const LocalCardsRepository: CardsRepository = {
   async list(profileId: ProfileId): Promise<Card[]> {
-    // Используем новую функцию loadCards, которая загружает из Supabase
+    // Используем новую функцию loadCards с повторными попытками
     try {
       const { loadCards } = await import("./core/storage");
-      const cards = await loadCards();
+
+      // Попробуем загрузить карточки с повторными попытками
+      let cards = await loadCards();
+
+      // Если карточки пустые, подождем немного и попробуем еще раз
+      if (cards.length === 0) {
+        console.log("No cards loaded, waiting for sync and retrying...");
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Ждем 1 секунду
+
+        // Проверяем, есть ли данные в localStorage как fallback
+        const localCards = load(ns(profileId, "cards"), [] as Card[]);
+        if (localCards.length > 0) {
+          console.log(`Using ${localCards.length} cards from localStorage as fallback`);
+          return localCards;
+        }
+
+        // Пробуем загрузить еще раз
+        cards = await loadCards();
+      }
+
       console.log(`Loaded ${cards.length} cards for profile ${profileId}`);
       return cards;
     } catch (error) {
       console.log("Failed to load cards:", error);
-      return [];
+
+      // Fallback к localStorage
+      const localCards = load(ns(profileId, "cards"), [] as Card[]);
+      console.log(`Using ${localCards.length} cards from localStorage as fallback`);
+      return localCards;
     }
   },
 

@@ -30,7 +30,16 @@ export function AutoSyncProvider({ children }: AutoSyncProviderProps) {
 
       // Принудительная синхронизация при загрузке профиля
       const autoSyncService = getAutoSyncService();
-      autoSyncService.forceSync();
+
+      // Запускаем синхронизацию с небольшой задержкой, чтобы дать время аутентификации
+      const syncWithDelay = async () => {
+        await new Promise(resolve => setTimeout(resolve, 500)); // Ждем 500мс
+        await autoSyncService.forceSync();
+      };
+
+      syncWithDelay().catch(error => {
+        console.error("Failed to sync after delay:", error);
+      });
     }
   }, [currentProfileId, isLoading]);
 
