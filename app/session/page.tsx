@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Home, BarChart3, Play } from "lucide-react";
+import { Home, BarChart3, Play, RefreshCw } from "lucide-react";
 import confetti from "canvas-confetti";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -46,22 +46,82 @@ export default function SessionPage() {
     if (mounted && profileId) {
       const loadCardsForProfile = async () => {
         try {
+          console.log("🔄 Session: Loading cards for profile:", profileId);
           const loaded = await LocalCardsRepository.list(profileId);
+          console.log(`📚 Session: Loaded ${loaded.length} cards`);
+
+          if (loaded.length === 0) {
+            console.log("⚠️ Session: No cards loaded, showing empty state");
+            setCards([]);
+            setQueue([]);
+            setScheduler(null);
+            return;
+          }
+
           const srs = new SRSScheduler(DEFAULT_CONFIG);
-          const sessionQueue = srs.buildQueue(loaded, new Date());
+          const now = new Date();
+          const sessionQueue = srs.buildQueue(loaded, now);
+          console.log(`🎯 Session: Built queue with ${sessionQueue.length} cards`);
+
+          // Диагностика карточек
+          const statusCounts = loaded.reduce(
+            (acc, card) => {
+              acc[card.status] = (acc[card.status] || 0) + 1;
+              return acc;
+            },
+            {} as Record<string, number>
+          );
+          console.log("📊 Session: Card status counts:", statusCounts);
+
+          const dueCards = loaded.filter(card => card.due <= now.toISOString());
+          console.log(
+            `⏰ Session: ${dueCards.length} cards are due (out of ${loaded.length} total)`
+          );
+
+          if (sessionQueue.length === 0 && loaded.length > 0) {
+            console.log("🔍 Session: Debugging why queue is empty:");
+            console.log("- New cards:", loaded.filter(c => c.status === "new").length);
+            console.log(
+              "- Learning cards due:",
+              loaded.filter(
+                c =>
+                  (c.status === "learning" || c.status === "relearning") &&
+                  c.due <= now.toISOString()
+              ).length
+            );
+            console.log(
+              "- Review cards due:",
+              loaded.filter(c => c.status === "review" && c.due <= now.toISOString()).length
+            );
+            console.log("- DAILY_NEW limit:", DEFAULT_CONFIG.DAILY_NEW);
+            console.log("- DAILY_REVIEWS limit:", DEFAULT_CONFIG.DAILY_REVIEWS);
+          }
 
           setCards(loaded);
           setScheduler(srs);
 
           if (sessionQueue.length === 0) {
-            setQueue([]);
+            console.log("⚠️ Session: Queue is empty, checking for fallback options");
+
+            // Fallback: если есть новые карточки, покажем их
+            const newCards = loaded.filter(c => c.status === "new").slice(0, 5);
+            if (newCards.length > 0) {
+              console.log(`🔄 Session: Using fallback - showing ${newCards.length} new cards`);
+              setQueue(newCards);
+            } else {
+              console.log(
+                "⚠️ Session: No fallback options available, showing 'all cards reviewed' state"
+              );
+              setQueue([]);
+            }
           } else {
             setQueue(sessionQueue);
           }
         } catch (error) {
-          console.error("Failed to load cards:", error);
+          console.error("❌ Session: Failed to load cards:", error);
           setCards([]);
           setQueue([]);
+          setScheduler(null);
         }
       };
       loadCardsForProfile();
@@ -180,17 +240,54 @@ export default function SessionPage() {
   }
 
   if (queue.length === 0) {
+    const hasCards = cards.length > 0;
+
     return (
       <div className="max-w-2xl mx-auto text-center space-y-4 sm:space-y-6 p-4">
         <div className="text-4xl sm:text-6xl mb-4">🎉</div>
-        <h1 className="text-2xl sm:text-3xl font-bold">Все карточки повторены!</h1>
-        <p className="text-muted-foreground text-base sm:text-lg">
-          Возвращайтесь позже, когда появятся новые карточки для повторения.
-        </p>
-        <Button onClick={() => router.push("/")} size="lg" className="w-full sm:w-auto">
-          <Home className="mr-2 h-4 w-4" />
-          На главную
-        </Button>
+
+        {hasCards ? (
+          <>
+            <h1 className="text-2xl sm:text-3xl font-bold">Все карточки повторены!</h1>
+            <p className="text-muted-foreground text-base sm:text-lg">
+              У вас {cards.length} карточек, но нет готовых к повторению.
+            </p>
+            <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg">
+              <p className="text-sm text-blue-700 dark:text-blue-300">
+                💡 Карточки появятся в тренировке когда придет время их повторения согласно
+                алгоритму FSRS.
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <h1 className="text-2xl sm:text-3xl font-bold">Нет карточек для тренировки</h1>
+            <p className="text-muted-foreground text-base sm:text-lg">
+              Не удалось загрузить карточки. Возможно, проблема с синхронизацией.
+            </p>
+            <div className="bg-yellow-50 dark:bg-yellow-950/30 p-4 rounded-lg">
+              <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                ⚠️ Попробуйте перезагрузить данные или вернуться на главную страницу.
+              </p>
+            </div>
+          </>
+        )}
+
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Button
+            onClick={() => window.location.reload()}
+            size="lg"
+            variant="outline"
+            className="w-full sm:w-auto"
+          >
+            <RefreshCw className="mr-2 h-4 w-4" />
+            Перезагрузить
+          </Button>
+          <Button onClick={() => router.push("/")} size="lg" className="w-full sm:w-auto">
+            <Home className="mr-2 h-4 w-4" />
+            На главную
+          </Button>
+        </div>
       </div>
     );
   }

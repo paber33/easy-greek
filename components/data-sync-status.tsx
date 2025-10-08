@@ -22,6 +22,7 @@ export function DataSyncStatus({ onDataReloaded }: DataSyncStatusProps) {
     timeSinceLastSync: 0,
   });
   const [isReloading, setIsReloading] = useState(false);
+  const [isInitializing, setIsInitializing] = useState(false);
   const [lastReloadTime, setLastReloadTime] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -58,6 +59,30 @@ export function DataSyncStatus({ onDataReloaded }: DataSyncStatusProps) {
       console.error("❌ Failed to reload data:", error);
     } finally {
       setIsReloading(false);
+    }
+  };
+
+  const handleForceInitialize = async () => {
+    if (!currentProfileId || isInitializing) return;
+
+    setIsInitializing(true);
+    try {
+      console.log("🔄 Force initializing user with seed words...");
+
+      // Принудительная инициализация через syncService
+      const { syncService } = await import("@/lib/sync");
+      const userData = await syncService.loadUserData();
+
+      if (userData && userData.cards.length > 0) {
+        console.log(`✅ Initialized user with ${userData.cards.length} cards`);
+        onDataReloaded?.();
+      } else {
+        console.log("⚠️ No cards were initialized");
+      }
+    } catch (error) {
+      console.error("❌ Failed to initialize user:", error);
+    } finally {
+      setIsInitializing(false);
     }
   };
 
@@ -127,24 +152,45 @@ export function DataSyncStatus({ onDataReloaded }: DataSyncStatusProps) {
           </div>
         )}
 
-        <Button
-          onClick={handleForceReload}
-          disabled={isReloading || !currentProfileId}
-          className="w-full"
-          variant="outline"
-        >
-          {isReloading ? (
-            <>
-              <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-              Перезагрузка...
-            </>
-          ) : (
-            <>
-              <RefreshCw className="h-4 w-4 mr-2" />
-              Перезагрузить данные
-            </>
-          )}
-        </Button>
+        <div className="space-y-2">
+          <Button
+            onClick={handleForceReload}
+            disabled={isReloading || !currentProfileId}
+            className="w-full"
+            variant="outline"
+          >
+            {isReloading ? (
+              <>
+                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                Перезагрузка...
+              </>
+            ) : (
+              <>
+                <RefreshCw className="h-4 w-4 mr-2" />
+                Перезагрузить данные
+              </>
+            )}
+          </Button>
+
+          <Button
+            onClick={handleForceInitialize}
+            disabled={isInitializing || !currentProfileId}
+            className="w-full"
+            variant="default"
+          >
+            {isInitializing ? (
+              <>
+                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                Инициализация...
+              </>
+            ) : (
+              <>
+                <CheckCircle2 className="h-4 w-4 mr-2" />
+                Инициализировать слова
+              </>
+            )}
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

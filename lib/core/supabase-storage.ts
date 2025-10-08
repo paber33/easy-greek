@@ -66,7 +66,7 @@ export class SupabaseStorageService {
 
       // Если карточки пустые, возможно пользователь еще не инициализирован
       if (cards.length === 0) {
-        console.log("No cards found, checking if user needs initialization...");
+        console.log("No cards found, attempting to initialize user...");
 
         // Проверяем, есть ли пользователь в базе данных
         const {
@@ -78,12 +78,18 @@ export class SupabaseStorageService {
             const { syncService } = await import("../sync");
             const userData = await syncService.loadUserData();
             if (userData && userData.cards.length > 0) {
-              console.log(`Initialized user with ${userData.cards.length} cards`);
+              console.log(`✅ Initialized user with ${userData.cards.length} cards`);
               return userData.cards;
+            } else {
+              console.log(
+                "⚠️ User data loaded but no cards found, user may need manual initialization"
+              );
             }
           } catch (initError) {
-            console.log("Failed to initialize user:", initError);
+            console.error("❌ Failed to initialize user:", initError);
           }
+        } else {
+          console.log("⚠️ No authenticated user found");
         }
       }
 
