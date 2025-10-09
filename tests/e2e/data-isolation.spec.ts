@@ -258,7 +258,7 @@ test.describe("Data Isolation Between Users", () => {
     const aleksandraPage = await aleksandraContext?.newPage();
 
     if (!aleksandraPage) {
-      test.skip("Could not create second browser context");
+      test.skip("Could not create second browser context", () => {});
       return;
     }
 

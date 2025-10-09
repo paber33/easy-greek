@@ -21,7 +21,7 @@ export function AuthComponent() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
   const [isAutoLogin, setIsAutoLogin] = useState(false);
-  const [currentUser, setCurrentUser] = useState<"pavel" | "aleksandra" | null>(null);
+  const [currentUser, setCurrentUser] = useState<"pavel" | "aleksandra" | "test" | null>(null);
 
   useEffect(() => {
     const {
@@ -63,18 +63,18 @@ export function AuthComponent() {
 
         if (!result.success) {
           if (result.needsReauth) {
-            // Если нужна повторная аутентификация, автоматически входим в Pavel
+            // Если нужна повторная аутентификация, автоматически входим в Test
             setTimeout(() => {
-              handleUserLogin("pavel");
+              handleUserLogin("test");
             }, 1000);
           }
           return;
         }
 
         if (!result.session) {
-          // Если пользователь не авторизован, автоматически входим в учетную запись Pavel
+          // Если пользователь не авторизован, автоматически входим в тестовую учетную запись
           setTimeout(() => {
-            handleUserLogin("pavel");
+            handleUserLogin("test");
           }, 1000); // Небольшая задержка для лучшего UX
         } else {
           // Определяем текущего пользователя
@@ -86,7 +86,7 @@ export function AuthComponent() {
         // В случае ошибки, очищаем сессию и пытаемся войти заново
         clearAuthTokens();
         setTimeout(() => {
-          handleUserLogin("pavel");
+          handleUserLogin("test");
         }, 1000);
       }
     };
@@ -191,7 +191,7 @@ export function AuthComponent() {
     }
   };
 
-  const handleUserLogin = async (userId: "pavel" | "aleksandra") => {
+  const handleUserLogin = async (userId: "pavel" | "aleksandra" | "test") => {
     setIsAutoLogin(true);
     try {
       const userConfig = getUserConfig(userId);
@@ -275,6 +275,18 @@ export function AuthComponent() {
             <div className="text-sm font-medium">Переключить пользователя:</div>
             <div className="flex gap-2">
               <Button
+                onClick={() => handleUserLogin("test")}
+                disabled={isAutoLogin || currentUser === "test"}
+                variant={currentUser === "test" ? "default" : "outline"}
+                className={`flex-1 transition-all duration-300 ${
+                  currentUser === "test"
+                    ? "bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white border-0 shadow-md hover:shadow-lg"
+                    : "border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800"
+                }`}
+              >
+                🧪 Test User
+              </Button>
+              <Button
                 onClick={() => handleUserLogin("pavel")}
                 disabled={isAutoLogin || currentUser === "pavel"}
                 variant={currentUser === "pavel" ? "default" : "outline"}
@@ -339,6 +351,14 @@ export function AuthComponent() {
           <div className="space-y-2">
             <div className="text-sm font-medium">Быстрый вход:</div>
             <div className="flex gap-2">
+              <Button
+                onClick={() => handleUserLogin("test")}
+                disabled={isAutoLogin}
+                variant="default"
+                className="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white border-0 shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                {isAutoLogin ? "Вход..." : "🧪 Test User"}
+              </Button>
               <Button
                 onClick={() => handleUserLogin("pavel")}
                 disabled={isAutoLogin}
@@ -411,6 +431,14 @@ export function AuthComponent() {
               {isLoading ? "Вход..." : "Войти"}
             </Button>
             <div className="flex gap-2">
+              <Button
+                onClick={() => handleUserLogin("test")}
+                disabled={isAutoLogin}
+                variant="outline"
+                className="flex-1 border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-300"
+              >
+                {isAutoLogin ? "Вход..." : "🧪 Test User"}
+              </Button>
               <Button
                 onClick={() => handleUserLogin("pavel")}
                 disabled={isAutoLogin}

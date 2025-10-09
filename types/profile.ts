@@ -5,7 +5,7 @@ export interface Profile {
   color?: string;
 }
 
-export type ProfileId = 'pavel' | 'aleksandra';
+export type ProfileId = 'pavel' | 'aleksandra' | 'test';
 
 export interface ProfileContextType {
   currentProfileId: ProfileId | null;

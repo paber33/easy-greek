@@ -27,7 +27,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
   const [isTesting, setIsTesting] = useState(false);
   const [isAutoLogin, setIsAutoLogin] = useState(false);
   const [isLoadingTestData, setIsLoadingTestData] = useState(false);
-  const [currentUser, setCurrentUser] = useState<"pavel" | "aleksandra" | null>(null);
+  const [currentUser, setCurrentUser] = useState<"pavel" | "aleksandra" | "test" | null>(null);
 
   useEffect(() => {
     const {
@@ -103,7 +103,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
     }
   };
 
-  const handleUserLogin = async (userId: "pavel" | "aleksandra") => {
+  const handleUserLogin = async (userId: "pavel" | "aleksandra" | "test") => {
     setIsAutoLogin(true);
     try {
       const userConfig = getUserConfig(userId);
@@ -252,7 +252,17 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3 sm:space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Button
+                onClick={() => handleUserLogin("test")}
+                disabled={isAutoLogin}
+                variant="default"
+                size="lg"
+                className="h-24 flex flex-col gap-3 shadow-medium hover:shadow-strong transition-all duration-300 ease-out bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white border-0"
+              >
+                <span className="text-4xl">🧪</span>
+                <span className="font-light text-xl">Test User</span>
+              </Button>
               <Button
                 onClick={() => handleUserLogin("pavel")}
                 disabled={isAutoLogin}

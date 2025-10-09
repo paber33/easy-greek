@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Оптимизации для production
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ["lucide-react", "@radix-ui/react-icons"],
+  },
   // Настройки Turbopack (обновленная конфигурация)
   turbopack: {
     rules: {

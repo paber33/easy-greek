@@ -1,13 +1,13 @@
-import { Card } from '@/types'
+import { Card } from "@/types";
 
-export function getTestCards(userId?: 'pavel' | 'aleksandra'): Card[] {
-  const now = new Date()
-  const yesterday = new Date(now.getTime() - 1 * 864e5)
-  const twoDaysAgo = new Date(now.getTime() - 2 * 864e5)
-  const fourDaysAgo = new Date(now.getTime() - 4 * 864e5)
+export function getTestCards(userId?: "pavel" | "aleksandra" | "test"): Card[] {
+  const now = new Date();
+  const yesterday = new Date(now.getTime() - 1 * 864e5);
+  const twoDaysAgo = new Date(now.getTime() - 2 * 864e5);
+  const fourDaysAgo = new Date(now.getTime() - 4 * 864e5);
 
-  const prefix = userId ? `${userId}-` : "test-"
-  
+  const prefix = userId ? `${userId}-` : "test-";
+
   return [
     // Greetings (new)
     {
@@ -189,5 +189,5 @@ export function getTestCards(userId?: 'pavel' | 'aleksandra'): Card[] {
       difficulty: 4.2,
       stability: 10.0,
     },
-  ]
+  ];
 }

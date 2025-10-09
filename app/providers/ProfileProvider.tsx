@@ -26,7 +26,7 @@ export function ProfileProvider({ children }: ProfileProviderProps) {
         setCurrentProfileIdState(profileId);
       } catch (error) {
         console.error('Failed to initialize profile:', error);
-        setCurrentProfileIdState('pavel'); // fallback
+        setCurrentProfileIdState('test'); // fallback
       } finally {
         setIsLoading(false);
       }

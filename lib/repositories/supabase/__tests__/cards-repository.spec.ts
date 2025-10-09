@@ -257,7 +257,36 @@ describe("SupabaseCardsRepository", () => {
           const requestingUserId = mockQuery.eq.mock.calls.find(call => call[0] === "user_id")?.[1];
           if (requestingUserId === userId1) {
             return Promise.resolve({
-              data: [{ id: "card-1", user_id: userId1, greek: "User 1 card" }],
+              data: [
+                {
+                  id: "card-1",
+                  user_id: userId1,
+                  greek: "User 1 card",
+                  translation: "Translation",
+                  tags: [],
+                  status: "new",
+                  reps: 0,
+                  lapses: 0,
+                  ease: 2.5,
+                  interval_days: 0,
+                  last_review: null,
+                  due: "2024-01-01T00:00:00Z",
+                  correct: 0,
+                  incorrect: 0,
+                  learning_step_index: null,
+                  is_leech: false,
+                  examples: null,
+                  notes: null,
+                  pronunciation: null,
+                  audio_url: null,
+                  image_url: null,
+                  created_at: "2024-01-01T00:00:00Z",
+                  updated_at: "2024-01-01T00:00:00Z",
+                  difficulty: null,
+                  stability: null,
+                  current_step: null,
+                },
+              ],
               error: null,
             });
           }
@@ -271,7 +300,7 @@ describe("SupabaseCardsRepository", () => {
       const user2Cards = await repository.list(userId2);
 
       expect(user1Cards).toHaveLength(1);
-      expect(user1Cards[0].user_id).toBe(userId1);
+      expect(user1Cards[0].id).toBe("card-1");
       expect(user2Cards).toHaveLength(0);
     });
   });

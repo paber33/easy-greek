@@ -3,7 +3,7 @@
  * Tests the complete system under various failure scenarios
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+// Jest globals are available without import
 import { enhancedCardsRepository } from "@/lib/repositories/supabase/enhanced-cards-repository";
 import { enhancedSessionsRepository } from "@/lib/repositories/supabase/enhanced-sessions-repository";
 import { withDatabaseRetries, withNetworkRetries, databaseCircuitBreaker } from "@/lib/core/retry";
@@ -14,45 +14,45 @@ import { Card, Rating } from "@/types";
 
 // Mock Supabase client
 const mockSupabase = {
-  rpc: vi.fn(),
-  from: vi.fn(() => ({
-    select: vi.fn(() => ({
-      eq: vi.fn(() => ({
-        single: vi.fn(),
-        order: vi.fn(() => ({
-          limit: vi.fn(),
+  rpc: jest.fn(),
+  from: jest.fn(() => ({
+    select: jest.fn(() => ({
+      eq: jest.fn(() => ({
+        single: jest.fn(),
+        order: jest.fn(() => ({
+          limit: jest.fn(),
         })),
       })),
-      order: vi.fn(() => ({
-        limit: vi.fn(),
+      order: jest.fn(() => ({
+        limit: jest.fn(),
       })),
     })),
-    insert: vi.fn(() => ({
-      select: vi.fn(() => ({
-        single: vi.fn(),
+    insert: jest.fn(() => ({
+      select: jest.fn(() => ({
+        single: jest.fn(),
       })),
     })),
-    update: vi.fn(() => ({
-      eq: vi.fn(() => ({
-        eq: vi.fn(() => ({
-          select: vi.fn(() => ({
-            single: vi.fn(),
+    update: jest.fn(() => ({
+      eq: jest.fn(() => ({
+        eq: jest.fn(() => ({
+          select: jest.fn(() => ({
+            single: jest.fn(),
           })),
         })),
       })),
     })),
-    delete: vi.fn(() => ({
-      eq: vi.fn(),
+    delete: jest.fn(() => ({
+      eq: jest.fn(),
     })),
-    upsert: vi.fn(() => ({
-      select: vi.fn(() => ({
-        single: vi.fn(),
+    upsert: jest.fn(() => ({
+      select: jest.fn(() => ({
+        single: jest.fn(),
       })),
     })),
   })),
 };
 
-vi.mock("@/lib/supabase", () => ({
+jest.mock("@/lib/supabase", () => ({
   supabase: mockSupabase,
 }));
 
@@ -61,13 +61,13 @@ describe("Resilience and Performance Integration Tests", () => {
   const testCardId = "test-card-id";
 
   beforeEach(() => {
-    vi.clearAllMocks();
+    jest.clearAllMocks();
     observability.clear();
     offlineManager.clearPendingOperations();
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
+    jest.restoreAllMocks();
   });
 
   describe("Atomic SRS Operations", () => {
@@ -388,12 +388,12 @@ describe("Resilience and Performance Integration Tests", () => {
 
       // Mock cleanup of old sessions
       mockSupabase.from.mockReturnValue({
-        update: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            eq: vi.fn(() => ({
-              is: vi.fn(() => ({
-                lt: vi.fn(() => ({
-                  select: vi.fn().mockResolvedValue({
+        update: jest.fn(() => ({
+          eq: jest.fn(() => ({
+            eq: jest.fn(() => ({
+              is: jest.fn(() => ({
+                lt: jest.fn(() => ({
+                  select: jest.fn().mockResolvedValue({
                     data: [{ id: "old-session-1" }, { id: "old-session-2" }],
                     error: null,
                   }),
@@ -486,16 +486,16 @@ describe("Resilience and Performance Integration Tests", () => {
 
       // Mock localStorage
       const mockLocalStorage = {
-        getItem: vi.fn(key => {
+        getItem: jest.fn((key: string) => {
           if (key.includes("cards-")) return JSON.stringify(mockCards[0]);
           if (key.includes("logs-")) return JSON.stringify(mockLogs[0]);
           if (key.includes("settings-")) return JSON.stringify({ dailyNew: 10 });
           return null;
         }),
-        setItem: vi.fn(),
-        removeItem: vi.fn(),
+        setItem: jest.fn(),
+        removeItem: jest.fn(),
         length: 3,
-        key: vi.fn(index => {
+        key: jest.fn((index: number) => {
           const keys = ["cards-1", "logs-1", "settings-1"];
           return keys[index] || null;
         }),
@@ -508,8 +508,8 @@ describe("Resilience and Performance Integration Tests", () => {
 
       // Mock successful cloud operations
       mockSupabase.from.mockReturnValue({
-        insert: vi.fn(() => ({
-          select: vi.fn().mockResolvedValue({
+        insert: jest.fn(() => ({
+          select: jest.fn().mockResolvedValue({
             data: mockCards,
             error: null,
           }),
@@ -517,9 +517,9 @@ describe("Resilience and Performance Integration Tests", () => {
       });
 
       mockSupabase.from.mockReturnValue({
-        upsert: vi.fn(() => ({
-          select: vi.fn(() => ({
-            single: vi.fn().mockResolvedValue({
+        upsert: jest.fn(() => ({
+          select: jest.fn(() => ({
+            single: jest.fn().mockResolvedValue({
               data: mockLogs[0],
               error: null,
             }),
@@ -647,10 +647,10 @@ describe("Resilience and Performance Integration Tests", () => {
 
       // Mock error for unauthorized access
       mockSupabase.from.mockReturnValue({
-        select: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            eq: vi.fn(() => ({
-              single: vi.fn().mockResolvedValue({
+        select: jest.fn(() => ({
+          eq: jest.fn(() => ({
+            eq: jest.fn(() => ({
+              single: jest.fn().mockResolvedValue({
                 data: null,
                 error: { code: "PGRST116", message: "No rows returned" },
               }),

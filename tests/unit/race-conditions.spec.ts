@@ -3,50 +3,50 @@
  * Tests concurrent operations, optimistic concurrency control, and user isolation
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+// Jest globals are available without import
 import { enhancedCardsRepository } from "@/lib/repositories/supabase/enhanced-cards-repository";
 import { enhancedSessionsRepository } from "@/lib/repositories/supabase/enhanced-sessions-repository";
 import { Card, Rating } from "@/types";
 
 // Mock Supabase client
 const mockSupabase = {
-  rpc: vi.fn(),
-  from: vi.fn(() => ({
-    select: vi.fn(() => ({
-      eq: vi.fn(() => ({
-        single: vi.fn(),
-        order: vi.fn(() => ({
-          limit: vi.fn(),
+  rpc: jest.fn(),
+  from: jest.fn(() => ({
+    select: jest.fn(() => ({
+      eq: jest.fn(() => ({
+        single: jest.fn(),
+        order: jest.fn(() => ({
+          limit: jest.fn(),
         })),
       })),
-      order: vi.fn(() => ({
-        limit: vi.fn(),
+      order: jest.fn(() => ({
+        limit: jest.fn(),
       })),
     })),
-    insert: vi.fn(() => ({
-      select: vi.fn(() => ({
-        single: vi.fn(),
+    insert: jest.fn(() => ({
+      select: jest.fn(() => ({
+        single: jest.fn(),
       })),
     })),
-    update: vi.fn(() => ({
-      eq: vi.fn(() => ({
-        select: vi.fn(() => ({
-          single: vi.fn(),
+    update: jest.fn(() => ({
+      eq: jest.fn(() => ({
+        select: jest.fn(() => ({
+          single: jest.fn(),
         })),
       })),
     })),
-    delete: vi.fn(() => ({
-      eq: vi.fn(),
+    delete: jest.fn(() => ({
+      eq: jest.fn(),
     })),
-    upsert: vi.fn(() => ({
-      select: vi.fn(() => ({
-        single: vi.fn(),
+    upsert: jest.fn(() => ({
+      select: jest.fn(() => ({
+        single: jest.fn(),
       })),
     })),
   })),
 };
 
-vi.mock("@/lib/supabase", () => ({
+jest.mock("@/lib/supabase", () => ({
   supabase: mockSupabase,
 }));
 
@@ -56,11 +56,11 @@ describe("Race Conditions and Data Isolation", () => {
   const testCardId = "test-card-id";
 
   beforeEach(() => {
-    vi.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
+    jest.restoreAllMocks();
   });
 
   describe("Concurrent Card Rating", () => {
@@ -212,10 +212,10 @@ describe("Race Conditions and Data Isolation", () => {
     it("should prevent Pavel from accessing Aleksandra's cards", async () => {
       // Mock error for unauthorized access
       mockSupabase.from.mockReturnValue({
-        select: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            eq: vi.fn(() => ({
-              single: vi.fn().mockResolvedValue({
+        select: jest.fn(() => ({
+          eq: jest.fn(() => ({
+            eq: jest.fn(() => ({
+              single: jest.fn().mockResolvedValue({
                 data: null,
                 error: { code: "PGRST116", message: "No rows returned" },
               }),
@@ -232,11 +232,11 @@ describe("Race Conditions and Data Isolation", () => {
     it("should prevent cross-user card updates", async () => {
       // Mock error for unauthorized update
       mockSupabase.from.mockReturnValue({
-        update: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            eq: vi.fn(() => ({
-              select: vi.fn(() => ({
-                single: vi.fn().mockResolvedValue({
+        update: jest.fn(() => ({
+          eq: jest.fn(() => ({
+            eq: jest.fn(() => ({
+              select: jest.fn(() => ({
+                single: jest.fn().mockResolvedValue({
                   data: null,
                   error: { code: "PGRST116", message: "No rows returned" },
                 }),
@@ -280,12 +280,12 @@ describe("Race Conditions and Data Isolation", () => {
 
       // Mock successful update with version check
       mockSupabase.from.mockReturnValue({
-        update: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            eq: vi.fn(() => ({
-              eq: vi.fn(() => ({
-                select: vi.fn(() => ({
-                  single: vi.fn().mockResolvedValue({
+        update: jest.fn(() => ({
+          eq: jest.fn(() => ({
+            eq: jest.fn(() => ({
+              eq: jest.fn(() => ({
+                select: jest.fn(() => ({
+                  single: jest.fn().mockResolvedValue({
                     data: {
                       id: testCardId,
                       greek: "updated",
@@ -332,12 +332,12 @@ describe("Race Conditions and Data Isolation", () => {
 
       // Mock error for version mismatch
       mockSupabase.from.mockReturnValue({
-        update: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            eq: vi.fn(() => ({
-              eq: vi.fn(() => ({
-                select: vi.fn(() => ({
-                  single: vi.fn().mockResolvedValue({
+        update: jest.fn(() => ({
+          eq: jest.fn(() => ({
+            eq: jest.fn(() => ({
+              eq: jest.fn(() => ({
+                select: jest.fn(() => ({
+                  single: jest.fn().mockResolvedValue({
                     data: null,
                     error: { code: "PGRST116", message: "No rows returned" },
                   }),

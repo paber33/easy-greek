@@ -2,6 +2,12 @@ import { Profile, ProfileId } from '@/types/profile';
 
 export const DEFAULT_PROFILES: Profile[] = [
   { 
+    id: "test", 
+    name: "Test User",
+    avatar: "🧪",
+    color: "green"
+  },
+  { 
     id: "pavel", 
     name: "Pavel",
     avatar: "👨‍💻",
@@ -15,7 +21,7 @@ export const DEFAULT_PROFILES: Profile[] = [
   },
 ];
 
-export const DEFAULT_PROFILE_ID: ProfileId = "pavel";
+export const DEFAULT_PROFILE_ID: ProfileId = "test";
 
 /**
  * Получает профиль по ID
@@ -32,7 +38,7 @@ export const getCurrentProfileId = (): ProfileId | null => {
   
   try {
     const stored = localStorage.getItem("greek-mvp:currentProfile");
-    if (stored && (stored === "pavel" || stored === "aleksandra")) {
+    if (stored && (stored === "pavel" || stored === "aleksandra" || stored === "test")) {
       return stored as ProfileId;
     }
   } catch (error) {
